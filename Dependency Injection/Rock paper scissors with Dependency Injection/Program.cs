@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            GameManager gm = new GameManager();
+            GameManager gm = new GameManager(new HumanPlayer(), new ComputerPlayer());
 
             do
             {
@@ -23,9 +23,9 @@
                     Console.WriteLine("It's a draw!");
                 }
                 Console.WriteLine("Let's Play again: (Y)ES or (N)O");
-                
-             }while (Console.ReadLine().ToUpper() == "Y");
-            
+
+            } while (Console.ReadLine().ToUpper() == "Y");
+
         }
     }
 }

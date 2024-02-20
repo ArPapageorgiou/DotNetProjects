@@ -8,46 +8,22 @@ namespace Rock_paper_scissors_with_Dependency_Injection
 {
     public class GameManager
     {
+
+        private IPlayer _player1;
+        private IPlayer _player2;
+
+        public GameManager(IPlayer player1, IPlayer player2) 
+        {
+            _player1 = player1;
+            _player2 = player2;
+        }
         public roundResult PlayRound()
         {
-            Random rnd = new Random();
+            Choice p1 = _player1.GetChoice();
+            Choice p2 = _player2.GetChoice();
+           
 
-            Choice p1;
-
-            do
-            {
-                Console.WriteLine("Please enter your Choice: (R)ock, (P)aper or (S)cissors");
-                string input = Console.ReadLine().ToUpper();
-
-                if (input == "R")
-                {
-                    p1 = Choice.Rock;
-                    break;
-                }
-
-                if (input == "P") 
-                { 
-                p1 = Choice.Paper; 
-                    break;
-                }
-
-                if (input == "S")
-                {
-                    p1 = Choice.Scissors;
-                    break;
-                }
-
-                else 
-                {
-                    Console.WriteLine("Invalid Choice. Please try again.");
-                }
-
-            } while (true);
-
-            Choice p2 = (Choice)rnd.Next(0, 3);
-            Console.WriteLine("Player2 Picked " + p2.ToString());
-
-            if (p1 == p2) 
+            if (p1 == p2)
             {
                 return roundResult.Draw;
             }
@@ -57,24 +33,24 @@ namespace Rock_paper_scissors_with_Dependency_Injection
             {
                 return roundResult.Player1Win;
             }
-            else 
+            else
             {
                 return roundResult.Player2Win;
             }
-        }   
+        }
     }
 
-    public enum Choice 
-    { 
-    Rock,
-    Paper,
-    Scissors
+    public enum Choice
+    {
+        Rock,
+        Paper,
+        Scissors
     }
 
-    public enum roundResult 
-    { 
-    Player1Win,
-    Player2Win,
-    Draw
+    public enum roundResult
+    {
+        Player1Win,
+        Player2Win,
+        Draw
     }
 }

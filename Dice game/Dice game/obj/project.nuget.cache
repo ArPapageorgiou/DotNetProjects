@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "i9Vl0FS4osparg1To+KniamJdrJGTMMfKA4pmEVXWqOe9Ke+08ye5uMTNeQCwT3bOIi7l9oSs3k/AHyfuqEPDA==",
+  "dgSpecHash": "yh7NXJgXH6o0rSUTi0hLdgwa76hNNAKLTBMMyqUWpOZZuVSy+eJE2UEPStarNzCJNb5gF+mwMlWT0+0EgP2Zhw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\sparr\\source\\repos\\Dice game\\Dice game\\Dice game.csproj",
+  "projectFilePath": "C:\\Users\\sparr\\source\\repos\\MySmallProjectsInC#\\Dice game\\Dice game\\Dice game.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sparr\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.17\\microsoft.netcore.app.host.win-x64.5.0.17.nupkg.sha512"
   ],

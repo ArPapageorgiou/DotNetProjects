@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Dice_game
-build_property.ProjectDir = C:\Users\sparr\source\repos\Dice game\Dice game\
+build_property.ProjectDir = C:\Users\sparr\source\repos\MySmallProjectsInC#\Dice game\Dice game\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

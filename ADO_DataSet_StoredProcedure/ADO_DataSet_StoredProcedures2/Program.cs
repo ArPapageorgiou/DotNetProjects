@@ -21,8 +21,9 @@ namespace ADO_DataSet_StoredProcedures2
                         CommandType = CommandType.StoredProcedure
                     };
 
-                    connection.Open();
 
+                    connection.Open();
+  
                     SqlDataReader reader = command.ExecuteReader();
 
                     while (reader.Read()) 

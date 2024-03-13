@@ -1,7 +1,7 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
 
-namespace ADO_DataSet_StoredProcedures2
+namespace ADO_DataSet_StoredProcedures_WithParameters
 {
     internal class Program
     {
@@ -9,17 +9,29 @@ namespace ADO_DataSet_StoredProcedures2
         {
 			try
 			{
-                string connectionString = 
+                string connectionString =
                     "data source=DESKTOP-3BA0QHV; " +
                     "database=StudentDB; " +
                     "integrated security=SSPI";
 
                 using (SqlConnection connection = new SqlConnection(connectionString)) 
                 {
-                    SqlCommand command = new SqlCommand("spGetStudents", connection)
+                    SqlCommand command = new SqlCommand()
                     {
+                        CommandText = "spGetStudentById",
+                        Connection = connection,
                         CommandType = CommandType.StoredProcedure
                     };
+
+                    SqlParameter parameter1 = new SqlParameter
+                    {
+                        ParameterName = "@Id",
+                        SqlDbType = SqlDbType.Int,
+                        Value = 102,
+                        Direction =ParameterDirection.Input
+                    };
+
+                    command.Parameters.Add(parameter1);
 
                     connection.Open();
 
@@ -29,12 +41,15 @@ namespace ADO_DataSet_StoredProcedures2
                     {
                         Console.WriteLine(reader["Id"] + ",  " + reader["Name"] + ",  " + reader["Email"] + ",  " + reader["Mobile"]);
                     }
+
+                    
                 }
+
 
             }
 			catch (Exception e)
 			{
-                Console.WriteLine("Ooops.. Something went wrong: " + e.Message);
+                Console.WriteLine("Error: " + e.Message);
 			}
         }
     }

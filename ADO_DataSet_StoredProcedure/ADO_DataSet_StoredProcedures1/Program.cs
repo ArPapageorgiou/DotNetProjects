@@ -9,9 +9,9 @@ namespace ADO_DataSet_StoredProcedures1
         {
 			try
 			{
-                string connectionString = 
+                string connectionString =
                     "data source=DESKTOP-3BA0QHV; " +
-                    "database=StudentDB; " +
+                    "database=DBStudents; " +
                     "integrated security=SSPI";
 
                 using (SqlConnection connection = new SqlConnection(connectionString)) 

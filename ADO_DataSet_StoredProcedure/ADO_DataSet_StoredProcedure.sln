@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_StoredProcedureCall_Wit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_DataSet_StoredProcedureCall", "ADO_StoredProcedureCall_WithParameter1\ADO_DataSet_StoredProcedureCall.csproj", "{CBDD1F86-CCF9-443A-BCFC-53E81BE4B670}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_DataSet_StoredProcedure_2", "ADO_DataSet_StoredProcedure_2\ADO_DataSet_StoredProcedure_2.csproj", "{EB5AE912-DFFE-42F7-9A80-F064E2590009}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{CBDD1F86-CCF9-443A-BCFC-53E81BE4B670}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBDD1F86-CCF9-443A-BCFC-53E81BE4B670}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBDD1F86-CCF9-443A-BCFC-53E81BE4B670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB5AE912-DFFE-42F7-9A80-F064E2590009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB5AE912-DFFE-42F7-9A80-F064E2590009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB5AE912-DFFE-42F7-9A80-F064E2590009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB5AE912-DFFE-42F7-9A80-F064E2590009}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

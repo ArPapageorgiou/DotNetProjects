@@ -14,8 +14,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADO_DataSet_StoredProcedures_WithParameters1", "ADO_DataSet_StoredProcedures_WithParameters1\ADO_DataSet_StoredProcedures_WithParameters1.csproj", "{7D7B0DD9-71C3-437F-95C0-ED1D56D02072}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_StoredProcedureCall_WithParameter", "ADO_StoredProcedureCall_WithParameter\ADO_StoredProcedureCall_WithParameter.csproj", "{5AF51C84-83FA-47DC-AE14-170AAE77BA0B}"
+
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_DataSet_StoredProcedureCall", "ADO_StoredProcedureCall_WithParameter1\ADO_DataSet_StoredProcedureCall.csproj", "{CBDD1F86-CCF9-443A-BCFC-53E81BE4B670}"
+
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_DataSet_StoredProcedure_2", "ADO_DataSet_StoredProcedure_2\ADO_DataSet_StoredProcedure_2.csproj", "{EB5AE912-DFFE-42F7-9A80-F064E2590009}"
 EndProject
@@ -49,6 +51,7 @@ Global
 		{5AF51C84-83FA-47DC-AE14-170AAE77BA0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AF51C84-83FA-47DC-AE14-170AAE77BA0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AF51C84-83FA-47DC-AE14-170AAE77BA0B}.Release|Any CPU.Build.0 = Release|Any CPU
+
 		{CBDD1F86-CCF9-443A-BCFC-53E81BE4B670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CBDD1F86-CCF9-443A-BCFC-53E81BE4B670}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBDD1F86-CCF9-443A-BCFC-53E81BE4B670}.Release|Any CPU.ActiveCfg = Release|Any CPU

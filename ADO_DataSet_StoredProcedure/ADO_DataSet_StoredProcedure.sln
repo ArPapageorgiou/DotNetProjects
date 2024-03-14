@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADO_DataSet_StoredProcedure
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADO_DataSet_StoredProcedures_WithParameters", "ADO_DataSet_StoredProcedures_WithParameters\ADO_DataSet_StoredProcedures_WithParameters.csproj", "{2F5D6777-617F-4729-8141-BE4C6BFA9AA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_DataSet_StoredProcedures_WithParameters1", "ADO_DataSet_StoredProcedures_WithParameters1\ADO_DataSet_StoredProcedures_WithParameters1.csproj", "{7D7B0DD9-71C3-437F-95C0-ED1D56D02072}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADO_DataSet_StoredProcedures_WithParameters1", "ADO_DataSet_StoredProcedures_WithParameters1\ADO_DataSet_StoredProcedures_WithParameters1.csproj", "{7D7B0DD9-71C3-437F-95C0-ED1D56D02072}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_StoredProcedureCall_WithParameter", "ADO_StoredProcedureCall_WithParameter\ADO_StoredProcedureCall_WithParameter.csproj", "{5AF51C84-83FA-47DC-AE14-170AAE77BA0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{7D7B0DD9-71C3-437F-95C0-ED1D56D02072}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D7B0DD9-71C3-437F-95C0-ED1D56D02072}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D7B0DD9-71C3-437F-95C0-ED1D56D02072}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AF51C84-83FA-47DC-AE14-170AAE77BA0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AF51C84-83FA-47DC-AE14-170AAE77BA0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AF51C84-83FA-47DC-AE14-170AAE77BA0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AF51C84-83FA-47DC-AE14-170AAE77BA0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

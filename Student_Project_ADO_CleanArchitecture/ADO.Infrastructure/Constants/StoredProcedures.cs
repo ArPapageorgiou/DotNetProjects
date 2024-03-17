@@ -8,5 +8,6 @@ namespace ADO.Infrastructure.Constants
 {
     internal class StoredProcedures
     {
+        public const string spBulkInsertStudentsWithProcedure = "spBulkInsertStudentsWithProcedure";
     }
 }

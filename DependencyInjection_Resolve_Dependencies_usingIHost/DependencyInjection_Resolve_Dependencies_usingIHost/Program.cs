@@ -18,8 +18,6 @@ namespace DependencyInjection_Resolve_Dependencies_usingIHost
                 services.AddServices();
             }).Build();
 
-            var app0 = host.Services.GetRequiredService<IApplication>();
-            app0.Run();
 
             var app = host.Services.GetRequiredService<IApplication2>();
             app.Run();

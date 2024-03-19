@@ -39,5 +39,82 @@ namespace ADO.Infrastructure.Repositories
 
 
         }
+
+
+        public void BulkInsertStudentsWithText(IEnumerable<Student> students) 
+        { 
+        
+        }
+
+        public IEnumerable<Student> GetAllStudentsWithProcedure()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Student> GetAllStudentsWithText()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Student> GetCoolStudentsWithProcedure()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Student> GetCoolStudentsWithText()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Student GetStudentWithProcedure(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Student GetStudentWithText(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void HardDeleteAStudentWithProcedure(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void HardDeleteAStudentWithText(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertStudentWithProcedure(Student student)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertStudentWithText(Student student)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SoftDeleteAStudentWithProcedure(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SoftDeleteAStudentWithText(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateStudentWithProcedure(Student student)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateStudentWithText(Student student)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

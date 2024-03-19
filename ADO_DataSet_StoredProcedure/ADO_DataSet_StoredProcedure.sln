@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADO_DataSet_StoredProcedure
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADO_DataSet_StoredProcedure_2", "ADO_DataSet_StoredProcedure_2\ADO_DataSet_StoredProcedure_2.csproj", "{EB5AE912-DFFE-42F7-9A80-F064E2590009}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_UsingStoredProcedure_WithInputParameters", "ADO_UsingStoredProcedure_WithInputParameters\ADO_UsingStoredProcedure_WithInputParameters.csproj", "{8F326A09-0317-4069-8E06-2C9230F725F6}"
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_CallingStoredProcedureWithInputAndOutputParameters", "ADO_CallingStoredProcedureWithInputAndOutputParameters\ADO_CallingStoredProcedureWithInputAndOutputParameters.csproj", "{A9920095-D6C1-44F0-B319-FCB7E4CD52A9}"
+
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +61,12 @@ Global
 		{EB5AE912-DFFE-42F7-9A80-F064E2590009}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB5AE912-DFFE-42F7-9A80-F064E2590009}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB5AE912-DFFE-42F7-9A80-F064E2590009}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F326A09-0317-4069-8E06-2C9230F725F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F326A09-0317-4069-8E06-2C9230F725F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F326A09-0317-4069-8E06-2C9230F725F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F326A09-0317-4069-8E06-2C9230F725F6}.Release|Any CPU.Build.0 = Release|Any CPU
+
+		{A9920095-D6C1-44F0-B319-FCB7E4CD52A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9920095-D6C1-44F0-B319-FCB7E4CD52A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9920095-D6C1-44F0-B319-FCB7E4CD52A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9920095-D6C1-44F0-B319-FCB7E4CD52A9}.Release|Any CPU.Build.0 = Release|Any CPU
+
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

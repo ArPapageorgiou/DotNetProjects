@@ -40,7 +40,6 @@ namespace ADO.Infrastructure.Repositories
 
         }
 
-
         public void BulkInsertStudentsWithText(IEnumerable<Student> students) 
         { 
         

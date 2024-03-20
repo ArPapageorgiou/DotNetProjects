@@ -47,7 +47,9 @@ namespace AppConfig_Revision.CustomConfigurationClasses
         }
     }
 
-    public class ComplexConfigurations : ConfigurationSection
+
+    public class ComplexConfiguration : ConfigurationSection
+
     {
         [ConfigurationProperty("ComplexConfigurations")]
         [ConfigurationCollection(typeof(ComplexConfigurationCollection),

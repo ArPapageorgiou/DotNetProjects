@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
 namespace AppConfig_Revision.CustomConfigurationClasses
 {
-    internal class Work
+    public class Work : ConfigurationElement
     {
+        [ConfigurationProperty("field")]
+        public string Field 
+        {
+            get => this["field"].ToString() ?? string.Empty; 
+            set => this["field"] = value;
+        }
+
+        [ConfigurationProperty("salary")]
+        public string Salary 
+        { 
+            get => this["salary"].ToString() ?? string.Empty;
+            set => this["salary"] = value;
+        }
     }
 }

@@ -1,3 +1,4 @@
+
 ﻿using System.Configuration;
 
 namespace AppConfig_Revision.CustomConfigurationClasses
@@ -54,5 +55,6 @@ namespace AppConfig_Revision.CustomConfigurationClasses
 
         public ComplexConfigurationCollection ConfigurationCollection
             => (ComplexConfigurationCollection)this["ComplexConfigurations"];
+
     }
 }

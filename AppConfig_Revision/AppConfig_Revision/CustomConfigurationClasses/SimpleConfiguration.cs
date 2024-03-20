@@ -2,7 +2,7 @@
 
 namespace AppConfig_Revision.CustomConfigurationClasses
 {
-    internal class SimpleConfiguration : ConfigurationSection
+    public class SimpleConfiguration : ConfigurationSection
     {
         [ConfigurationProperty("connectionString")]
         public string ConnectionString 

@@ -20,6 +20,7 @@ namespace ADO.Infrastructure.Repositories
                 SqlCommand command = new SqlCommand(StoredProcedures.spBulkInsertStudentsWithProcedure, connection);
                 command.CommandType = CommandType.StoredProcedure;
 
+
                 DataTable studentTable = new DataTable();
                 studentTable.Columns.Add("Name", typeof(string));
                 studentTable.Columns.Add("Age", typeof(int));
@@ -39,6 +40,39 @@ namespace ADO.Infrastructure.Repositories
             }
 
         }
+
+        public void BulkInsertStudentsWithText(IEnumerable<Student> students) 
+        {
+             DataTable studentTable = new DataTable();
+                
+            studentTable.Columns.Add("Name", typeof(string));
+                
+            studentTable.Columns.Add("Age", typeof(int));
+                
+            studentTable.Columns.Add("IsCool", typeof(bool));
+
+                
+            foreach (var student in students) 
+            {
+
+                studentTable.Rows.Add(student.Name, student.Age, student.IsCool);
+                }
+
+
+            using (SqlConnection connection = GetSqlConnection()) 
+            {
+                using SqlBulkCopy bulkCopy = new SqlBulkCopy(connection);
+                bulkCopy.DestinationTableName = Tables.Student;
+                bulkCopy.ColumnMappings.Add("Name", "Name");
+                bulkCopy.ColumnMappings.Add("Age", "Age");
+                bulkCopy.ColumnMappings.Add("IsCool", "IsCool");
+
+                bulkCopy.WriteToServer(studentTable);
+
+            }
+
+            Console.WriteLine("Bulk Insert Completed");
+
 
         public void BulkInsertStudentsWithText(IEnumerable<Student> students) 
         {
@@ -76,6 +110,7 @@ namespace ADO.Infrastructure.Repositories
             {
                 Console.WriteLine("Error: " + e.Message);
             }
+
 
         }
 

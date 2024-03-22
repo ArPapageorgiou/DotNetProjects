@@ -3,6 +3,7 @@ using ADO.Infrastructure.Constants;
 using ADO_Student_Domain.Entities;
 using System.Data.SqlClient;
 using System.Data;
+using Microsoft.SqlServer.Server;
 
 namespace ADO.Infrastructure.Repositories
 {
@@ -59,6 +60,7 @@ namespace ADO.Infrastructure.Repositories
 
                 using (SqlConnection connection = GetSqlConnection())
                 {
+                   
                     using SqlBulkCopy bulkCopy = new SqlBulkCopy(connection);
                     bulkCopy.DestinationTableName = Tables.Student;
                     bulkCopy.ColumnMappings.Add("Name", "Name");
@@ -153,22 +155,151 @@ namespace ADO.Infrastructure.Repositories
 
         public IEnumerable<Student> GetCoolStudentsWithProcedure()
         {
-            throw new NotImplementedException();
+            List<Student> students = new List<Student>();
+
+            try
+            {
+                using (SqlConnection connection = GetSqlConnection()) 
+                {
+
+                    SqlCommand command = new SqlCommand("spGetCoolStudents", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read()) 
+                    {
+                        Student student = new Student
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            Name = reader["Name"].ToString(),
+                            Age = Convert.ToInt32(reader["Age"]),
+                            IsCool = Convert.ToBoolean(reader["IsCool"]),
+                            IsDeleted = Convert.ToBoolean(reader["IsDeleted"])
+                        };
+
+                        students.Add(student);  
+                    }
+
+                
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error:" + e.Message);
+            }
+
+            return students;
         }
 
         public IEnumerable<Student> GetCoolStudentsWithText()
         {
-            throw new NotImplementedException();
+            List<Student> students = new List<Student>();
+
+            try
+            {
+
+                using (SqlConnection connection = GetSqlConnection()) 
+                {
+                    SqlCommand command = new SqlCommand($"SELECT * FROM {Tables.Student} WHERE IsCool = 1", connection);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read()) 
+                    {
+                        Student student = new Student()
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            Name = reader["Name"].ToString(),
+                            Age = Convert.ToInt32(reader["Age"]),
+                            IsCool = Convert.ToBoolean(reader["IsCool"]),
+                            IsDeleted = Convert.ToBoolean(reader["IsDeleted"])
+                        };
+
+                        students.Add(student);  
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error:" + e.Message);
+            }
+
+            return students;
         }
 
         public Student GetStudentWithProcedure(int id)
         {
-            throw new NotImplementedException();
+            Student student = null;
+
+            try
+            {
+
+                using (SqlConnection connection = GetSqlConnection()) 
+                {
+                    SqlCommand command = new SqlCommand("spGetStudentWithId", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("Id", id);
+                    SqlDataReader reader =command.ExecuteReader();
+
+                    if (reader.HasRows) 
+                    {
+                        reader.Read();
+                        student = new Student
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            Name = reader["Name"].ToString(),
+                            Age = Convert.ToInt32(reader["Age"]),
+                            IsCool = Convert.ToBoolean(reader["IsCool"]),
+                            IsDeleted = Convert.ToBoolean(reader["IsDeleted"])
+                        };
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error:" + e.Message);
+            }
+
+            return student;
         }
 
         public Student GetStudentWithText(int id)
         {
-            throw new NotImplementedException();
+            Student student = null;
+
+            try
+            {
+
+                using (SqlConnection connection = GetSqlConnection()) 
+                {
+                    SqlCommand command = new SqlCommand($"SELECT * FROM {Tables.Student} Where Id = @Id", connection);
+                    command.Parameters.AddWithValue ("Id", id);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows) 
+                    {
+                        reader.Read();
+                        student = new Student
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            Name = reader["Name"].ToString(),
+                            Age = Convert.ToInt32(reader["Age"]),
+                            IsCool = Convert.ToBoolean(reader["IsCool"]),
+                            IsDeleted = Convert.ToBoolean(reader["IsDeleted"])
+                        };
+                    }
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
+
+            return student;
         }
 
         public void HardDeleteAStudentWithProcedure(int id)

@@ -94,7 +94,9 @@ namespace ADO.Infrastructure.Repositories
 
                 using (SqlConnection connection = GetSqlConnection())
                 {
+
                    
+
                     using SqlBulkCopy bulkCopy = new SqlBulkCopy(connection);
                     bulkCopy.DestinationTableName = Tables.Student;
                     bulkCopy.ColumnMappings.Add("Name", "Name");

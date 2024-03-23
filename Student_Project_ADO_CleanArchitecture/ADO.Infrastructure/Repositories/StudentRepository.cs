@@ -72,6 +72,7 @@ namespace ADO.Infrastructure.Repositories
 
             Console.WriteLine("Bulk Insert Completed");
 
+
         }
 
         public IEnumerable<Student> GetAllStudentsWithProcedure()

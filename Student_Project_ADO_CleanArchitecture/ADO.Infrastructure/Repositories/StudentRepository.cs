@@ -54,9 +54,8 @@ namespace ADO.Infrastructure.Repositories
                 
             foreach (var student in students) 
             {
-
                 studentTable.Rows.Add(student.Name, student.Age, student.IsCool);
-                }
+            }
 
 
             using (SqlConnection connection = GetSqlConnection()) 
@@ -72,45 +71,6 @@ namespace ADO.Infrastructure.Repositories
             }
 
             Console.WriteLine("Bulk Insert Completed");
-
-
-        public void BulkInsertStudentsWithText(IEnumerable<Student> students) 
-        {
-            try
-            {
-                DataTable studentTable = new DataTable();
-
-                studentTable.Columns.Add("Name", typeof(string));
-
-                studentTable.Columns.Add("Age", typeof(int));
-
-                studentTable.Columns.Add("IsCool", typeof(bool));
-
-
-                foreach (var student in students)
-                {
-                    studentTable.Rows.Add(student.Name, student.Age, student.IsCool);
-                }
-
-                using (SqlConnection connection = GetSqlConnection())
-                {
-                   
-                    using SqlBulkCopy bulkCopy = new SqlBulkCopy(connection);
-                    bulkCopy.DestinationTableName = Tables.Student;
-                    bulkCopy.ColumnMappings.Add("Name", "Name");
-                    bulkCopy.ColumnMappings.Add("Age", "Age");
-                    bulkCopy.ColumnMappings.Add("IsCool", "IsCool");
-
-                    bulkCopy.WriteToServer(studentTable);
-                }
-
-                Console.WriteLine("Bulk Insert Completed");
-            }
-            catch (Exception e) 
-            {
-                Console.WriteLine("Error: " + e.Message);
-            }
-
 
         }
 
@@ -339,32 +299,130 @@ namespace ADO.Infrastructure.Repositories
 
         public void HardDeleteAStudentWithProcedure(int id)
         {
-            throw new NotImplementedException();
+                try
+                {
+                    using (SqlConnection connection = GetSqlConnection()) 
+                    {
+                    SqlCommand command = new SqlCommand("spHardDeleteAStudent", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@StudentId", id);
+                    command.ExecuteNonQuery();
+
+                    Console.WriteLine($"Student record with Id number {id} has been deleted.");
+                    }
+                }
+                catch (Exception e)
+                {
+                Console.WriteLine("Error: " + e.Message);
+                }
         }
 
         public void HardDeleteAStudentWithText(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection connection = GetSqlConnection()) 
+                {
+                    SqlCommand command = new SqlCommand("DELETE FROM dbo.Student WHERE Id = @StudentId", connection);
+                    command.Parameters.AddWithValue("@StudentId", id);
+                    command.ExecuteNonQuery();
+
+                    Console.WriteLine($"Student record with Id number {id} has been deleted.");
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
         }
 
         public void InsertStudentWithProcedure(Student student)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection connection = GetSqlConnection()) 
+                {
+                    SqlCommand command = new SqlCommand("spInsertStudent", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@Name", student.Name);
+                    command.Parameters.AddWithValue("@Age", student.Age);
+                    command.Parameters.AddWithValue("@IsCool", student.IsCool);
+
+                    command.ExecuteNonQuery();
+
+                    Console.WriteLine("Inserted new student record");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
+            
         }
 
         public void InsertStudentWithText(Student student)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection connection = GetSqlConnection()) 
+                {
+                    SqlCommand command = new SqlCommand("INSERT INTO dbo.Student (Name, Age, IsCool) VALUES (@Name, @Age, @IsCool)", connection);
+                    command.Parameters.AddWithValue("@Name", student.Name);
+                    command.Parameters.AddWithValue("@Age", student.Age);
+                    command.Parameters.AddWithValue("IsCool", student.IsCool);
+
+                    command.ExecuteNonQuery();
+
+                    Console.WriteLine("Inserted new student record");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
         }
 
         public void SoftDeleteAStudentWithProcedure(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection connection = GetSqlConnection())
+                {
+                    SqlCommand command = new SqlCommand("spInsertStudent", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Id", id);
+                    command.ExecuteNonQuery();
+
+                    Console.WriteLine($"Student record with Id number {id} marked for deletion");
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
         }
 
         public void SoftDeleteAStudentWithText(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection connection = GetSqlConnection()) 
+                {
+                    SqlCommand command = new SqlCommand("UPDATE dbo.Student SET IsDeleted = 1 WHERE Id = @Id");
+                    command.Parameters.AddWithValue("@Id", id);
+                    command.ExecuteNonQuery();
+
+                    Console.WriteLine($"Student record with Id number {id} marked for deletion");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
         }
 
         public void UpdateStudentWithProcedure(Student student)

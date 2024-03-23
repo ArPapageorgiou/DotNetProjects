@@ -9,5 +9,9 @@
         public const string spGetCoolStudents = "spGetCoolStudents";
 
         public const string spGetStudentWithId = "spGetStudentWithId";
+
+        public const string spHardDeleteAStudent = "spHardDeleteAStudent";
+
+        public const string spInsertStudent = "spInsertStudent";
     }
 }

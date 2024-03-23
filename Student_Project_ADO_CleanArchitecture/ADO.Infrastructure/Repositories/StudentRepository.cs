@@ -84,7 +84,7 @@ namespace ADO.Infrastructure.Repositories
                 {
                     DataTable table = new DataTable();
 
-                    SqlCommand command = new SqlCommand("spGetAllStudentsWithProcedure", connection);
+                    SqlCommand command = new SqlCommand(StoredProcedures.spGetAllStudentsWithProcedure, connection);
                     command.CommandType = CommandType.StoredProcedure;
 
                     SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
@@ -157,7 +157,7 @@ namespace ADO.Infrastructure.Repositories
                 using (SqlConnection connection = GetSqlConnection()) 
                 {
 
-                    SqlCommand command = new SqlCommand("spGetCoolStudents", connection);
+                    SqlCommand command = new SqlCommand(StoredProcedures.spGetCoolStudents, connection);
                     command.CommandType = CommandType.StoredProcedure;
                     SqlDataReader reader = command.ExecuteReader();
 
@@ -231,7 +231,7 @@ namespace ADO.Infrastructure.Repositories
 
                 using (SqlConnection connection = GetSqlConnection()) 
                 {
-                    SqlCommand command = new SqlCommand("spGetStudentWithId", connection);
+                    SqlCommand command = new SqlCommand(StoredProcedures.spGetStudentWithId, connection);
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.AddWithValue("Id", id);
@@ -303,7 +303,7 @@ namespace ADO.Infrastructure.Repositories
                 {
                     using (SqlConnection connection = GetSqlConnection()) 
                     {
-                    SqlCommand command = new SqlCommand("spHardDeleteAStudent", connection);
+                    SqlCommand command = new SqlCommand(StoredProcedures.spHardDeleteAStudent, connection);
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.AddWithValue("@StudentId", id);
@@ -344,7 +344,7 @@ namespace ADO.Infrastructure.Repositories
             {
                 using (SqlConnection connection = GetSqlConnection()) 
                 {
-                    SqlCommand command = new SqlCommand("spInsertStudent", connection);
+                    SqlCommand command = new SqlCommand(StoredProcedures.spInsertStudent, connection);
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.AddWithValue("@Name", student.Name);
@@ -391,7 +391,7 @@ namespace ADO.Infrastructure.Repositories
             {
                 using (SqlConnection connection = GetSqlConnection())
                 {
-                    SqlCommand command = new SqlCommand("spInsertStudent", connection);
+                    SqlCommand command = new SqlCommand(StoredProcedures.spSoftDeleteStudent, connection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Id", id);
                     command.ExecuteNonQuery();
@@ -427,12 +427,52 @@ namespace ADO.Infrastructure.Repositories
 
         public void UpdateStudentWithProcedure(Student student)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection connection = GetSqlConnection()) 
+                {
+                    SqlCommand command = new SqlCommand(StoredProcedures.spUpdateStudent, connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@Id", student.Id);
+                    command.Parameters.AddWithValue("@Name", student.Name);
+                    command.Parameters.AddWithValue("@Age", student.Age);
+                    command.Parameters.AddWithValue("@IsCool", student.IsCool);
+                    command.Parameters.AddWithValue("IsDeleted", student.IsDeleted);
+                    
+                    command.ExecuteNonQuery();
+
+                    Console.WriteLine($"Student record with Id number {student.Id} has been updated");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
         }
 
         public void UpdateStudentWithText(Student student)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection connection = GetSqlConnection()) 
+                {
+                    SqlCommand command = new SqlCommand("UPDATE dbo.Student SET Name = @Name, Age = @Age, IsCool = @IsCool, IsDeleted = @IsDeleted WHERE Id = @Id", connection);
+                    command.Parameters.AddWithValue("@Id", student.Id);
+                    command.Parameters.AddWithValue("@Name", student.Name);
+                    command.Parameters.AddWithValue("@Age", student.Age);
+                    command.Parameters.AddWithValue("@IsCool", student.IsCool);
+                    command.Parameters.AddWithValue("IsDeleted", student.IsDeleted);
+
+                    command.ExecuteNonQuery();
+
+                    Console.WriteLine($"Student record with Id number {student.Id} has been updated");
+                }
+            }
+            catch ( Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
         }
 
     }

@@ -16,5 +16,9 @@
 
         public const string spInsertStudent = "spInsertStudent";
 
+        public const string spSoftDeleteStudent = "spSoftDeleteStudent";
+
+        public const string spUpdateStudent = "spUpdateStudent";
+
     }
 }

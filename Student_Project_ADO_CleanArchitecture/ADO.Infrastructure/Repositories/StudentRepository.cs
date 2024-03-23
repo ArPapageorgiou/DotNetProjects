@@ -13,7 +13,7 @@ namespace ADO.Infrastructure.Repositories
         {
         }
 
-        void BulkInsertStudentsWithProcedure(IEnumerable<Student> students) 
+        public void BulkInsertStudentsWithProcedure(IEnumerable<Student> students) 
         {
             using (SqlConnection connection = GetSqlConnection()) 
             {
@@ -71,48 +71,6 @@ namespace ADO.Infrastructure.Repositories
             }
 
             Console.WriteLine("Bulk Insert Completed");
-
-        }
-
-        public void BulkInsertStudentsWithText(IEnumerable<Student> students) 
-        {
-            try
-            {
-                DataTable studentTable = new DataTable();
-
-                studentTable.Columns.Add("Name", typeof(string));
-
-                studentTable.Columns.Add("Age", typeof(int));
-
-                studentTable.Columns.Add("IsCool", typeof(bool));
-
-
-                foreach (var student in students)
-                {
-                    studentTable.Rows.Add(student.Name, student.Age, student.IsCool);
-                }
-
-                using (SqlConnection connection = GetSqlConnection())
-                {
-
-                   
-
-                    using SqlBulkCopy bulkCopy = new SqlBulkCopy(connection);
-                    bulkCopy.DestinationTableName = Tables.Student;
-                    bulkCopy.ColumnMappings.Add("Name", "Name");
-                    bulkCopy.ColumnMappings.Add("Age", "Age");
-                    bulkCopy.ColumnMappings.Add("IsCool", "IsCool");
-
-                    bulkCopy.WriteToServer(studentTable);
-                }
-
-                Console.WriteLine("Bulk Insert Completed");
-            }
-            catch (Exception e) 
-            {
-                Console.WriteLine("Error: " + e.Message);
-            }
-
 
         }
 

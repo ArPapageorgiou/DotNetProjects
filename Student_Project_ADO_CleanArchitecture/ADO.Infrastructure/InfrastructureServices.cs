@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ADO.Application.Interfaces;
+using ADO.Infrastructure.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Configuration;
 
 namespace ADO.Infrastructure
 {
-    internal class InfrastructureServices
+    public static class InfrastructureServices
     {
+        public static IServiceCollection InfraServices(this IServiceCollection services) 
+        {
+            DataBaseConfiguration dataBaseConfiguration = (DataBaseConfiguration)ConfigurationManager.GetSection("DataBaseConfigurationSection");
+            services.AddSingleton<IStudentRepository, Repositories.StudentRepository>();
+            services.AddSingleton(dataBaseConfiguration);
+
+            return services;
+        }
     }
 }

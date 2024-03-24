@@ -11,4 +11,9 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ADO.Application\ADO.Application.csproj" />
+    <ProjectReference Include="..\ADO.Infrastructure\ADO.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

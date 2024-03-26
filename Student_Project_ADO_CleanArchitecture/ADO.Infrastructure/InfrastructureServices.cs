@@ -1,7 +1,5 @@
 ﻿using ADO.Application.Interfaces;
-using ADO.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Configuration;
 
 namespace ADO.Infrastructure

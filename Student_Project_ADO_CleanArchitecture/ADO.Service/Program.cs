@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using ADO.Application.Services;
 using ADO.Application.Interfaces;
 using ADO.Infrastructure;
+using ADO_Student_Domain.Entities;
 
 namespace ADO.Service
 {
@@ -16,8 +17,15 @@ namespace ADO.Service
                 services.InfraServices();
             }).Build();
 
-            var app = host.Services.GetRequiredService<IApplication>();
-            app.BulkInsertTextRun();
+            var app = host.Services.GetRequiredService<IStudentRepository>();
+            Student student1 = new Student
+            {
+                Id = 101,
+                Name = "Argiris",
+                Age = 35,
+                IsCool = true,
+            };
+            app.UpdateStudentWithProcedure(student1);
         }
     }
 }

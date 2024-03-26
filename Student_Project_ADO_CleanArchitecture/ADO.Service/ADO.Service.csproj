@@ -18,4 +18,9 @@
     <ProjectReference Include="..\ADO.Infrastructure\ADO.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ADO.Application\ADO.Application.csproj" />
+    <ProjectReference Include="..\ADO.Infrastructure\ADO.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

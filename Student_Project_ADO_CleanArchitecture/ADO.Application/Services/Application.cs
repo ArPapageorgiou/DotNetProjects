@@ -20,11 +20,12 @@ namespace ADO.Application.Services
         public Application(IStudentRepository studentRepository)
         {
             _studentRepository = studentRepository;
+            
         }
 
         public void Run()
         {
-            if (_students is null || _students.Any())
+            if (_students is null || !_students.Any())
             {
                 throw new Exception("Students cannot be null or empty.");
             }
@@ -33,7 +34,7 @@ namespace ADO.Application.Services
 
         public void BulkInsertTextRun() 
         {
-            if (_students is null || _students.Any()) 
+            if (_students is null || !_students.Any()) 
             {
                 throw new Exception("Students cannot be null or empty");
             }

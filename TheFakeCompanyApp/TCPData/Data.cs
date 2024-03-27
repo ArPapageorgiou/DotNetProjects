@@ -1,6 +1,8 @@
 ﻿namespace TCPData
 {
+
     public class Data
+
     {
         public static List<Employee> GetEmployees() 
         { 
@@ -41,12 +43,14 @@
                 IsManager = false,
                 DepartmentId = 1,
             };
+
             
             EmployeeList.Add(employee);
             EmployeeList.Add(employee1);
             EmployeeList.Add(employee2);
             EmployeeList.Add(employee3);
             
+
 
             return EmployeeList;
         }
@@ -76,10 +80,12 @@
                 LongName = "Technology"
             };
 
+
             DepartmentList.Add(department);
             DepartmentList.Add(department1);
             DepartmentList.Add(department2);
             
+
 
             return DepartmentList;
 

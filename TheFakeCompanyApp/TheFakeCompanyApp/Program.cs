@@ -1,3 +1,4 @@
+
 ﻿using System.Linq;
 using TCPData;
 
@@ -64,6 +65,7 @@ namespace TheFakeCompanyApp
             Console.WriteLine($"Lowest Annual Salary: {lowestAnnualSalary}");
 
             Console.WriteLine();
+
 
         }
     }

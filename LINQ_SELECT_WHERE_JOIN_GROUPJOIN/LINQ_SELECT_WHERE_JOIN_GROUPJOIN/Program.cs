@@ -91,8 +91,10 @@ namespace LINQ_SELECT_WHERE_JOIN_GROUPJOIN
             //                  AnnualSalary = emp.AnnualSalary
             //              }).ToList();
 
+
             //using the .ToList conversion makes the program immediately convert the result to a list and store it in memory.
             //which is precisely the opposite of defered execution.
+
 
             //employeeList.Add(new Employee
             //{
@@ -134,6 +136,7 @@ namespace LINQ_SELECT_WHERE_JOIN_GROUPJOIN
             //}
 
             //JOIN operator - LINQ Query Syntax
+
             //var results = from employee in employeeList
             //              join department in departmentList
             //              on employee.DepartmentId equals department.Id
@@ -178,10 +181,12 @@ namespace LINQ_SELECT_WHERE_JOIN_GROUPJOIN
                           {
                               Employees = employeeGroup,
                               DepartmentName = department.LongName
+
                           };
 
             foreach (var item in results)
             {
+
                 Console.WriteLine($"Department Name: {item.DepartmentName}");
 
                 foreach (var emp in item.Employees)
@@ -190,6 +195,7 @@ namespace LINQ_SELECT_WHERE_JOIN_GROUPJOIN
             //Group Join operation will not return results from the EmployeeList If there are no corresponding
             //employees for a department. This after all is nothing more than a left outer join operation.
             
+
             Console.WriteLine();
 
         }
@@ -204,8 +210,10 @@ namespace LINQ_SELECT_WHERE_JOIN_GROUPJOIN
                     Console.WriteLine($"Accessing employee: {emp.FirstName + " " + emp.LastName}");
 
                     if (emp.AnnualSalary >= 50000)
+
                         yield return emp; //yield return the programm doesnt generate all high salaried amployees and put them in a list. That takes memory.
                                           //Instead it produces each employee as needed during itteration. producing them one by one as needed consumes less memory
+
                 }
             }
         }
@@ -270,7 +278,9 @@ namespace LINQ_SELECT_WHERE_JOIN_GROUPJOIN
                     LastName = "Stevens",
                     AnnualSalary = 30000.2m,
                     IsManager = false,
+
                     DepartmentId = 2
+
                 };
                 employees.Add(employee);
 

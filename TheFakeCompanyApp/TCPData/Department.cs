@@ -1,4 +1,6 @@
+
 ﻿namespace TCPData
+
 {
     public class Department
     {

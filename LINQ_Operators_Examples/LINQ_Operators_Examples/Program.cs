@@ -1,6 +1,8 @@
+
 ﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LINQ_Operators_Examples
+
 {
     internal class Program
     {
@@ -82,6 +84,7 @@ namespace LINQ_Operators_Examples
             //----------QUANTIFIERS----------
 
             //All Quantifier
+
             //var annualSalaryCompare = 50000;
 
             //bool isTrueAll = employeeList.All(e => e.AnnualSalary > annualSalaryCompare);
@@ -167,6 +170,7 @@ namespace LINQ_Operators_Examples
         {
             return obj.Id.GetHashCode();
         }
+
     }
 
     public class Employee

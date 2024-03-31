@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 namespace LINQ_Operators_Examples;
@@ -7,6 +8,7 @@ internal class Program
 {
     static void Main(string[] args)
     {
+
         
         List<Employee> employeeList = Data.GetEmployees();
         List<Department> departmentList = Data.GetDepartments();
@@ -317,6 +319,7 @@ public class EmployeeComparer : IEqualityComparer<Employee>
     public int GetHashCode([DisallowNull] Employee obj)
     {
         return obj.Id.GetHashCode();
+
     }
 
 }

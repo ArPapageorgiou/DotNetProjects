@@ -12,7 +12,7 @@ internal class Program
         List<Department> departmentList = Data.GetDepartments();
 
         //OrderBy()/OrderByDescending() and ThenBy()/ThenByDescending Operator - Method Syntax
-        //var results = employeeList.Join(departmentList, e => e.DepartmentId, d => d.Id,
+        //    var results = employeeList.Join(departmentList, e => e.DepartmentId, d => d.Id,
         //    (emp, dept) => new {
         //    Id = emp.Id,
         //    FirstName = emp.FirstName,
@@ -56,11 +56,11 @@ internal class Program
         //              orderby emp.DepartmentId
         //              group emp by emp.DepartmentId;
 
-        //foreach (var empGroup in results) 
+        //foreach (var empGroup in results)   //iterates over the groups created by the GroupBy()
         //{
-        //    Console.WriteLine($"Department ID: {empGroup.Key}");
+        //    Console.WriteLine($"Department ID: {empGroup.Key}"); The Key property (DepartmentId in this case) of each group provides access to the value of the key (the different elements in each group)
 
-        //    foreach (Employee emp in empGroup) 
+        //    foreach (Employee emp in empGroup)    //iterates over the elements (employees) in that group
         //    { 
         //    Console.WriteLine($"First Name: {emp.FirstName,-10} Last name: {emp.LastName,-10} Annual Salary: {emp.AnnualSalary,-10}");
         //    }
@@ -112,7 +112,7 @@ internal class Program
         //Returns true if we pass in an object that is equal in value with an object in the relevant collection
         //For primitive types like int, string, or simple classes like Employee with standard equality semantics,
         //Contains works out of the box. However, if you want to customize how equality is determined for complex
-        //types or want to use Contains with custom equality logic, you can either override Equals and GetHashCode
+        //types or want to use Contains with custom equality logic, you can either override Equals() and GetHashCode()
         //in your class or implement IEqualityComparer and provide your own comparison logic. This allows you to
         //define how equality is determined for instances of your class.
         //
@@ -126,7 +126,7 @@ internal class Program
         //    DepartmentId = 2
         //};
 
-        //bool containsEmployee = employeeList.Contains(searchEmployee, new EmployeeComparer());
+        //bool containsEmployee = employeeList.Contains(searchEmployee, new EmployeeComparer()); //To use EmployeeComparer first we need to implement IEqualityComparer and provide our own comparison logic
         //if (containsEmployee)
         //{
         //    Console.WriteLine($"{searchEmployee.FirstName} {searchEmployee.LastName} with ID number {searchEmployee.Id} is contained within the collection");
@@ -272,7 +272,7 @@ internal class Program
         var empSingle = employee2.Single(i => i.Id == 5);
         Console.WriteLine($"{empSingle.DepartmentId,-5} {empSingle.FirstName,-10} {empSingle.LastName,-10}");
 
-        //Just like in the case of the Single() method the SingleOrDefault() method throws 
+        //Just like in the case of the Single() method the SingleOrDefault() method ALSO throws 
         //an invalid operation exception if there is more than one element that satisfies
         //the provided condition. 
         var empSingle2 = employee2.SingleOrDefault(i => i.DepartmentId == 1);
@@ -308,14 +308,18 @@ public class EmployeeComparer : IEqualityComparer<Employee>
         {
             return true;
         }
-        else 
+        else
         {
             return false;
         }
     }
-
-    public int GetHashCode([DisallowNull] Employee obj)
-    {
+    //GetHashCode is a method that It guides the program to the likely location of an object with similar properties in order to save time and resources. 
+    //It creates a unique hascode for each object it looks at  based on its content (fields and properties). It is important that based on the equals method
+    //equal object produce the same hashcode.
+    //Its primary purpose is to enable efficient storage and retrieval of objects in hash-based collections by providing 
+}   //a quick way to locate objects based on their content.
+public int GetHashCode([DisallowNull] Employee obj) 
+    {                                                   
         return obj.Id.GetHashCode();
     }
 

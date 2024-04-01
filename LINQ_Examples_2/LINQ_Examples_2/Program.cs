@@ -54,6 +54,7 @@ namespace LINQ_Examples_2
 
             //List<Employee> employeeList2 = new List<Employee> { new Employee {Id = 5, FirstName = "Tony", LastName = "Stark", AnnualSalary = 60000.0m}, new Employee {Id = 6, FirstName = "Debbie", LastName = "Townsend", AnnualSalary = 55000.0m}};
 
+
             //IEnumerable<Employee> results = employeeList.Concat(employeeList2);
             //foreach (var item in results) 
             //{
@@ -65,21 +66,58 @@ namespace LINQ_Examples_2
             //Aggregate() - Count() - Sum() - Max()
             //Employee and decimal inside the angle brackets <...> are type parameters. They represent
             //the element type of the relevant collection and the type of the accumulated result.
-            //0 is the seed value parameter.
-            //The lambda expression represents the aggregation function parameter. The parameters represent
-            //the accumulator (totalAnnualSalary) and the current element in the sequence iteration (employee).
-            decimal totalAnnualSalary = employeeList.Aggregate<Employee, decimal>(0, (totalAnnualSalary, e) =>
-            {
-                var bonus = (e.IsManager == true) ? 0.04m : 0.02m;
+            //Inside the () we have the seed (0 in this case) which represents the initial value of the accumulator
+            //and the lamda exression.
+            //The lambda expression represents the aggregation function parameter.
+            //The parameters inside the lamda exression represent the accumulator (totalAnnualSalary) and the current
+            //element in the sequence iteration (employee).
+            //decimal totalAnnualSalary = employeeList.Aggregate<Employee, decimal>(0, (totalAnnualSalary, e) =>
+            //{
+            //    var bonus = (e.IsManager == true) ? 0.04m : 0.02m;
 
-                totalAnnualSalary = e.AnnualSalary + (e.AnnualSalary * bonus) + totalAnnualSalary;
+            //    totalAnnualSalary = e.AnnualSalary + (e.AnnualSalary * bonus) + totalAnnualSalary;
 
-                return totalAnnualSalary;
-            });
+            //    return totalAnnualSalary;
+            //});
 
-            Console.WriteLine($"Total Annual Salary of all employees including bonus is {totalAnnualSalary}$");
+            //Console.WriteLine($"Total Annual Salary of all employees including bonus is {totalAnnualSalary}$");
 
-             
+
+            //say we want to output a comma delimeted string from our employee list collection.
+            //Each delimeted item containing the employee full name, a dash and then the employee
+            //annual salary.Each annual salary must include the appropriate bonus.
+            //We also want to include a label preceding that string.
+
+            //string data = employeeList.Aggregate<Employee, string>("Employee Annual Salary (including bonus): ", (s, employee) =>
+            //{
+            //    var bonus = (employee.IsManager == true) ? 0.04m : 0.02m;
+
+            //    s += $"{employee.FirstName} {employee.LastName} - {employee.AnnualSalary + (employee.AnnualSalary * bonus)}, ";
+
+            //    return s;
+            //});
+
+            //Console.WriteLine(data);
+            
+            
+            //Now let's try the same thing but we have to remove the comma from the very end of our string result
+            //We can exrpress this by passing a lamda exression as our 3rd argument to an overloaded version
+            //of the Aggregate function. This argument allows to perform a final operation on the results of the
+            //lamda exression passed in as the second argument.
+            //First we need to declare the datatype of the third argument inside the <...> following the Aggregate method.
+            //In the lamda expression passed in as our final argument we are using the Substring method to
+            //remove 2 characters from the end of the result. That means a comma and a space will be removed.
+
+            //string data = employeeList.Aggregate<Employee, string, string>("Employee Annual Salary (including bonus): ", (s, employee) =>
+            //{
+            //    var bonus = (employee.IsManager == true) ? 0.04m : 0.02m;
+
+            //    s += $"{employee.FirstName} {employee.LastName} - {employee.AnnualSalary + (employee.AnnualSalary * bonus)}, ";
+
+            //    return s;
+            //},s =>s.Substring(0, s.Length - 2));
+
+            //Console.WriteLine(data);
 
 
 

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+
 using System.Linq.Expressions;
+
 using static LINQ_Examples_2.EmployeeComparer;
 
 
@@ -49,6 +51,7 @@ namespace LINQ_Examples_2
             //}
 
             //Concat() but with a collection of complex type.
+
             //List<Employee> employeeList2 = new List<Employee> { new Employee {Id = 5, FirstName = "Tony", LastName = "Stark", AnnualSalary = 60000.0m}, new Employee {Id = 6, FirstName = "Debbie", LastName = "Townsend", AnnualSalary = 55000.0m}};
 
             //IEnumerable<Employee> results = employeeList.Concat(employeeList2);
@@ -77,6 +80,7 @@ namespace LINQ_Examples_2
             Console.WriteLine($"Total Annual Salary of all employees including bonus is {totalAnnualSalary}$");
 
              
+
 
 
         }

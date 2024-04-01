@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+
+using System.Linq.Expressions;
+
 using static LINQ_Examples_2.EmployeeComparer;
 
 
@@ -49,13 +52,37 @@ namespace LINQ_Examples_2
 
             //Concat() but with a collection of complex type.
 
-            List<Employee> employeeList2 = new List<Employee> { new Employee {Id = 5, FirstName = "Tony", LastName = "Stark", AnnualSalary = 60000.0m}, new Employee {Id = 6, FirstName = "Debbie", LastName = "Townsend", AnnualSalary = 55000.0m}};
+            //List<Employee> employeeList2 = new List<Employee> { new Employee {Id = 5, FirstName = "Tony", LastName = "Stark", AnnualSalary = 60000.0m}, new Employee {Id = 6, FirstName = "Debbie", LastName = "Townsend", AnnualSalary = 55000.0m}};
 
-            IEnumerable<Employee> results = employeeList.Concat(employeeList2);
-            foreach (var item in results) 
+            //IEnumerable<Employee> results = employeeList.Concat(employeeList2);
+            //foreach (var item in results) 
+            //{
+            //    Console.WriteLine($"{item.Id} {item.FirstName} {item.LastName}");
+            //}
+
+
+            //Aggregate method: We can perform a custom operation on values within a collection
+            //Aggregate() - Count() - Sum() - Max()
+            //Employee and decimal inside the angle brackets <...> are type parameters. They represent
+            //the element type of the relevant collection and the type of the accumulated result.
+            //0 is the seed value parameter.
+            //The lambda expression represents the aggregation function parameter. The parameters represent
+            //the accumulator (totalAnnualSalary) and the current element in the sequence iteration (employee).
+            decimal totalAnnualSalary = employeeList.Aggregate<Employee, decimal>(0, (totalAnnualSalary, e) =>
             {
-                Console.WriteLine($"{item.Id} {item.FirstName} {item.LastName}");
-            }
+                var bonus = (e.IsManager == true) ? 0.04m : 0.02m;
+
+                totalAnnualSalary = e.AnnualSalary + (e.AnnualSalary * bonus) + totalAnnualSalary;
+
+                return totalAnnualSalary;
+            });
+
+            Console.WriteLine($"Total Annual Salary of all employees including bonus is {totalAnnualSalary}$");
+
+             
+
+
+
         }
     }
 

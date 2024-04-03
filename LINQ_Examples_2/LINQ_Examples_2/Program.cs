@@ -54,6 +54,7 @@ namespace LINQ_Examples_2
 
             //List<Employee> employeeList2 = new List<Employee> { new Employee {Id = 5, FirstName = "Tony", LastName = "Stark", AnnualSalary = 60000.0m}, new Employee {Id = 6, FirstName = "Debbie", LastName = "Townsend", AnnualSalary = 55000.0m}};
 
+
             //IEnumerable<Employee> results = employeeList.Concat(employeeList2);
             //foreach (var item in results) 
             //{

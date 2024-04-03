@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 
 using System.Linq.Expressions;
-
+using System.Xml.Schema;
 using static LINQ_Examples_2.EmployeeComparer;
 
 
@@ -225,6 +225,96 @@ namespace LINQ_Examples_2
             //{ 
             //    Console.WriteLine(item); 
             //}
+
+
+            //Except()
+            //The Except method returns the set difference of two sequences, which means it returns the
+            //elements from the first sequence that are not present in the second sequence.
+            //IEnumerable<int> collection1 = new List<int> {1, 2, 3, 4};
+            //IEnumerable<int> collection2 = new List<int> {3, 4, 5, 6};
+
+            //var results = collection1.Except(collection2);
+            //foreach (var item in results) 
+            //{ 
+            //Console.WriteLine(item);
+            //}
+
+            //Let's try an Example using complex types
+            List<Employee> employeeList2 = new List<Employee>();
+            employeeList2.Add(new Employee
+            {
+                Id = 1,
+                FirstName = "Bob",
+                LastName = "Jones",
+                AnnualSalary = 60000.3m,
+                IsManager = true,
+                DepartmentId = 1
+            });
+            employeeList2.Add(new Employee
+            {
+                Id = 5,
+                FirstName = "Zoe",
+                LastName = "Jameson",
+                AnnualSalary = 40000.1m,
+                IsManager = false,
+                DepartmentId = 3
+            });
+            employeeList2.Add(new Employee
+            {
+                Id = 6,
+                FirstName = "Maria",
+                LastName = "Jameson",
+                AnnualSalary = 70000.1m,
+                IsManager = true,
+                DepartmentId = 3
+            });
+            employeeList2.Add(new Employee
+            {
+                Id = 4,
+                FirstName = "Jane",
+                LastName = "Stevens",
+                AnnualSalary = 30000.2m,
+                IsManager = false,
+                DepartmentId = 3
+            });
+
+            //Now let's call the except method on the employeeList collection and pass in the
+            //employeeList2 collection as an argument to the Except() method.
+            //But this would simply return all elements in the employeeLIst collection which is unexpected.
+            //Of course the reason once more is that we have not told the compiler how to compare
+            //two objects of type Employee. To do this we have to create a class that implenments the 
+            //IEqualityComparer generic interface like we have already done for previous methods.
+            //What remains to be done is to create a new object of EmployeeComparer and pass it to the 
+            //overloaded version of the Except method.
+            //var results = employeeList.Except(employeeList2, new EmployeeComparer());
+            //foreach (var item in results) 
+            //{ 
+            //Console.WriteLine($"Results: {item.Id} {item.FirstName} {item.LastName}");
+            //}
+
+
+            //Intersect() Method
+            //the Intersect method is used to find the intersection of two sequences.
+            //It returns the common elements that are present in both sequences. 
+            //Same logic as with Except method applies for more complex types like 
+            //the Employee type.
+            //var result = employeeList.Intersect(employeeList2, new EmployeeComparer());
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine($"Result: {item.Id} {item.FirstName} {item.LastName}");
+            //}
+
+            //Union()
+            //The Union method is used to combine two sequences into a single sequence,
+            //excluding duplicate elements. It returns a new sequence containing distinct
+            //elements from both sequences. Again we will need to pass an object of EmployeeComparer
+            //into the Union Method so that it can compare the objects in the collection
+            //in order to exclude duplicates.
+            var result = employeeList.Union(employeeList2, new EmployeeComparer());
+            foreach (var item in result) 
+            {
+                Console.WriteLine($"Result: {item.Id} {item.FirstName} {item.LastName}");
+            }
 
 
 

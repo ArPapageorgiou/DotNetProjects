@@ -28,8 +28,8 @@ namespace LINQ_Examples_2
             //in order to make a comparison between more complex types like the Employee type
             //we need to tell the compiler how to establish equality between objects of the
             //Employee type. We can do this by implementing the built in IEqualityComparer
-            //generic Interface and passing an instance of the class as a parameter toan   
-            //over loaded version of the SequenceEqual method.
+            //generic Interface and passing an instance of the class as a parameter to an   
+            //overloaded version of the SequenceEqual method.
             //If we don't the following example returns false.
 
             //var employeeListCompare = Data.GetEmployees();
@@ -61,11 +61,14 @@ namespace LINQ_Examples_2
             //    Console.WriteLine($"{item.Id} {item.FirstName} {item.LastName}");
             //}
 
-
+            ////////Aggregate Operations - Aggregate() - Count() - Sum() - Max()
             //Aggregate method: We can perform a custom operation on values within a collection
-            //Aggregate() - Count() - Sum() - Max()
+            //Aggregate()
+
             //Employee and decimal inside the angle brackets <...> are type parameters. They represent
-            //the element type of the relevant collection and the type of the accumulated result.
+
+            //the element type of the relevant collection and the type of the expected accumulated result.
+
             //Inside the () we have the seed (0 in this case) which represents the initial value of the accumulator
             //and the lamda exression.
             //The lambda expression represents the aggregation function parameter.
@@ -83,6 +86,7 @@ namespace LINQ_Examples_2
             //Console.WriteLine($"Total Annual Salary of all employees including bonus is {totalAnnualSalary}$");
 
 
+
             //say we want to output a comma delimeted string from our employee list collection.
             //Each delimeted item containing the employee full name, a dash and then the employee
             //annual salary.Each annual salary must include the appropriate bonus.
@@ -98,8 +102,8 @@ namespace LINQ_Examples_2
             //});
 
             //Console.WriteLine(data);
-            
-            
+
+
             //Now let's try the same thing but we have to remove the comma from the very end of our string result
             //We can exrpress this by passing a lamda exression as our 3rd argument to an overloaded version
             //of the Aggregate function. This argument allows to perform a final operation on the results of the
@@ -115,12 +119,119 @@ namespace LINQ_Examples_2
             //    s += $"{employee.FirstName} {employee.LastName} - {employee.AnnualSalary + (employee.AnnualSalary * bonus)}, ";
 
             //    return s;
-            //},s =>s.Substring(0, s.Length - 2));
+            //}, s => s.Substring(0, s.Length - 2));
 
             //Console.WriteLine(data);
 
 
+            //Average()
+            //decimal average = employeeList.Average(e => e.AnnualSalary);
 
+            //Console.WriteLine($"Average Employee Annual Salary: {average}");
+
+            //Console.WriteLine();
+            //But what if we want to find the average annual salary of employees in the technology department?
+            //We can use method chaining and the where operator like this:
+            //decimal averageTech = employeeList.Where(e => e.DepartmentId == 3).Average(e => e.AnnualSalary);
+
+            //Console.WriteLine($"Average Annual Salary for Tech Department Employees: {averageTech}");
+
+            //Console.WriteLine();
+
+            //Count()
+            //Count returns the number of records in a collection according to a condition, if any.
+            //int CountEmployees = employeeList.Count(e => e.DepartmentId == 3);
+
+            //Console.WriteLine($"Number of Employees: {CountEmployees}");
+
+            //Sum 
+            //Returns the sum total of values
+            //decimal sumResult = employeeList.Sum(e => e.AnnualSalary);
+
+            //Console.WriteLine($"Sum of Annual Salaries: {sumResult}");
+
+            //Max 
+            //returns the maximum value 
+            //decimal maxResult = employeeList.Max(e => e.AnnualSalary);
+
+            //Console.WriteLine($"Highest Annual Salary: {maxResult}");
+
+            //Generation Methods
+            //DefaultIfEmpty, Empty, Range, Range, Repeat
+
+            //DefaultIfEmpty
+            //The DefaultIfEmpty method is used to provide a default value if a sequence is empty.
+            //we can check on the result by applying the ElementAt() method to return the first
+            //element of our initially empty collection.
+            //List<int> intList = new List<int>();
+            //var newList = intList.DefaultIfEmpty();
+            //Console.WriteLine(newList.ElementAt(0));
+            //Now lets use it on the Employee datatype.
+            //The dafault value for a reference type is null. But we can pass in a default value that we
+            //would prefer to be returned in case the relevant collection is empty, like this:
+            //List<Employee> employees = new List<Employee>();
+            //var employees2 = employees.DefaultIfEmpty(new Employee { Id = 0 });
+            //var result = employees2.ElementAt(0);
+
+            //if (result.Id == 0)
+            //{
+            //    Console.WriteLine("The list is empty");
+            //}
+
+            //Empty method
+            //This method is used to generate a new empty collection
+            //Note that the Empty method is not an extension method of IEnumerable or IQueryable interfaces.
+            //It instead is a static method included in the Enumerable static class.
+            //Bellow we instantiate a new, empty sequence, strongly typed with Employee as the defined type
+            //through the use of the empty method.
+            //We can then chain the ToList() method to that operation and return an empty generic list.
+            //IEnumerable<Employee> emptyEmployeeList = Enumerable.Empty<Employee>().ToList();
+
+            //Range() 
+            //We can use the Range method to return a collection of values that are within a specified range
+            //We want to return a range of int values in a collection where the first item in a range has a
+            //value of 25 and each subsequent item is incremented by a value of 1 until there are 20 values
+            //in total inside the relevant collection.
+            //The range method includes two parameters (start, count) where start is the first value in
+            //the sequence and count is the the times the method is going to increment by, the step of the
+            //incrementation is one.   
+            //var intCollection = Enumerable.Range(25, 20);
+            //foreach (var item in intCollection) 
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
+            //Repeat()
+            //Let's say we want to generate a collection of a specified amount of elements where a value for
+            //each element in the collection is repeated
+            //Repeat(element, count)
+            //var strCollection = Enumerable.Repeat("Placeholder", 10);
+            //foreach (var item in strCollection) 
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            ///////Set Operations - Distinct, Except, Intersect, Union
+
+            //Distinct()
+            //Lets say we have a strongly typed generic List of integer values and that ome of which
+            //are repeating values.
+            //We want to perform a query against this list of int values where we only want distinct
+            //values returned. To that end we can use the Distinct() method.
+            //List<int> list = new List<int> {1,2,1,3,4,5,3,6,2,5,7,8,9,7};
+            //var result = list.Distinct();
+            //foreach (var item in result) 
+            //{ 
+            //    Console.WriteLine(item); 
+            //}
+
+
+
+
+
+
+            Console.WriteLine();
         }
     }
 

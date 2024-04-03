@@ -66,7 +66,9 @@ namespace LINQ_Examples_2
             //Aggregate()
 
             //Employee and decimal inside the angle brackets <...> are type parameters. They represent
+
             //the element type of the relevant collection and the type of the expected accumulated result.
+
             //Inside the () we have the seed (0 in this case) which represents the initial value of the accumulator
             //and the lamda exression.
             //The lambda expression represents the aggregation function parameter.
@@ -82,6 +84,7 @@ namespace LINQ_Examples_2
             //});
 
             //Console.WriteLine($"Total Annual Salary of all employees including bonus is {totalAnnualSalary}$");
+
 
 
             //say we want to output a comma delimeted string from our employee list collection.
@@ -222,6 +225,7 @@ namespace LINQ_Examples_2
             //{ 
             //    Console.WriteLine(item); 
             //}
+
 
 
 

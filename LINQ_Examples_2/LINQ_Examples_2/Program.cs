@@ -227,6 +227,7 @@ namespace LINQ_Examples_2
             //}
 
 
+
             //Except()
             //The Except method returns the set difference of two sequences, which means it returns the
             //elements from the first sequence that are not present in the second sequence.
@@ -356,6 +357,7 @@ namespace LINQ_Examples_2
             //{
             //    Console.WriteLine($"Results: {item.Id} {item.FirstName} {item.LastName}");
             //}
+
 
 
 

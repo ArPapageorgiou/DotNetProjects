@@ -311,11 +311,57 @@ namespace LINQ_Examples_2
             //elements from both sequences. Again we will need to pass an object of EmployeeComparer
             //into the Union Method so that it can compare the objects in the collection
             //in order to exclude duplicates.
-            var result = employeeList.Union(employeeList2, new EmployeeComparer());
-            foreach (var item in result) 
-            {
-                Console.WriteLine($"Result: {item.Id} {item.FirstName} {item.LastName}");
-            }
+
+            //var result = employeeList.Union(employeeList2, new EmployeeComparer());
+            //foreach (var item in result) 
+            //{
+            //    Console.WriteLine($"Result: {item.Id} {item.FirstName} {item.LastName}");
+            //}
+
+            //Partitioning Operators - Skip() - SkipWhile() - Take() - TakeWhile()
+
+            //The Skip() method is used to skip over a number of elements in a sequence
+            //and then return the remainder
+            //var result = employeeList.Skip(2);
+            //foreach (var item in result)
+            //    {
+            //        Console.WriteLine($"Result: {item.Id} {item.FirstName} {item.LastName}");
+            //    }
+
+            //SkipWhile()
+            //The SkipWhile() operator allows you to bypass elements in a sequence as long as a
+            //specified condition is true, and then returns the remaining elements. 
+            //This means that once the condition returns false all subsequent elements will be returned
+            //whether they satisfy the condition or not.
+            //For example this will actually return all elements in our collection since the first
+            //element returns false. No element will be skipped.
+            //var result = employeeList.SkipWhile(e => e.AnnualSalary < 60000);
+            //foreach (var item in result) 
+            //{ 
+            //Console.WriteLine($"Result: {item.Id} {item.FirstName} {item.LastName}");
+            //}
+
+            //Take()
+            //The Take() operator is used to return a specified number of continious elements from a sequence
+            //Let's use this method to retrieve the first two elements from the collection
+            //var results = employeeList.Take(2);
+            //foreach (var item in results)
+            //{
+            //    Console.WriteLine($"Result: {item.Id} {item.FirstName} {item.LastName}");
+            //}
+
+            //TakeWhile()
+            //The TakeWhile() operator is used to return elements from a sequence as long as a specified
+            //condition is true and then skips the remaining elements.
+            //var result = employeeList.TakeWhile(e => e.AnnualSalary > 50000);
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine($"Results: {item.Id} {item.FirstName} {item.LastName}");
+            //}
+
+
+
+
 
 
 

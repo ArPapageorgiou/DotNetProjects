@@ -371,6 +371,7 @@ namespace LINQ_Examples_2
             //    Console.WriteLine($"Result: {item.Id} {item.FirstName} {item.LastName}");
             //}
 
+
             //Partitioning Operators - Skip() - SkipWhile() - Take() - TakeWhile()
 
             //The Skip() method is used to skip over a number of elements in a sequence
@@ -462,6 +463,7 @@ namespace LINQ_Examples_2
             //    Console.WriteLine($"Results: {item.Id} {item.FirstName} {item.LastName}");
             //}
 
+
             ///////Keywords - Let - Into
             //Let and Into can be applied when using query syntax.
 
@@ -472,6 +474,7 @@ namespace LINQ_Examples_2
             //within the query. If the variable holds a queryable type then it can be queried.
             //The variable can then be used in the select and where clause.
             //Let's say we want to query our employees based on employee initials.
+
             //var results = from emp in employeeList
             //              let Initials = emp.FirstName.Substring(0, 1).ToUpper() + emp.LastName.Substring(0, 1).ToUpper()
             //              let AnnualSalaryPlusBonus = (emp.IsManager) ? emp.AnnualSalary + (emp.AnnualSalary * 0.04m) : emp.AnnualSalary + (emp.AnnualSalary * 0.02m)
@@ -533,6 +536,7 @@ namespace LINQ_Examples_2
             foreach (var item in result)
             {
                 Console.WriteLine(item.FirstName + " " + item.LastName);
+
             }
 
 

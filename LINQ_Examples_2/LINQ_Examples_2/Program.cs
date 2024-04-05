@@ -13,7 +13,7 @@ namespace LINQ_Examples_2
         static void Main(string[] args)
         {
             List<Employee> employeeList = Data.GetEmployees();
-            List<Department> departmentList = Data.GetDepartments();
+            List<Department> departmentList = Data.GetDepartments(employeeList);
 
             //Equality Method
             //SequenceEqual checks if each item in each list matches in value and order
@@ -419,20 +419,67 @@ namespace LINQ_Examples_2
             //within the query. If the variable holds a queryable type then it can be queried.
             //The variable can then be used in the select and where clause.
             //Let's say we want to query our employees based on employee initials.
-            var results = from emp in employeeList
-                          let Initials = emp.FirstName.Substring(0, 1).ToUpper() + emp.LastName.Substring(0, 1).ToUpper()
-                          let AnnualSalaryPlusBonus = (emp.IsManager) ? emp.AnnualSalary + (emp.AnnualSalary * 0.04m) : emp.AnnualSalary + (emp.AnnualSalary * 0.02m)
-                          where Initials == "JS" || Initials == "SJ" && AnnualSalaryPlusBonus > 50000
-                          select new
-                          {
-                              Initials = Initials,
-                              FullName = emp.FirstName + " " + emp.LastName,
-                              AnnualSalaryPlusBonus = AnnualSalaryPlusBonus
-                          };
+            //var results = from emp in employeeList
+            //              let Initials = emp.FirstName.Substring(0, 1).ToUpper() + emp.LastName.Substring(0, 1).ToUpper()
+            //              let AnnualSalaryPlusBonus = (emp.IsManager) ? emp.AnnualSalary + (emp.AnnualSalary * 0.04m) : emp.AnnualSalary + (emp.AnnualSalary * 0.02m)
+            //              where Initials == "JS" || Initials == "SJ" && AnnualSalaryPlusBonus > 50000
+            //              select new
+            //              {
+            //                  Initials = Initials,
+            //                  FullName = emp.FirstName + " " + emp.LastName,
+            //                  AnnualSalaryPlusBonus = AnnualSalaryPlusBonus
+            //              };
 
-            foreach (var item in results) 
+            //foreach (var item in results) 
+            //{
+            //    Console.WriteLine($"Result: {item.Initials} {item.FullName} {item.AnnualSalaryPlusBonus}");
+            //}
+
+
+
+            //Into
+            //The into keyword is used to perform a continuation or a secondary operation on the result of
+            //a previous query. It allows you to chain multiple LINQ queries together and apply additional
+            //operations.
+            //In this example we will use the Into keyword to further filter the group of HighEarner employees.
+            //var result = from emp in employeeList
+            //             where emp.AnnualSalary > 50000
+            //             select emp
+            //             into HighEarners
+            //             where HighEarners.IsManager == true
+            //             select HighEarners;
+
+            //foreach (var item in result) 
+            //{
+            //    Console.WriteLine($"Result: {item.Id} {item.FirstName} {item.LastName} {item.AnnualSalary}");
+            //}
+
+
+            //////Projection Operators - Select() - SelectMany
+            //Projection is the process of selecting and shaping data into a new structure based on
+            //specific criteria or operations.
+
+            //Select()
+            //Select method projects values that are based on a transform function
+            //var result = departmentList.Select(d => d.Employees);
+            //foreach (var items in result) 
+            //{
+            //    foreach (var item in items) 
+            //    {
+            //        Console.WriteLine(item.FirstName + " " + item.LastName);
+            //    }
+            //}
+
+            //SelectMany() method projects sequences of values that are based on a transform function
+            //and then flateens them into one sequence.
+            //in the previous example every element of the departmentList contains an Employee property
+            //that itself contains a sequence.
+            //So in the abvove example we would only need one foreach loop as the SelectMany method
+            //would flatten the sequences into one 
+            var result = departmentList.SelectMany(d => d.Employees);
+            foreach (var item in result)
             {
-                Console.WriteLine($"Result: {item.Initials} {item.FullName} {item.AnnualSalaryPlusBonus}");
+                Console.WriteLine(item.FirstName + " " + item.LastName);
             }
 
 
@@ -476,6 +523,7 @@ namespace LINQ_Examples_2
         public int Id { get; set; }
         public string ShortName { get; set; }
         public string LongName { get; set; }
+        public IEnumerable<Employee> Employees { get; set;}
     }
 
     public static class Data
@@ -528,7 +576,7 @@ namespace LINQ_Examples_2
             return employees;
         }
 
-        public static List<Department> GetDepartments()
+        public static List<Department> GetDepartments(IEnumerable<Employee> employee)
         {
             List<Department> departments = new List<Department>();
 
@@ -536,21 +584,30 @@ namespace LINQ_Examples_2
             {
                 Id = 1,
                 ShortName = "HR",
-                LongName = "Human Resources"
+                LongName = "Human Resources",
+                Employees = from emp in employee
+                            where emp.DepartmentId == 1
+                            select emp
             };
             departments.Add(department);
             department = new Department
             {
                 Id = 2,
                 ShortName = "FN",
-                LongName = "Finance"
+                LongName = "Finance",
+                Employees = from emp in employee
+                            where emp.DepartmentId == 2
+                            select emp
             };
             departments.Add(department);
             department = new Department
             {
                 Id = 3,
                 ShortName = "TE",
-                LongName = "Technology"
+                LongName = "Technology",
+                Employees = from emp in employee
+                            where emp.DepartmentId == 3
+                            select emp
             };
             departments.Add(department);
 

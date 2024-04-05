@@ -311,6 +311,7 @@ namespace LINQ_Examples_2
             //elements from both sequences. Again we will need to pass an object of EmployeeComparer
             //into the Union Method so that it can compare the objects in the collection
             //in order to exclude duplicates.
+
             //var result = employeeList.Union(employeeList2, new EmployeeComparer());
             //foreach (var item in result) 
             //{
@@ -433,6 +434,7 @@ namespace LINQ_Examples_2
             {
                 Console.WriteLine($"Result: {item.Initials} {item.FullName} {item.AnnualSalaryPlusBonus}");
             }
+
 
             Console.WriteLine();
         }

@@ -359,13 +359,80 @@ namespace LINQ_Examples_2
             //}
 
 
+            ///////////Conversion Operators - ToList() - ToDictionary() - ToArray()
+
+            //ToList()
+            //A query written in query syntax will return an IEnumerable collection containing
+            //the results of the query. What if we need our results returned as a generic list?
+            //To assign the query result to a generic list wthout causing a type mismatch we need to 
+            //wrap the query in brackets () and then apply the ToList() operator.
+            //Remember that whenever a To operator is applied to a query, this causes the query
+            //to be executed immediately.
+            //List<Employee> results = (from emp in employeeList
+            //                          where emp.AnnualSalary > 50000
+            //                          select emp).ToList();
+            //foreach (var item in results) 
+            //{
+            //    Console.WriteLine($"Results: {item.Id} {item.FirstName} {item.LastName}");
+            //}
+
+            //ToDictionary()
+            //If we want to convert a query result (IEnumerable collection) to a dictionary generic
+            //collection type containing the results of the query we can use the ToDictionary()
+            //operator by first wrapping the query in brackets () and applying the operator to the query.
+            //A lamda parameter is passed into the ToDictionary() method to specify the dictionary key.
+            //Then note how we are able to use the key values to retrieve the values of each element
+            //stored in the dictionary.
+            //Remember that whenever a To operator is applied to a query, this causes the query
+            //to be executed immediately.
+            //Dictionary<int, Employee> dictionary = (from emp in employeeList
+            //                          where emp.AnnualSalary > 50000
+            //                          select emp).ToDictionary(e=>e.Id);
+
+            //foreach (var key in dictionary.Keys)
+            //{
+            //    Console.WriteLine($"Key: {key}, Value: {dictionary[key].FirstName} {dictionary[key].LastName}");
+            //}
 
 
+            //ToArray()
+            //If we want to convert a query result (IEnumerable collection) to an Array containing 
+            //the results of the query we can use the ToArray() operator by first wrapping the query 
+            //in brackets () and then applying the operator to the query.
+            //Employee[] result = (from emp in employeeList
+            //                     where emp.AnnualSalary > 50000
+            //                     select emp).ToArray();
 
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine($"Results: {item.Id} {item.FirstName} {item.LastName}");
+            //}
 
+            ///////Keywords - Let - Into
+            //Let and Into can be applied when using query syntax.
 
+            //Let
+            //The let keyword allows you to create a temporary variable within a LINQ query expression.
+            //This variable can be used to store intermediate results or simplify complex expressions.
+            //It's particularly useful when you need to reuse the same value or expression multiple times
+            //within the query. If the variable holds a queryable type then it can be queried.
+            //The variable can then be used in the select and where clause.
+            //Let's say we want to query our employees based on employee initials.
+            var results = from emp in employeeList
+                          let Initials = emp.FirstName.Substring(0, 1).ToUpper() + emp.LastName.Substring(0, 1).ToUpper()
+                          let AnnualSalaryPlusBonus = (emp.IsManager) ? emp.AnnualSalary + (emp.AnnualSalary * 0.04m) : emp.AnnualSalary + (emp.AnnualSalary * 0.02m)
+                          where Initials == "JS" || Initials == "SJ" && AnnualSalaryPlusBonus > 50000
+                          select new
+                          {
+                              Initials = Initials,
+                              FullName = emp.FirstName + " " + emp.LastName,
+                              AnnualSalaryPlusBonus = AnnualSalaryPlusBonus
+                          };
 
-
+            foreach (var item in results) 
+            {
+                Console.WriteLine($"Result: {item.Initials} {item.FullName} {item.AnnualSalaryPlusBonus}");
+            }
 
             Console.WriteLine();
         }

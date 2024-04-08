@@ -3,6 +3,7 @@ using Entity_Framework_Core__Basics.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entity_Framework_Core__Basics.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240408195506_ManyToManyRelationship")]
+    partial class ManyToManyRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,14 +43,12 @@ namespace Entity_Framework_Core__Basics.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-
                     b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
                     b.HasKey("EmployeeId");
 
                     b.HasIndex("ManagerId");
-
 
                     b.ToTable("Employees");
                 });
@@ -81,7 +82,6 @@ namespace Entity_Framework_Core__Basics.Migrations
                         .IsUnique();
 
                     b.ToTable("EmployeeDetails");
-
                 });
 
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.EmployeeProject", b =>
@@ -117,10 +117,8 @@ namespace Entity_Framework_Core__Basics.Migrations
 
                     b.HasKey("ManagerId");
 
-
                     b.ToTable("Managers");
                 });
-
 
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Project", b =>
                 {
@@ -139,7 +137,6 @@ namespace Entity_Framework_Core__Basics.Migrations
                     b.ToTable("Project");
                 });
 
-
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Employee", b =>
                 {
                     b.HasOne("Entity_Framework_Core__Basics.Models.Manager", "Manager")
@@ -149,7 +146,6 @@ namespace Entity_Framework_Core__Basics.Migrations
                         .IsRequired();
 
                     b.Navigation("Manager");
-
                 });
 
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.EmployeeDetails", b =>
@@ -193,18 +189,11 @@ namespace Entity_Framework_Core__Basics.Migrations
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Manager", b =>
                 {
                     b.Navigation("Employees");
-
                 });
 
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Project", b =>
                 {
                     b.Navigation("EmployeeProjects");
-                });
-
-            modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Manager", b =>
-                {
-                    b.Navigation("Employees");
-
                 });
 #pragma warning restore 612, 618
         }

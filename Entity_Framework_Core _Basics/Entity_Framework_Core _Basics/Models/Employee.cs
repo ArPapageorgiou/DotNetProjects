@@ -19,5 +19,7 @@
         public int ManagerId { get; set; } //Foreign Key property
         public Manager Manager { get; set; } //Navigation Property to represent the manager
 
+        public ICollection<EmployeeProject> EmployeeProjects { get; set; } //Collection navigation property
+
     }
 }

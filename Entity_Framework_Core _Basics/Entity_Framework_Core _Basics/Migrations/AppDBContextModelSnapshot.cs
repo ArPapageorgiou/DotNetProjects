@@ -42,6 +42,7 @@ namespace Entity_Framework_Core__Basics.Migrations
 
                     b.HasKey("EmployeeId");
 
+
                     b.ToTable("Employees");
                 });
 
@@ -74,6 +75,7 @@ namespace Entity_Framework_Core__Basics.Migrations
                         .IsUnique();
 
                     b.ToTable("EmployeeDetails");
+
                 });
 
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Manager", b =>
@@ -94,6 +96,7 @@ namespace Entity_Framework_Core__Basics.Migrations
 
                     b.HasKey("ManagerId");
 
+
                     b.ToTable("Managers");
                 });
 
@@ -112,6 +115,7 @@ namespace Entity_Framework_Core__Basics.Migrations
                 {
                     b.Navigation("EmployeeDetails")
                         .IsRequired();
+
                 });
 #pragma warning restore 612, 618
         }

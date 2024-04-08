@@ -9,7 +9,8 @@
         //Since there is a one-to-many relationship with Employee we have to use this collection navigation
         //property to represent the Employees managed by the manager. ICollection is used to to represent a
         //collection navigation property in a one-to-many relationship. In essense the bellow setup means this
-        //manager can have more than one employees.
+        //manager can have more than one employees. Since the foreign key in Employee is pointing to the manager
+        //class, that makes the manager class the Principal entity.
         public ICollection<Employee> Employees { get; set; }
 
     }

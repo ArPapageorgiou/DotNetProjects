@@ -11,6 +11,7 @@ namespace Entity_Framework_Core__Basics.Data
         public AppDBContext()
         {
             ConnectionString = "data source=DESKTOP-3BA0QHV; Initial Catalog=EmployeeManagement; integrated security=SSPI;Trust Server Certificate=True";
+
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

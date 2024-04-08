@@ -4,13 +4,15 @@ namespace Entity_Framework_Core__Basics.Data
 {
     public class AppDBContext : DbContext
     {
+
+        //Create a DBSet property for every new table 
         public DbSet<EmployeeDetails> EmployeeDetails { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Manager> Managers { get; set; }
+        //Create a DBSet property for your connection string
         private string ConnectionString { get;}
         public AppDBContext()
         {
-
             ConnectionString = "data source=DESKTOP-3BA0QHV; Initial Catalog=EmployeeManagement; integrated security=SSPI;Trust Server Certificate=True";
 
 

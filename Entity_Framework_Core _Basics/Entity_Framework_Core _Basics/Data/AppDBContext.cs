@@ -27,11 +27,24 @@ namespace Entity_Framework_Core__Basics.Data
            optionsBuilder.UseSqlServer(ConnectionString);
         }
 
-        //Many-To-Many
+
+        //Many-To-Many    Fluent API
         //In the case of many to many relationship we need to override the OnModelCreating method in order
-        //configure the relationship between the Employee, Project, and EmployeeProject entities. 
+        //configure the relationship between the Employee, Project, and EmployeeProject entities. We do this
+        //using Fluent API and is implemented using method chaining.
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //For example we can use Fluent API to configure the primary key of a table like this:
+            modelBuilder.Entity<Employee>().HasKey(e => e.EmployeeId);//or we can use data annotations
+
+            //specify entity(Employee)-which property?(e => e.FirstName)-what do you want to do with it?(IsRequired())
+            modelBuilder.Entity<Employee>().Property(e => e.FirstName).IsRequired();//Again we can achieve
+                                                                                    //the same result with
+                                                                                    //data annotations. Look
+                                                                                    //at the Employee class.
+            
+            //Now lets Configure the relationship between the Employee, Project, and EmployeeProject entities
+
             modelBuilder.Entity<EmployeeProject>()
                 .HasKey(ep => new { ep.ProjectId, ep.EmployeeId }); 
             //Sets the primary key for the EmployeeProject table. 

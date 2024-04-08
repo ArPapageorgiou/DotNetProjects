@@ -40,12 +40,14 @@ namespace Entity_Framework_Core__Basics.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+
                     b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
                     b.HasKey("EmployeeId");
 
                     b.HasIndex("ManagerId");
+
 
                     b.ToTable("Employees");
                 });
@@ -79,6 +81,7 @@ namespace Entity_Framework_Core__Basics.Migrations
                         .IsUnique();
 
                     b.ToTable("EmployeeDetails");
+
                 });
 
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Manager", b =>
@@ -99,6 +102,7 @@ namespace Entity_Framework_Core__Basics.Migrations
 
                     b.HasKey("ManagerId");
 
+
                     b.ToTable("Managers");
                 });
 
@@ -111,6 +115,7 @@ namespace Entity_Framework_Core__Basics.Migrations
                         .IsRequired();
 
                     b.Navigation("Manager");
+
                 });
 
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.EmployeeDetails", b =>
@@ -128,11 +133,13 @@ namespace Entity_Framework_Core__Basics.Migrations
                 {
                     b.Navigation("EmployeeDetails")
                         .IsRequired();
+
                 });
 
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Manager", b =>
                 {
                     b.Navigation("Employees");
+
                 });
 #pragma warning restore 612, 618
         }

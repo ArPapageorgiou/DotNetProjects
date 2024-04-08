@@ -1,8 +1,17 @@
-﻿namespace Entity_Framework_Core__Basics.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Entity_Framework_Core__Basics.Models
 {
     public class Employee
     {
+        [Key]//Data annotations in .NET are like little notes you attach to your model properties to
+             //describe how they should be treated. Or you can use Fluent API to the same goal.
+             //In this case we specified EmployeeId as Primary Key but we have done the same by using 
+             // Fluent API and overridimg the OnModelCreating method in AppDBContext class.
         public int EmployeeId { get; set; }
+        
+        [Required]//Specified FirstName as required. Or we could do the same by configuring this in
+                  //an overriden version of OnModelCreate method with the use of fluent API. 
         public string FirstName { get; set; }
         public string LastName { get; set; }   
         public long EmpSalary { get; set; }

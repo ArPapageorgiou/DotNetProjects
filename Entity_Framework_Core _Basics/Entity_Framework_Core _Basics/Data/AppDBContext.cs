@@ -10,11 +10,9 @@ namespace Entity_Framework_Core__Basics.Data
 
         public DbSet<Project> Project { get; set; }
         public DbSet<EmployeeProject> EmployeeProjects { get; set; }
-
         public DbSet<EmployeeDetails> EmployeeDetails { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Manager> Managers { get; set; }
-        //Create a DBSet property for your connection string
         private string ConnectionString { get;}
         public AppDBContext()
         {

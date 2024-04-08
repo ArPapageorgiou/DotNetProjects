@@ -6,5 +6,6 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }   
         public long EmpSalary { get; set; }
+        public EmployeeDetails EmployeeDetails { get; set; }
     }
 }

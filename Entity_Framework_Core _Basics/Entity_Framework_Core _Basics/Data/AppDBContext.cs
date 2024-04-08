@@ -4,18 +4,20 @@ namespace Entity_Framework_Core__Basics.Data
 {
     public class AppDBContext : DbContext
     {
-        public DbSet<Employee> _employees { get; set; }
-        public DbSet<Manager> _managers { get; set; }
-        private string _connectionString { get;}
+        public DbSet<EmployeeDetails> EmployeeDetails { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Manager> Managers { get; set; }
+        private string ConnectionString { get;}
         public AppDBContext()
         {
 
-            _connectionString = "data source=DESKTOP-3BA0QHV; Initial Catalog=EmployeeManagement; integrated security=SSPI;Trust Server Certificate=True";
+            ConnectionString = "data source=DESKTOP-3BA0QHV; Initial Catalog=EmployeeManagement; integrated security=SSPI;Trust Server Certificate=True";
+
 
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           optionsBuilder.UseSqlServer(_connectionString);
+           optionsBuilder.UseSqlServer(ConnectionString);
         }
     }
 }

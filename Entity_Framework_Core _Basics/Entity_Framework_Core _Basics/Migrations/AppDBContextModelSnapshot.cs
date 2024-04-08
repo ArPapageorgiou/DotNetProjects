@@ -121,6 +121,7 @@ namespace Entity_Framework_Core__Basics.Migrations
                     b.ToTable("Managers");
                 });
 
+
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Project", b =>
                 {
                     b.Property<int>("ProjectId")
@@ -137,6 +138,7 @@ namespace Entity_Framework_Core__Basics.Migrations
 
                     b.ToTable("Project");
                 });
+
 
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Employee", b =>
                 {
@@ -197,6 +199,12 @@ namespace Entity_Framework_Core__Basics.Migrations
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Project", b =>
                 {
                     b.Navigation("EmployeeProjects");
+                });
+
+            modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Manager", b =>
+                {
+                    b.Navigation("Employees");
+
                 });
 #pragma warning restore 612, 618
         }

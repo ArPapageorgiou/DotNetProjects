@@ -7,8 +7,10 @@ namespace Entity_Framework_Core__Basics.Data
     {
 
         //Create a DBSet property for every new table 
+
         public DbSet<Project> Project { get; set; }
         public DbSet<EmployeeProject> EmployeeProjects { get; set; }
+
         public DbSet<EmployeeDetails> EmployeeDetails { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Manager> Managers { get; set; }

@@ -29,5 +29,6 @@ namespace Entity_Framework_Core__Basics.Models
         public Manager Manager { get; set; } //Navigation Property to represent the manager
 
         public ICollection<EmployeeProject> EmployeeProjects { get; set; } //Collection navigation property
+
     }
 }

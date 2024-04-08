@@ -25,6 +25,7 @@ namespace Entity_Framework_Core__Basics.Data
            optionsBuilder.UseSqlServer(ConnectionString);
         }
 
+
         //Many-To-Many    Fluent API
         //In the case of many to many relationship we need to override the OnModelCreating method in order
         //configure the relationship between the Employee, Project, and EmployeeProject entities. We do this
@@ -41,6 +42,7 @@ namespace Entity_Framework_Core__Basics.Data
                                                                                     //at the Employee class.
             
             //Now lets Configure the relationship between the Employee, Project, and EmployeeProject entities
+
             modelBuilder.Entity<EmployeeProject>()
                 .HasKey(ep => new { ep.ProjectId, ep.EmployeeId }); 
             //Sets the primary key for the EmployeeProject table. 

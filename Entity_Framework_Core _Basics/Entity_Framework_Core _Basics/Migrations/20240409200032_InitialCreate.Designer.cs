@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entity_Framework_Core__Basics.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240408170730_OneToManyRelationship")]
-    partial class OneToManyRelationship
+    [Migration("20240409200032_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,6 +84,21 @@ namespace Entity_Framework_Core__Basics.Migrations
                     b.ToTable("EmployeeDetails");
                 });
 
+            modelBuilder.Entity("Entity_Framework_Core__Basics.Models.EmployeeProject", b =>
+                {
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProjectId", "EmployeeId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("EmployeeProjects");
+                });
+
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Manager", b =>
                 {
                     b.Property<int>("ManagerId")
@@ -103,6 +118,23 @@ namespace Entity_Framework_Core__Basics.Migrations
                     b.HasKey("ManagerId");
 
                     b.ToTable("Managers");
+                });
+
+            modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Project", b =>
+                {
+                    b.Property<int>("ProjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProjectId");
+
+                    b.ToTable("Project");
                 });
 
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Employee", b =>
@@ -127,15 +159,41 @@ namespace Entity_Framework_Core__Basics.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("Entity_Framework_Core__Basics.Models.EmployeeProject", b =>
+                {
+                    b.HasOne("Entity_Framework_Core__Basics.Models.Employee", "Employee")
+                        .WithMany("EmployeeProjects")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity_Framework_Core__Basics.Models.Project", "Project")
+                        .WithMany("EmployeeProjects")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Project");
+                });
+
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Employee", b =>
                 {
                     b.Navigation("EmployeeDetails")
                         .IsRequired();
+
+                    b.Navigation("EmployeeProjects");
                 });
 
             modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Manager", b =>
                 {
                     b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("Entity_Framework_Core__Basics.Models.Project", b =>
+                {
+                    b.Navigation("EmployeeProjects");
                 });
 #pragma warning restore 612, 618
         }

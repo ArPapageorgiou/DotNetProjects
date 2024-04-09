@@ -65,24 +65,31 @@ namespace Entity_Framework_Core__Basics
                             employeeProject.EmployeeId = 2;
                             //context.EmployeeProjects.Add(employeeProject);
 
+
                             var employeeDetails = new EmployeeDetails();
                             employeeDetails.Address = "Sarakou";
                             employeeDetails.PhoneNumber = "12345098798";
                             employeeDetails.Email = "papagiorgio@ado.net";
+
                             employeeDetails.EmployeeId = 1;
+
                             context.EmployeeDetails.Add(employeeDetails);
 
                             var employeeDetails2 = new EmployeeDetails();
                             employeeDetails2.Address = "Gripari";
                             employeeDetails2.PhoneNumber = "4563798798";
                             employeeDetails2.Email = "giorgio90@ado.net";
+
                             employeeDetails2.EmployeeId = 2;
+
                             context.EmployeeDetails.Add(employeeDetails2);
 
                             //The SaveChanges method passes data to the database
                             context.SaveChanges();
+
                             //If all operations succeed then commit the transaction
                             transaction.Commit();
+
                     }
                     }
                     catch (Exception ex) 

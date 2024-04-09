@@ -1,3 +1,4 @@
+
 ﻿using Entity_Framework_Core__Basics.Models;
 using Entity_Framework_Core__Basics.Data;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
@@ -101,6 +102,7 @@ namespace Entity_Framework_Core__Basics
         }
     }
 }
+
 
 
 

@@ -22,6 +22,7 @@ namespace Entity_Framework_Core__Basics
             //to add data to the database we need to create an instance of AppDBContext so  that we can access it's
             //properties. We do this with a using statement to make sure that the instance is properly disposed of 
             //afterwards.
+
             //try 
             //{ 
             //using (var context = new AppDBContext())
@@ -187,6 +188,7 @@ namespace Entity_Framework_Core__Basics
 
             //    Console.WriteLine("Error: " + e);
             //}
+
 
 
 

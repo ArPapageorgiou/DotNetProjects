@@ -192,6 +192,7 @@ namespace Entity_Framework_Core__Basics
 
             /////EAGER LOADING
             //Eager loading can be implemented in EF Core using the Include method or the ThenInclude method
+
             //using (var context = new AppDBContext()) 
             //{ 
             //var employees = context.Employees.Include(e => e.EmployeeDetails).ToList();
@@ -222,6 +223,7 @@ namespace Entity_Framework_Core__Basics
 
             Console.WriteLine();
             
+
 
 
 

@@ -3,6 +3,8 @@
 using Entity_Framework_Core__Basics.Data;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Net.NetworkInformation;
 
 namespace Entity_Framework_Core__Basics
 {
@@ -191,15 +193,121 @@ namespace Entity_Framework_Core__Basics
             //}
 
             /////EAGER LOADING
-            //Eager loading can be implemented in EF Core using the Include method or the ThenInclude method
-            using (var context = new AppDBContext()) 
-            { 
-            var employees = context.Employees.Include(e => e.EmployeeDetails).ToList();
-                foreach (var employee in employees) 
-                {
-                    Console.WriteLine($"Id: {employee.EmployeeDetails.EmployeeId} {employee.FirstName} {employee.LastName} {employee.EmployeeDetails.Address}");
-                }
-            }
+            ///retrieve related data along with the main data in a single database query, rather than making 
+            ///additional queries for each related entity.
+            ///When you eagerly load data, you're essentially telling the database to fetch not only the main 
+            ///entity you requested but also its related entities in the same query.
+            //Eager loading can be implemented in EF Core using the Include() method or the ThenInclude() method
+            //Include and ThenInclude specify which related entities you want to eagerly load. 
+
+            //using (var context = new AppDBContext()) 
+            //{ 
+            //var employees = context.Employees.Include(e => e.EmployeeDetails).ToList();
+            //    foreach (var employee in employees) 
+            //    {
+            //        Console.WriteLine($"Id: {employee.EmployeeDetails.EmployeeId} {employee.FirstName} {employee.LastName} {employee.EmployeeDetails.Address}");
+            //    }
+            //}
+
+            //Eager loading Many-To-Many relationship
+            //The Include method allows you to specify which navigation properties to load and the ThenInclude
+            //method enables you to include further related entities
+            //using (var context = new AppDBContext()) 
+            //{
+            //    Console.WriteLine("Eager loading Many-To-Many relationship");
+
+            //    var projects = context.Project.Include(p => p.EmployeeProjects)
+            //        .ThenInclude(p => p.Employee).ToList();
+
+            //    foreach (var project in projects) 
+            //    {
+            //        Console.WriteLine($"Project Name: {project.Name}");
+            //        foreach (var employee in project.EmployeeProjects) 
+            //        {
+            //            Console.WriteLine($"Employee: {employee.Employee.FirstName}");
+            //        }
+            //    }
+
+            //}
+
+            //Advanteges:
+            //Eager loading reduces the number of round-trips required to retrieve data and thus improves performance.
+            //Minimizes network traffic as instead of sending multiple request to the database for retrieving related entities
+            //you can fetch them all in a single query.
+
+            //Disadvantages
+            //Increased Data transfer size
+            //Overfetching of data. It can result in unnecessary data being fetched, wasting resources and
+            //impacting performance
+
+
+            //////EXPLICIT LOADING
+            //Explicit Loading is a technique in which related data is explicitly loaded from the database
+            //at a later time.That means related data is not loaded at the same time with main data.
+            //Entry() - Collection() - Reference()
+            //To implement Explicit loading we can use the Entry method of the DbContext class along with the
+            //Collection or Reference Methods to explicitly load related entities.
+
+            //using (var context = new AppDBContext()) 
+            //{ 
+            //    //Loading Main Entity
+            //var employees = context.Employees.ToList();
+
+            //    foreach (var employee in employees) 
+            //    {
+            //        //Loading Related Entity
+            //        context.Entry(employee).Reference(e => e.EmployeeDetails).Load();
+            //        //Entry() retrieves an EntityEntry object for the given entity. An EntityEntry object represents
+            //        //an entity being tracked by the context. EntityEntry provides various methods and properties to interact with
+            //        //the entity being tracked.
+
+            //        //Reference() is called on an EntityEntry object obtained through the Entry method.
+            //        //It specifies a reference navigation property of the entity for which you want to load related data.
+            //        //Reference navigation properties represent associations where there's a single related entity (as opposed
+            //        //to collection navigation properties, which represent associations with multiple related entities).
+
+            //        //Load() is called after specifying a reference navigation property using the Reference method. It executes
+            //        //a database query to load the related entity data into memory.
+            //        Console.WriteLine($"Id: {employee.EmployeeDetails.EmployeeId} Name: {employee.FirstName} Address: {employee.EmployeeDetails.Address}");
+            //    }
+
+            //}
+
+            //Explicit Loading one-To-Many relationships
+            //using (var context = new AppDBContext()) 
+            //{ 
+            //var managers = context.Managers.ToList();
+            //    foreach (var manager in managers) 
+            //    {
+            //        Console.WriteLine($"Full Name: {manager.MngFirstName} {manager.MngLastName}");
+            //        context.Entry(manager).Collection(m => m.Employees).Load();
+            //        //Collection method is being used instead of Reference method, this is appropriate
+            //        //when dealing with a one-to-many or many-to-many relationship where there's a
+            //        //collection of related entities.
+            //        foreach (var employee in manager.Employees) 
+            //        {
+            //            Console.WriteLine($"Full Name: {employee.FirstName} {employee.LastName}");
+            //        }
+            //    }
+            //}
+
+            ////Advantages of Explicit Loading:
+            //Improved performance as it allows you to load related entities on demand, reducing the amount of data
+            //retrieved from the databasse
+            //Reduced memory usage. By selectively loading related entities when needed, you can conserve memory
+            //resources.
+            ////Disadvantages of Explicit Loading:
+            //Increased Complexity as we need to explicitly manage the loading of related entities.
+            //Additional queries. If not written properly, this may result in increased number of
+            //database queries which impacts performance.
+
+            /////LAZY LOADING 
+            //
+
+
+            Console.WriteLine();
+            
+
 
 
 

@@ -2,6 +2,7 @@
 ﻿using Entity_Framework_Core__Basics.Models;
 using Entity_Framework_Core__Basics.Data;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace Entity_Framework_Core__Basics
 {
@@ -188,6 +189,17 @@ namespace Entity_Framework_Core__Basics
 
             //    Console.WriteLine("Error: " + e);
             //}
+
+            /////EAGER LOADING
+            //Eager loading can be implemented in EF Core using the Include method or the ThenInclude method
+            using (var context = new AppDBContext()) 
+            { 
+            var employees = context.Employees.Include(e => e.EmployeeDetails).ToList();
+                foreach (var employee in employees) 
+                {
+                    Console.WriteLine($"Id: {employee.EmployeeDetails.EmployeeId} {employee.FirstName} {employee.LastName} {employee.EmployeeDetails.Address}");
+                }
+            }
 
 
 

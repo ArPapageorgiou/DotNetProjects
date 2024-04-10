@@ -192,14 +192,36 @@ namespace Entity_Framework_Core__Basics
 
             /////EAGER LOADING
             //Eager loading can be implemented in EF Core using the Include method or the ThenInclude method
-            using (var context = new AppDBContext()) 
-            { 
-            var employees = context.Employees.Include(e => e.EmployeeDetails).ToList();
-                foreach (var employee in employees) 
+            //using (var context = new AppDBContext()) 
+            //{ 
+            //var employees = context.Employees.Include(e => e.EmployeeDetails).ToList();
+            //    foreach (var employee in employees) 
+            //    {
+            //        Console.WriteLine($"Id: {employee.EmployeeDetails.EmployeeId} {employee.FirstName} {employee.LastName} {employee.EmployeeDetails.Address}");
+            //    }
+            //}
+
+            //Eager loading Many-To-Many relationship
+            using (var context = new AppDBContext) 
+            {
+                Console.WriteLine("Eager loading Many-To-Many relationship");
+
+                var projects = context.Project.Include(p => p.EmployeeProjects)
+                    .ThenInclude(p => p.Employee).ToList();
+
+                foreach (var project in projects) 
                 {
-                    Console.WriteLine($"Id: {employee.EmployeeDetails.EmployeeId} {employee.FirstName} {employee.LastName} {employee.EmployeeDetails.Address}");
+                    Console.WriteLine($"Project Name: {project.Name}");
+                    foreach (var employee in project.EmployeeProjects) 
+                    {
+                        Console.WriteLine($"Employee: {employee.Employee.FirstName}");
+                    }
                 }
+
             }
+
+            Console.WriteLine();
+            
 
 
 

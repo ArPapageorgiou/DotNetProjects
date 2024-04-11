@@ -10,10 +10,10 @@ namespace Entity_Framework_Core__Basics.Models
     {
         //Many-to-Many
         public int EmployeeId { get; set; } //Foreign key 
-        public Employee Employee { get; set; }//Reference navigation property to principal entity
+        public virtual Employee Employee { get; set; }//Reference navigation property to principal entity
         
         public int ProjectId { get; set; }//Foreign key 
-        public Project Project { get; set; }//Reference navigation property to principal entity
+        public virtual Project Project { get; set; }//Reference navigation property to principal entity
         
     }
 }

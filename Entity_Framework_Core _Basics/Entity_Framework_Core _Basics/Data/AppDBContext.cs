@@ -20,9 +20,11 @@ namespace Entity_Framework_Core__Basics.Data
 
 
         }
+
+        //This is where the UseLazyLoadingProxies() method to enable the use of lazy loading
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           optionsBuilder.UseSqlServer(ConnectionString);
+           optionsBuilder.UseLazyLoadingProxies().UseSqlServer(ConnectionString);
         }
 
 

@@ -316,26 +316,55 @@ namespace Entity_Framework_Core__Basics
             //public virtual ICollection<Employee> Employees { get; set; }
             //etc
 
-            using (var context = new AppDBContext()) 
-            { 
-            var manager = context.Managers.ToList();
-                foreach (var mng in manager) 
-                {
-                    Console.WriteLine($"Manager Full Name: {mng.MngFirstName} {mng.MngLastName}");
-                    if (mng.Employees.Any()) 
-                    {
-                        Console.WriteLine("Employees: ");
-                        foreach (var emp in mng.Employees) 
-                        {
-                            Console.WriteLine($"{emp.FirstName} {emp.LastName}");
-                        }
-                    }
+            //using (var context = new AppDBContext()) 
+            //{ 
+            //var manager = context.Managers.ToList();
+            //    foreach (var mng in manager) 
+            //    {
+            //        Console.WriteLine($"Manager Full Name: {mng.MngFirstName} {mng.MngLastName}");
+            //        if (mng.Employees.Any()) 
+            //        {
+            //            Console.WriteLine("Employees: ");
+            //            foreach (var emp in mng.Employees) 
+            //            {
+            //                Console.WriteLine($"{emp.FirstName} {emp.LastName}");
+            //            }
+            //        }
+            //    }
+            //}
+
+
+            /////ASYNCHRONOUS OPERATIONS
+            //Asynchronous operations in Entity Framework allow database queries and updates to be performed
+            //without blocking the application's main thread.By using methods with "Async" suffix,
+            //the application can continue its tasks while waiting for the database operation to complete,
+            //improving responsiveness and scalability.
+
+            //When working with asynchronous programming in C#, it's essential to follow certain conventions:
+            //1. Async Suffix: Methods that perform asynchronous operations typically have an "Async" suffix
+            //added to their names to indicate that they execute asynchronously.
+
+            //2. Task or Task<T> Return Type: Asynchronous methods should return either a Task object or a
+            //Task<T> object, where T is the type of the result. The Task object represents an asynchronous
+            //operation that doesn't return a result, while Task<T> represents an asynchronous operation that
+            //returns a result of type T.
+
+            //3. Async/Await Pattern: When calling asynchronous methods, you should use the await keyword
+            //before the method call. This tells the compiler to asynchronously wait for the completion of
+            //the method before continuing execution.
+
+            //Modify return type
+            static async Task CreateEmployeeAsync (Employee employee) 
+            {
+                using (var context = new AppDBContext()) 
+                { 
+                    await context.Employees.AddAsync(employee);
+                    await context.SaveChangesAsync();
+                    Console.WriteLine("Employee added successfully");
                 }
             }
-
-
-                Console.ReadLine();
             
+            //Now to call the method we need to use the await keyword
 
 
 

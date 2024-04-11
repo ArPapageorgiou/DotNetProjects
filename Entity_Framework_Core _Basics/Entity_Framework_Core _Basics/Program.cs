@@ -10,7 +10,7 @@ namespace Entity_Framework_Core__Basics
 {
     class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
 
             //HOW TO ADD DATA TO DATABASE
@@ -340,31 +340,42 @@ namespace Entity_Framework_Core__Basics
             //the application can continue its tasks while waiting for the database operation to complete,
             //improving responsiveness and scalability.
 
+            //When creating asynchronous methods
             //When working with asynchronous programming in C#, it's essential to follow certain conventions:
-            //1. Async Suffix: Methods that perform asynchronous operations typically have an "Async" suffix
-            //added to their names to indicate that they execute asynchronously.
+            //1.Methods performing asynchronous operations should be marked with the async keyword in their
+            //declaration. 
 
             //2. Task or Task<T> Return Type: Asynchronous methods should return either a Task object or a
             //Task<T> object, where T is the type of the result. The Task object represents an asynchronous
             //operation that doesn't return a result, while Task<T> represents an asynchronous operation that
             //returns a result of type T.
 
-            //3. Async/Await Pattern: When calling asynchronous methods, you should use the await keyword
+            //When calling Asynchronous methods
+            //1. Async/Await Pattern: When calling asynchronous methods, you should use the await keyword
             //before the method call. This tells the compiler to asynchronously wait for the completion of
             //the method before continuing execution.
 
-            //Modify return type
+            //2. Async Suffix: Methods that perform asynchronous operations typically have an "Async" suffix
+            //added to their names to indicate that they execute asynchronously.
+
+            //Mark with async keyword and modify return type to Task
             static async Task CreateEmployeeAsync (Employee employee) 
             {
-                using (var context = new AppDBContext()) 
-                { 
+                using (var context = new AppDBContext())
+                { //always use the await keyword before the method call, in this case AddAsync() and SaveChangesAsync()
                     await context.Employees.AddAsync(employee);
                     await context.SaveChangesAsync();
                     Console.WriteLine("Employee added successfully");
                 }
             }
-            
-            //Now to call the method we need to use the await keyword
+
+            //Now to call the method CreateEmployeeAsync() we need to use the await keyword before that method
+            //as we did in the case of AddAsync() and SaveChangesAsync()
+            //Note that in order to call an async method, you need to do so from within another asynchronous
+            //method. If you try to use await outside of an asynchronous method, the compiler will give you an error.
+            // So we have to change our main to "public static async Task Main(string[] args)"
+            //Now let's call the method:
+            await CreateEmployeeAsync(new Employee { FirstName = "John", LastName = "Holmes", EmpSalary = 50000, ManagerId = 1 });
 
 
 

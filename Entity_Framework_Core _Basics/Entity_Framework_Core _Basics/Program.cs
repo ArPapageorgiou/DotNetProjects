@@ -306,6 +306,7 @@ namespace Entity_Framework_Core__Basics
 
             /////LAZY LOADING 
 
+
             //How to implement Lazy Loading:
             //1.Install ther Nuget package Microsoft.EntityFrameworkCore.Proxies
 
@@ -363,6 +364,7 @@ namespace Entity_Framework_Core__Basics
                     Console.WriteLine("Employee added successfully");
                 }
             }
+
             
             //Now to call the method we need to use the await keyword
 

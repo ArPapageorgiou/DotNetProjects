@@ -335,6 +335,7 @@ namespace Entity_Framework_Core__Basics
             //}
 
 
+
             /////ASYNCHRONOUS OPERATIONS
             //Asynchronous operations in Entity Framework allow database queries and updates to be performed
             //without blocking the application's main thread.By using methods with "Async" suffix,

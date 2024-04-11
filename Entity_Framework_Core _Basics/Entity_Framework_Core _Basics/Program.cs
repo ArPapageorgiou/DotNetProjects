@@ -10,7 +10,7 @@ namespace Entity_Framework_Core__Basics
 {
     class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
 
             //HOW TO ADD DATA TO DATABASE
@@ -306,6 +306,7 @@ namespace Entity_Framework_Core__Basics
 
             /////LAZY LOADING 
 
+
             //How to implement Lazy Loading:
             //1.Install ther Nuget package Microsoft.EntityFrameworkCore.Proxies
 
@@ -316,26 +317,66 @@ namespace Entity_Framework_Core__Basics
             //public virtual ICollection<Employee> Employees { get; set; }
             //etc
 
-            using (var context = new AppDBContext()) 
-            { 
-            var manager = context.Managers.ToList();
-                foreach (var mng in manager) 
-                {
-                    Console.WriteLine($"Manager Full Name: {mng.MngFirstName} {mng.MngLastName}");
-                    if (mng.Employees.Any()) 
-                    {
-                        Console.WriteLine("Employees: ");
-                        foreach (var emp in mng.Employees) 
-                        {
-                            Console.WriteLine($"{emp.FirstName} {emp.LastName}");
-                        }
-                    }
+            //using (var context = new AppDBContext()) 
+            //{ 
+            //var manager = context.Managers.ToList();
+            //    foreach (var mng in manager) 
+            //    {
+            //        Console.WriteLine($"Manager Full Name: {mng.MngFirstName} {mng.MngLastName}");
+            //        if (mng.Employees.Any()) 
+            //        {
+            //            Console.WriteLine("Employees: ");
+            //            foreach (var emp in mng.Employees) 
+            //            {
+            //                Console.WriteLine($"{emp.FirstName} {emp.LastName}");
+            //            }
+            //        }
+            //    }
+            //}
+
+
+            /////ASYNCHRONOUS OPERATIONS
+            //Asynchronous operations in Entity Framework allow database queries and updates to be performed
+            //without blocking the application's main thread.By using methods with "Async" suffix,
+            //the application can continue its tasks while waiting for the database operation to complete,
+            //improving responsiveness and scalability.
+
+            //When creating asynchronous methods
+            //When working with asynchronous programming in C#, it's essential to follow certain conventions:
+            //1.Methods performing asynchronous operations should be marked with the async keyword in their
+            //declaration. 
+
+            //2. Task or Task<T> Return Type: Asynchronous methods should return either a Task object or a
+            //Task<T> object, where T is the type of the result. The Task object represents an asynchronous
+            //operation that doesn't return a result, while Task<T> represents an asynchronous operation that
+            //returns a result of type T.
+
+            //When calling Asynchronous methods
+            //1. Async/Await Pattern: When calling asynchronous methods, you should use the await keyword
+            //before the method call. This tells the compiler to asynchronously wait for the completion of
+            //the method before continuing execution.
+
+            //2. Async Suffix: Methods that perform asynchronous operations typically have an "Async" suffix
+            //added to their names to indicate that they execute asynchronously.
+
+            //Mark with async keyword and modify return type to Task
+            static async Task CreateEmployeeAsync (Employee employee) 
+            {
+                using (var context = new AppDBContext())
+                { //always use the await keyword before the method call, in this case AddAsync() and SaveChangesAsync()
+                    await context.Employees.AddAsync(employee);
+                    await context.SaveChangesAsync();
+                    Console.WriteLine("Employee added successfully");
                 }
             }
 
-
-                Console.ReadLine();
-            
+            //Now to call the method CreateEmployeeAsync() we need to use the await keyword before that method
+            //as we did in the case of AddAsync() and SaveChangesAsync()
+            //Note that in order to call an async method, you need to do so from within another asynchronous
+            //method. If you try to use await outside of an asynchronous method, the compiler will give you an error.
+            // So we have to change our main to "public static async Task Main(string[] args)"
+            //Now let's call the method:
+            await CreateEmployeeAsync(new Employee { FirstName = "John", LastName = "Holmes", EmpSalary = 50000, ManagerId = 1 });
 
 
 

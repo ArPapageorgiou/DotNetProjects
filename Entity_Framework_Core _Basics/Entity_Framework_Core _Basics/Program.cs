@@ -374,11 +374,38 @@ namespace Entity_Framework_Core__Basics
             //as we did in the case of AddAsync() and SaveChangesAsync()
             //Note that in order to call an async method, you need to do so from within another asynchronous
             //method. If you try to use await outside of an asynchronous method, the compiler will give you an error.
-            // So we have to change our main to "public static async Task Main(string[] args)"
+            // So we have to change our Main() declaration to "public static async Task Main(string[] args)"
             //Now let's call the method:
             await CreateEmployeeAsync(new Employee { FirstName = "John", LastName = "Holmes", EmpSalary = 50000, ManagerId = 1 });
 
 
+
+            ////DATA ANNOTATIONS
+            //Data annotations in Entity Framework Core are used to configure different aspects of entities
+            //directly in the code. We can use data annotations to customize the model, which will override
+            //the configuration performed by conventions.
+
+            //We can also use Fluent API to customize the model, if both are used then fluent API will
+            //override the configuration performed by data annotations
+
+            //Go to Employee entity class to look at Data Annotation examples. Also look at the OnModelCreating method in 
+            //AppDBContext class to see how we can achieve the same results through the use of Fluent API.
+
+            //Here are some of the commonly used data annotations in Entity Framework:
+            //Key: Specifies the property or properties that make up the primary key of an entity.
+            //ForeignKey: Specifies the property representing the foreign key in a relationship.
+            //Required: Specifies that a property is required and must have a non-null value.
+            //StringLength: Specifies the maximum length of a string or binary property.
+            //MaxLength: Specifies the maximum length of a string or binary property.
+            //MinLength: Specifies the minimum length of a string or binary property.
+            //RegularExpression: Specifies a regular expression pattern for a string property.
+            //Range: Specifies the range of values allowed for a numeric property.
+            //ConcurrencyCheck: Specifies that a property should be included in the WHERE clause of SQL UPDATE and DELETE statements.
+            //Timestamp: Specifies that a property should be included in the WHERE clause of SQL UPDATE and DELETE statements as part of an optimistic concurrency control strategy.
+            //DatabaseGenerated: Specifies how a value is generated for a property in the database.
+            //Table: Specifies the table name for an entity.
+            //Column: Specifies the column name for a property.
+            //NotMapped: Specifies that a property or entity should be excluded from the database schema.
 
 
 

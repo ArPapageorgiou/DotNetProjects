@@ -12,6 +12,6 @@ namespace Entity_Framework_Core__Basics.Models
         //with related entities, such as adding, removing, or accessing them. Once you have access to the
         //related entities through the collection navigation property (ICollection<T>), you can easily
         //access their properties and perform operations.
-        public ICollection<EmployeeProject> EmployeeProjects { get; set; } //Collection navigation property
+        public virtual ICollection<EmployeeProject> EmployeeProjects { get; set; } //Collection navigation property
     }
 }

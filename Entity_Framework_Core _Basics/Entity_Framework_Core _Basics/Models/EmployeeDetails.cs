@@ -19,7 +19,7 @@ namespace Entity_Framework_Core__Basics.Models
         //We call Employee class the principal entity as that is the entity to which the foreign
         //key points to.
         public int EmployeeId { get; set; }
-        public Employee Employee { get; set; } //reference navigation property.
+        public virtual Employee Employee { get; set; } //reference navigation property.
                                                //This is essential for accessing related entities. 
 
     }

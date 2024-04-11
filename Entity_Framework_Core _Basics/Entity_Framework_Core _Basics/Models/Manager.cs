@@ -12,7 +12,7 @@
         //manager can have more than one employees. Since the foreign key in Employee is pointing to the manager
         //class, that makes the manager class the Principal entity.
 
-        public ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
 
     }
 }

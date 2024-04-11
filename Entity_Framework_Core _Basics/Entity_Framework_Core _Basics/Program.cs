@@ -284,6 +284,7 @@ namespace Entity_Framework_Core__Basics
             //        //Collection method is being used instead of Reference method, this is appropriate
             //        //when dealing with a one-to-many or many-to-many relationship where there's a
             //        //collection of related entities.
+            //
             //        foreach (var employee in manager.Employees) 
             //        {
             //            Console.WriteLine($"Full Name: {employee.FirstName} {employee.LastName}");
@@ -302,10 +303,34 @@ namespace Entity_Framework_Core__Basics
             //database queries which impacts performance.
 
             /////LAZY LOADING 
-            //
+            //How to implement Lazy Loading:
+            //1.Install ther Nuget package Microsoft.EntityFrameworkCore.Proxies
 
+            //2. Call the method UseLazyLoadingProxies() inside the OnConfiguring method of the DbContext class.
 
-            Console.WriteLine();
+            //3.Change the reference type of ALL the navigation properties of the relevant entities to 'Virtual' like this:
+            //public virtual Manager Manager { get; set; }
+            //public virtual ICollection<Employee> Employees { get; set; }
+            //etc
+
+            using (var context = new AppDBContext()) 
+            { 
+            var manager = context.Managers.ToList();
+                foreach (var mng in manager) 
+                {
+                    Console.WriteLine($"Manager Full Name: {mng.MngFirstName} {mng.MngLastName}");
+                    if (mng.Employees.Any()) 
+                    {
+                        Console.WriteLine("Employees: ");
+                        foreach (var emp in mng.Employees) 
+                        {
+                            Console.WriteLine($"{emp.FirstName} {emp.LastName}");
+                        }
+                    }
+                }
+            }
+
+                Console.ReadLine();
             
 
 

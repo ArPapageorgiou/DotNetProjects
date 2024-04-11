@@ -284,7 +284,9 @@ namespace Entity_Framework_Core__Basics
             //        //Collection method is being used instead of Reference method, this is appropriate
             //        //when dealing with a one-to-many or many-to-many relationship where there's a
             //        //collection of related entities.
+
             //
+
             //        foreach (var employee in manager.Employees) 
             //        {
             //            Console.WriteLine($"Full Name: {employee.FirstName} {employee.LastName}");
@@ -303,6 +305,7 @@ namespace Entity_Framework_Core__Basics
             //database queries which impacts performance.
 
             /////LAZY LOADING 
+
             //How to implement Lazy Loading:
             //1.Install ther Nuget package Microsoft.EntityFrameworkCore.Proxies
 
@@ -329,6 +332,7 @@ namespace Entity_Framework_Core__Basics
                     }
                 }
             }
+
 
                 Console.ReadLine();
             

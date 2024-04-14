@@ -1,3 +1,4 @@
+
 ﻿using Domain.Entities;
 
 namespace Library_Infrastructure.Interfaces
@@ -15,5 +16,5 @@ namespace Library_Infrastructure.Interfaces
         void SoftDeleteBookById(int id);
         void HardDeleteBookById(int id);
 
-    }
+
 }

@@ -1,3 +1,4 @@
+
 ﻿using Domain.Entities;
 namespace Library_Infrastructure.Interfaces
 {
@@ -7,6 +8,7 @@ namespace Library_Infrastructure.Interfaces
         Members GetMemberById(int id);
 
         
+
 
 
     }

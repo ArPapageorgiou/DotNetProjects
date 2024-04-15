@@ -5,6 +5,7 @@ namespace Library_Infrastructure.Interfaces
 {
     public interface IBooksRepository
     {
+
         bool DoesBookExist(int bookId);//
         Books GetBookById(int id);//
         Books GetBookByTitle(string title);//
@@ -16,6 +17,7 @@ namespace Library_Infrastructure.Interfaces
         void IncreaseBooks(int bookId, int increaseByNumber);//
         void ReduceBooks(int bookid, int reduceByNumber);//
         void BulkInsertBooks(Books books);
+
         void UpdateBookById(int id);
         void SoftDeleteBookById(int id);
         void HardDeleteBookById(int id);

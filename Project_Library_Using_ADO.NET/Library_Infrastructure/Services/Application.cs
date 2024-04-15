@@ -6,9 +6,11 @@ namespace Library_Infrastructure.Services
 {
     public class Application : IApplication
     {
+
         private readonly IBooksRepository _booksRepository;
         private readonly IMembersRepository _membersRepository;
         private  ITransactionsRepository _transactionsRepository;
+
 
         public Application(IBooksRepository booksRepository,
             IMembersRepository membersRepository,
@@ -18,6 +20,7 @@ namespace Library_Infrastructure.Services
             _membersRepository = membersRepository;
             _transactionsRepository = transactionsRepository;
         }
+
 
         public Books SearchBook(int bookId) 
         {
@@ -92,10 +95,12 @@ namespace Library_Infrastructure.Services
                 Console.WriteLine($"An error occurred during the search: {ex.Message}");
                 return null;
             }
+
         }
 
         public IEnumerable<Books> SearchAllNotRentedBooks() 
         {
+
             try
             {
                 return _booksRepository.GetAllNotRentedBooks();
@@ -106,10 +111,12 @@ namespace Library_Infrastructure.Services
                 return null;
             }
             
+
         }
 
         public IEnumerable<Books> SearchAllBooks() 
         {
+
             try
             {
                 return _booksRepository.GetAllBooks();
@@ -119,10 +126,12 @@ namespace Library_Infrastructure.Services
                 Console.WriteLine($"An error occurred during the search: {ex.Message}");
                 return null;
             }
+
         }
 
         public IEnumerable<Books> SearchAllAvailableBooks() 
         {
+
             try
             {
                 return _booksRepository.GetAvailableBooks();
@@ -135,6 +144,7 @@ namespace Library_Infrastructure.Services
         }
         
         public void InsertBookCopy(int bookId, int increaseByNumber) 
+
         {
             if (_booksRepository.DoesBookExist(bookId)) 
             {
@@ -142,6 +152,7 @@ namespace Library_Infrastructure.Services
             }
             else
             {
+
                 Console.WriteLine();
             }
         }
@@ -150,6 +161,7 @@ namespace Library_Infrastructure.Services
         {
             _booksRepository.InsertNewBook(book);
         }
+
 
         public void ReduceBookCopies(int bookId, int reduceByNumber) 
         {
@@ -163,6 +175,7 @@ namespace Library_Infrastructure.Services
             }
         }
         
+
         public Members SearchMember(int id) 
         {
             try
@@ -204,10 +217,12 @@ namespace Library_Infrastructure.Services
                 Console.WriteLine($"An error occurred while searching for the member: {ex.Message}");
                 return null;
             }
+
         }
 
         public void CreateMember(Members member) 
         {
+
             try
             {
                 _membersRepository.InsertMember(member);
@@ -242,10 +257,12 @@ namespace Library_Infrastructure.Services
             {
                 Console.WriteLine($"An error occurred while trying to rent the book with id number {bookId} to member with id number {memberId}: {ex.Message}");
             }
+
         }
 
         public void ReturnBook(int memberId, int bookId) 
         {
+
             try
             {
                 if (_membersRepository.DoesMemberExist(memberId) && _booksRepository.DoesBookExist(bookId))
@@ -269,6 +286,7 @@ namespace Library_Infrastructure.Services
             {
                 Console.WriteLine($"An error occurred while trying to return book with id number {bookId} from member with id number {memberId}: {ex.Message} ");
             }
+
         }
 
         public void HardDeleteMember(int memberId) 
@@ -276,11 +294,13 @@ namespace Library_Infrastructure.Services
             if (_membersRepository.DoesMemberExist(memberId)) 
             {
                 _membersRepository.DeleteMember(memberId);
+
                 Console.WriteLine($"Member with id number {memberId} has been deleted.");
             }
             else 
             {
                 Console.WriteLine("Member not found.");
+
             }
         }
         

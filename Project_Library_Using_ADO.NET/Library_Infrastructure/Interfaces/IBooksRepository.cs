@@ -5,6 +5,7 @@ namespace Library_Infrastructure.Interfaces
 {
     public interface IBooksRepository
     {
+
         bool DoesBookExist(int bookId);
         bool DoesBookExist(string title);
         bool IsBookAvailable(int bookId);
@@ -18,6 +19,7 @@ namespace Library_Infrastructure.Interfaces
         void InsertNewBook(Books book);
         void IncreaseBooks(int bookId, int increaseByNumber);
         void ReduceBooks(int bookid, int reduceByNumber);
+
 
     }
 

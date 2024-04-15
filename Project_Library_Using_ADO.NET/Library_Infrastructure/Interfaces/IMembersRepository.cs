@@ -1,3 +1,4 @@
+
 ﻿using Domain.Entities;
 namespace Library_Infrastructure.Interfaces
 {
@@ -10,6 +11,7 @@ namespace Library_Infrastructure.Interfaces
         Members GetMember(string fullName);//
         void InsertMember(Members members);//
         void DeleteMember(int memberId);//
+
 
 
 

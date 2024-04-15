@@ -1,6 +1,7 @@
 ﻿namespace Library_Infrastructure.Repositories
 {
-    public class BooksRepository
+    public class BooksRepository : Base_Repository 
     {
+
     }
 }

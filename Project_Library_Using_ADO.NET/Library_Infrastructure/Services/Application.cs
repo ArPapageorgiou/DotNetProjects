@@ -6,9 +6,11 @@ namespace Library_Application.Services
 {
     public class Application : IApplication
     {
+
         private readonly IBooksRepository _booksRepository;
         private readonly IMembersRepository _membersRepository;
         private  ITransactionsRepository _transactionsRepository;
+
 
         public Application(IBooksRepository booksRepository,
             IMembersRepository membersRepository,
@@ -18,6 +20,7 @@ namespace Library_Application.Services
             _membersRepository = membersRepository;
             _transactionsRepository = transactionsRepository;
         }
+
 
         public Books SearchBook(int bookId) 
         {
@@ -92,10 +95,12 @@ namespace Library_Application.Services
                 Console.WriteLine($"An error occurred during the search: {ex.Message}");
                 return null;
             }
+
         }
 
         public IEnumerable<Books> SearchAllNotRentedBooks() 
         {
+
             try
             {
                 return _booksRepository.GetAllNotRentedBooks();
@@ -106,10 +111,12 @@ namespace Library_Application.Services
                 return null;
             }
             
+
         }
 
         public IEnumerable<Books> SearchAllBooks() 
         {
+
             try
             {
                 return _booksRepository.GetAllBooks();
@@ -119,10 +126,12 @@ namespace Library_Application.Services
                 Console.WriteLine($"An error occurred during the search: {ex.Message}");
                 return null;
             }
+
         }
 
         public IEnumerable<Books> SearchAllAvailableBooks() 
         {
+
             try
             {
                 return _booksRepository.GetAvailableBooks();
@@ -211,10 +220,12 @@ namespace Library_Application.Services
                 Console.WriteLine($"An error occurred while searching for the member: {ex.Message}");
                 return null;
             }
+
         }
 
         public void CreateMember(Members member) 
         {
+
             try
             {
                 _membersRepository.InsertMember(member);
@@ -249,10 +260,12 @@ namespace Library_Application.Services
             {
                 Console.WriteLine($"An error occurred while trying to rent the book with id number {bookId} to member with id number {memberId}: {ex.Message}");
             }
+
         }
 
         public void ReturnBook(int memberId, int bookId) 
         {
+
             try
             {
                 if (_membersRepository.DoesMemberExist(memberId) && _booksRepository.DoesBookExist(bookId))
@@ -276,6 +289,7 @@ namespace Library_Application.Services
             {
                 Console.WriteLine($"An error occurred while trying to return book with id number {bookId} from member with id number {memberId}: {ex.Message} ");
             }
+
         }
 
         public void HardDeleteMember(int memberId) 

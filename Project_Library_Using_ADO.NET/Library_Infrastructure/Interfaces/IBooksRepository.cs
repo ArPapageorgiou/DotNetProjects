@@ -17,8 +17,10 @@ namespace Library_Application.Interfaces
         IEnumerable<Books> GetAllRentedBooks();
         IEnumerable<Books> GetAllNotRentedBooks();
         void InsertNewBook(Books book);
+
         void AddRemoveBookCopy(int bookId, int increaseByNumber);
         
+
     }
 
 }

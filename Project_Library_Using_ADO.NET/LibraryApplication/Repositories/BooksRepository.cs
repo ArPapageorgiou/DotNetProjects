@@ -8,6 +8,7 @@ using System.Net;
 
 namespace Library_Infrastructure.Repositories
 {
+
     public class BooksRepository : Base_Repository, IBooksRepository 
     {
         private readonly DatabaseConfiguration _databaseConfiguration;
@@ -63,6 +64,7 @@ namespace Library_Infrastructure.Repositories
         public IEnumerable<Books> GetAllNotRentedBooks() { }
         public void InsertNewBook(Books book) { }
         public void AddRemoveBookCopy(int bookId, int ChangeByNumber) { }
+
 
 
     }

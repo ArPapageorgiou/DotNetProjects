@@ -25,8 +25,10 @@ namespace Library_Application.Interfaces
         IEnumerable<Books> SearchAllBooks();//
         //returns all books with all rental info 
         IEnumerable<Books> SearchAllAvailableBooks();//
+
         void CreateNewBook(Books book);//
         void AddRemoveBookCopy(int bookId, int ChangeByNumber);//does both jobs at once
+
         Members SearchMember(int id);//
         //checks if member exists, if they do return all their info and whether they have rented any books
         //and whether they can rent more

@@ -1,7 +1,7 @@
 
 ﻿using Domain.Entities;
 
-namespace Library_Infrastructure.Interfaces
+namespace Library_Application.Interfaces
 {
     public interface IBooksRepository
     {
@@ -16,9 +16,8 @@ namespace Library_Infrastructure.Interfaces
         IEnumerable<Books> GetAllRentedBooks();
         IEnumerable<Books> GetAllNotRentedBooks();
         void InsertNewBook(Books book);
-        void IncreaseBooks(int bookId, int increaseByNumber);
-        void ReduceBooks(int bookid, int reduceByNumber);
-
+        void AddRemoveBookCopy(int bookId, int increaseByNumber);
+        
     }
 
 }

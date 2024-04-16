@@ -12,4 +12,9 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Library_Domain.csproj" />
+    <ProjectReference Include="..\Library_Infrastructure\Library_Application.csproj" />
+  </ItemGroup>
+
 </Project>

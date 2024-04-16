@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 
-namespace Library_Infrastructure.Interfaces
+namespace Library_Application.Interfaces
 {
     public interface IApplication
     {
@@ -21,17 +21,8 @@ namespace Library_Infrastructure.Interfaces
         IEnumerable<Books> SearchAllBooks();//
         //returns all books with all rental info 
         IEnumerable<Books> SearchAllAvailableBooks();//
-        void InsertBookCopy(int bookId, int increaseByNumber);//
-        //1)checks if book exists based on id - messages user if it does with all relevant rental info
-        //of the book and simply updates the count of inventory copies
-        //2)if the book does not exist then it prompts the user to input all relevant info about the book
-        //like number of copies,genre,description etc
         void CreateNewBook(Books book);//
-        void ReduceBookCopies(int bookId, int reduceByNumber);//
-        //checks if book exists based on title
-        //if it does not exist it will message user that the book in not found and to verify info and try
-        //again
-        //if title exists then it simply updates the count of inventory copies
+        void AddRemoveBookCopy(int bookId, int ChangeByNumber);//does both jobs at once
         Members SearchMember(int id);//
         //checks if member exists, if they do return all their info and whether they have rented any books
         //and whether they can rent more

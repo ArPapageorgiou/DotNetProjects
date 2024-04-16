@@ -1,8 +1,8 @@
 ﻿using Domain.Entities;
-using Library_Infrastructure.Interfaces;
+using Library_Application.Interfaces;
 using System.Net;
 
-namespace Library_Infrastructure.Services
+namespace Library_Application.Services
 {
     public class Application : IApplication
     {
@@ -133,43 +133,50 @@ namespace Library_Infrastructure.Services
                 return null;
             }
         }
-        
-        public void InsertBookCopy(int bookId, int increaseByNumber) 
-        {
-            if (_booksRepository.DoesBookExist(bookId)) 
-            {
-                _booksRepository.IncreaseBooks(bookId, increaseByNumber);
-            }
-            else
-            {
-                Console.WriteLine();
-            }
-        }
 
-        public void CreateNewBook(Books book) 
-        {
-            _booksRepository.InsertNewBook(book);
-        }
-
-        public void ReduceBookCopies(int bookId, int reduceByNumber) 
-        {
-            if (_booksRepository.DoesBookExist(bookId))
-            {
-                _booksRepository.ReduceBooks(bookId, reduceByNumber);
-            }
-            else
-            {
-                Console.WriteLine();
-            }
-        }
-        
-        public Members SearchMember(int id) 
+        public void AddRemoveBookCopy(int bookId, int changeByNumber) 
         {
             try
             {
-                if (_membersRepository.DoesMemberExist(id))
+                if (_booksRepository.DoesBookExist(bookId))
                 {
-                    return _membersRepository.GetMember(id);
+                    _booksRepository.AddRemoveBookCopy(bookId, changeByNumber);
+                }
+                else
+                {
+                    Console.WriteLine("Book not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+        }
+
+
+        public void CreateNewBook(Books book) 
+        {
+            try
+            {
+                _booksRepository.InsertNewBook(book);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+        }
+
+        
+        
+        public Members SearchMember(int memberId) 
+        {
+            try
+            {
+                if (_membersRepository.DoesMemberExist(memberId))
+                {
+                    return _membersRepository.GetMember(memberId);
                 }
                 else
                 {
@@ -273,14 +280,22 @@ namespace Library_Infrastructure.Services
 
         public void HardDeleteMember(int memberId) 
         {
-            if (_membersRepository.DoesMemberExist(memberId)) 
+            try
             {
-                _membersRepository.DeleteMember(memberId);
-                Console.WriteLine($"Member with id number {memberId} has been deleted.");
+                if (_membersRepository.DoesMemberExist(memberId))
+                {
+                    _membersRepository.DeleteMember(memberId);
+                    Console.WriteLine($"Member with id number {memberId} has been deleted.");
+                }
+                else
+                {
+                    Console.WriteLine("Member not found.");
+                }
             }
-            else 
+            catch (Exception ex)
             {
-                Console.WriteLine("Member not found.");
+
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
         

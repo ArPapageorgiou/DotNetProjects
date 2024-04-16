@@ -1,4 +1,4 @@
-﻿namespace Library_Infrastructure
+﻿namespace Library_Application
 {
     public class ApplicationModule
     {

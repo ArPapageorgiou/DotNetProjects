@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 
-namespace Library_Infrastructure.Interfaces
+namespace Library_Application.Interfaces
 {
     public interface ITransactionsRepository
     {

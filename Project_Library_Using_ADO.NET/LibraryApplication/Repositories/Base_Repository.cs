@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace Library_Infrastructure.Repositories
 {
-    abstract class Base_Repository
+    public abstract class Base_Repository
     {
     private readonly DatabaseConfiguration _dataBaseConfiguration;
 

@@ -1,6 +1,8 @@
 ﻿using Domain.Entities;
 using Library_Application.Interfaces;
 
+
+
 namespace Library_Application.Services
 {
     public class Application : IApplication
@@ -154,8 +156,10 @@ namespace Library_Application.Services
             }
         }
 
+
         
         
+
         public void AddRemoveBookCopy(int bookId, int changeByNumber) 
 
         {
@@ -179,7 +183,9 @@ namespace Library_Application.Services
         }
 
 
+
         
+
         public void CreateNewBook(Books book) 
 
         {

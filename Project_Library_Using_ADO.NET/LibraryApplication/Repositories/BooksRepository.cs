@@ -4,7 +4,9 @@ using Microsoft.Data.SqlClient;
 using Library_Infrastructure.Constants;
 using System.Data;
 using System.Net;
+
 using System.Diagnostics;
+
 
 
 namespace Library_Infrastructure.Repositories
@@ -28,7 +30,9 @@ namespace Library_Infrastructure.Repositories
                 {
                     SqlCommand cmd = new SqlCommand(Stored_Procedures.spDoesBookExistById, connection);
                     cmd.Parameters.AddWithValue("@BookId", bookId);
+
                     return ((int)cmd.ExecuteScalar() > 0);
+
                 }
             }
             catch (Exception ex)
@@ -37,9 +41,11 @@ namespace Library_Infrastructure.Repositories
                 return false;
             }
         }
+
         
         
         
+
         public bool DoesBookExist(string title) 
         {
             try
@@ -49,8 +55,10 @@ namespace Library_Infrastructure.Repositories
                     SqlCommand cmd = new SqlCommand(Stored_Procedures.spDoesBookExistByTitle, connection);//a select count query where if query result is 1 then return true
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Title", title);
+
                     return ((int)cmd.ExecuteScalar() > 0);
                     
+
                 }
             }
             catch (Exception ex)
@@ -59,6 +67,7 @@ namespace Library_Infrastructure.Repositories
                 return false;
             }
         }
+
         
         
         

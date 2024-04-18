@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Library_Application.Interfaces;
-using System.Net;
+
+
 
 namespace Library_Application.Services
 {
@@ -30,12 +31,14 @@ namespace Library_Application.Services
                 {
                     if (_booksRepository.IsBookAvailable(bookId))
                     {
+                        int numberOfAvailablecopies = _booksRepository.GetBook(bookId).AvailableCopies;
+                        Console.WriteLine($"Book with id number {bookId} has {numberOfAvailablecopies} available.");
                         return _booksRepository.GetBook(bookId);
                     }
                     else
                     {
-                        Console.WriteLine("Book is not available.");
-                        return null;
+                        Console.WriteLine("Book has no available copies.");
+                        return _booksRepository.GetBook(bookId);
                     }
                 }
                 else
@@ -53,6 +56,8 @@ namespace Library_Application.Services
             
         }
 
+        
+        
         public Books SearchBook(string title) 
         {
             try
@@ -83,6 +88,8 @@ namespace Library_Application.Services
             }
         }
 
+        
+        
         public IEnumerable<Books> SearchAllRentedBooks()
         {
              try
@@ -98,6 +105,8 @@ namespace Library_Application.Services
 
         }
 
+        
+        
         public IEnumerable<Books> SearchAllNotRentedBooks() 
         {
 
@@ -114,6 +123,8 @@ namespace Library_Application.Services
 
         }
 
+       
+        
         public IEnumerable<Books> SearchAllBooks() 
         {
 
@@ -129,6 +140,8 @@ namespace Library_Application.Services
 
         }
 
+        
+        
         public IEnumerable<Books> SearchAllAvailableBooks() 
         {
 
@@ -143,6 +156,9 @@ namespace Library_Application.Services
             }
         }
 
+
+        
+        
 
         public void AddRemoveBookCopy(int bookId, int changeByNumber) 
 
@@ -166,6 +182,9 @@ namespace Library_Application.Services
             }
         }
 
+
+
+        
 
         public void CreateNewBook(Books book) 
 
@@ -206,6 +225,9 @@ namespace Library_Application.Services
                 return null;
             }
         }
+        
+        
+        
         public Members SearchMember(string fullName)
         {
             try
@@ -229,6 +251,8 @@ namespace Library_Application.Services
 
         }
 
+        
+        
         public void CreateMember(Members member) 
         {
 
@@ -242,7 +266,10 @@ namespace Library_Application.Services
                 Console.WriteLine($"An error occurred while creating new member profile: {ex.Message}");
             }
         }
-        public void RentBookToMember(int memberId,int bookId,Transactions transaction) 
+        
+        
+        
+        public void RentBookToMember(int memberId,int bookId) 
         {
             try
             {
@@ -252,9 +279,14 @@ namespace Library_Application.Services
                     {
                         Console.WriteLine("Member has reached the rental limit.");
                     }
+                    else if (_transactionsRepository.HasMemberAlreadyRentedBook(memberId, bookId)) 
+                    {
+                        Console.WriteLine($"Member allready owes one book with id number {bookId}");
+                    }
                     else
                     {
                         _transactionsRepository.CreateTransaction(memberId, bookId);
+                        _membersRepository.AddRentedBookToMember(memberId);
                     }
                 }
                 else 
@@ -269,6 +301,8 @@ namespace Library_Application.Services
 
         }
 
+        
+        
         public void ReturnBook(int memberId, int bookId) 
         {
 
@@ -276,10 +310,11 @@ namespace Library_Application.Services
             {
                 if (_membersRepository.DoesMemberExist(memberId) && _booksRepository.DoesBookExist(bookId))
                 {
-                    var transaction = _transactionsRepository.GetTransaction(memberId, bookId);
-                    if (transaction != null)
+                    
+                    if (_transactionsRepository.DoesTransactionExist(memberId, bookId))
                     {
-                        _transactionsRepository.UpdateTransaction(transaction);
+                        _transactionsRepository.UpdateTransaction(memberId, bookId);
+                        _membersRepository.RemoveRentedBookFromMember(memberId);
                     }
                     else 
                     {
@@ -298,6 +333,8 @@ namespace Library_Application.Services
 
         }
 
+        
+        
         public void HardDeleteMember(int memberId) 
         {
             try

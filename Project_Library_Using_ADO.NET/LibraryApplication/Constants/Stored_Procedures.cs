@@ -21,13 +21,19 @@
         public const string spGetMemberById = "spGetMemberById";
         public const string spGetMemberByFullName = "spGetMemberByFullName";
         public const string spInsertMember = "spInsertMember";
+
+        public const string spAddRentedBookToMember = "spAddRentedBookToMember";
+        public const string spRemoveRentedBookFromMember = "spRemoveRentedBookFromMember";
+
         public const string spDeleteMember = "spDeleteMember";
 
         public const string spCreateTransaction = "spCreateTransaction";
         public const string spDoesTransactionExist = "spDoesTransactionExist";
-        public const string spGetTransaction = "spGetTransaction";
 
-        //i have to add a method in the members repo that is used when the book is returned
-        //to change the number of books owed by a member
+        public const string spUpdateTransaction = "spUpdateTransaction";
+        public const string spHasMemberAlreadyRentedBook = "spHasMemberAlreadyRentedBook";
+
+        
+
     }
 }

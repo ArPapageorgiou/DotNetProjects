@@ -10,7 +10,7 @@ namespace Library_Application.Interfaces
         bool DoesBookExist(string title);
         bool IsBookAvailable(int bookId);
         bool IsBookAvailable(string title);
-        Books GetBook(int id);
+        Books GetBook(int bookId);
         Books GetBook(string title);
         IEnumerable<Books> GetAllBooks();
         IEnumerable<Books> GetAvailableBooks();

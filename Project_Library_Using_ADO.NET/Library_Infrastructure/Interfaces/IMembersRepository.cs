@@ -1,5 +1,6 @@
 
 ﻿using Domain.Entities;
+using System.Net;
 namespace Library_Application.Interfaces
 {
     public interface IMembersRepository
@@ -11,6 +12,8 @@ namespace Library_Application.Interfaces
         Members GetMember(int memberId);
         Members GetMember(string fullName);
         void InsertMember(Members members);
+        void AddRentedBookToMember(int MemberId);
+        void RemoveRentedBookFromMember(int MemberId);
         void DeleteMember(int memberId);
 
 

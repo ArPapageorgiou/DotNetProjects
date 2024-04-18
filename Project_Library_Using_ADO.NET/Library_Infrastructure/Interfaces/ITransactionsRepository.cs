@@ -6,9 +6,9 @@ namespace Library_Application.Interfaces
     {
 
         void CreateTransaction(int memberId, int BookId);
-        void DoesTransactionExist(int transactionId);
-        Transactions GetTransaction(int memberId, int bookId);
-        void UpdateTransaction(Transactions transaction);
+        bool DoesTransactionExist(int memberId, int BookId);
+        void UpdateTransaction(int memberId, int bookId);
+        bool HasMemberAlreadyRentedBook(int memberId, int bookId);
 
     }
 }

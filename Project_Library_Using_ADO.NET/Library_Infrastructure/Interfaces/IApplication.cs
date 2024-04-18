@@ -38,7 +38,7 @@ namespace Library_Application.Interfaces
         //checks if member exists
         //if they do it messages user that the user allready exists
         //if they dont it prompts the user to input all relevant info about the new member
-        void RentBookToMember(int memberId, int bookId, Transactions transaction);//
+        void RentBookToMember(int memberId, int bookId);//
         //enter member name or member id and Book id  or book title
         //check if input is correct or exists
         //check if member is elligible for more books and if book has available copies

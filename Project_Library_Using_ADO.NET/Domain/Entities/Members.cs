@@ -15,6 +15,6 @@ namespace Domain.Entities
         public string Phone { get; set; }
         public string Email { get; set; }
         public int RentedBooksCount { get; set; }
-        public int IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

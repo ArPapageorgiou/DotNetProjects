@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 namespace Library_Infrastructure.Repositories
 {
+
     public class BooksRepository : Base_Repository, IBooksRepository 
     {
         private readonly DatabaseConfiguration _databaseConfiguration;
@@ -402,6 +403,7 @@ namespace Library_Infrastructure.Repositories
                 Console.WriteLine($"An error has occurred: {ex.Message}");
             }
         }
+
 
 
     }

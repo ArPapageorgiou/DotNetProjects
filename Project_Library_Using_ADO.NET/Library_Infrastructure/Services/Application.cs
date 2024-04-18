@@ -157,6 +157,7 @@ namespace Library_Application.Services
         
         
         public void AddRemoveBookCopy(int bookId, int changeByNumber) 
+
         {
             try
             {
@@ -172,6 +173,7 @@ namespace Library_Application.Services
             catch (Exception ex)
             {
 
+
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
@@ -179,6 +181,7 @@ namespace Library_Application.Services
 
         
         public void CreateNewBook(Books book) 
+
         {
             try
             {
@@ -192,6 +195,7 @@ namespace Library_Application.Services
         }
 
         
+
         
         public Members SearchMember(int memberId) 
         {
@@ -200,6 +204,7 @@ namespace Library_Application.Services
                 if (_membersRepository.DoesMemberExist(memberId))
                 {
                     return _membersRepository.GetMember(memberId);
+
                 }
                 else
                 {
@@ -328,6 +333,7 @@ namespace Library_Application.Services
         {
             try
             {
+
                 if (_membersRepository.DoesMemberExist(memberId))
                 {
                     _membersRepository.DeleteMember(memberId);
@@ -342,6 +348,7 @@ namespace Library_Application.Services
             {
 
                 Console.WriteLine($"An error occurred: {ex.Message}");
+
             }
         }
         

@@ -5,34 +5,38 @@ namespace Library_Application.Interfaces
     public interface IApplication
     {
 
-        Books SearchBook(int bookId);//
+        void SearchBook(int bookId);//
 
         //message user if
         //1)book doesnt exist - simple message
         //2)book is available and return number of copies in inventory and how many are available
         //3)book has no copies available -simple message
 
-        Books SearchBook(string title);//
+        void SearchBook(string title);//
 
         //message user if
         //1)book doesnt exist - simple message
         //2)book is available - return number of copies in inventory and how many are available
         //3)book has no copies available -simple message
-        IEnumerable<Books> SearchAllRentedBooks();//
+        void SearchAllRentedBooks();//
         //returns all rented books, how many are originally in inventory and how many are available
-        IEnumerable<Books> SearchAllNotRentedBooks();//
+        void SearchAllNotRentedBooks();//
         //returns all books that dont have a single rented copy
-        IEnumerable<Books> SearchAllBooks();//
+        void SearchAllBooks();//
         //returns all books with all rental info 
-        IEnumerable<Books> SearchAllAvailableBooks();//
+
+        void SearchAllAvailableBooks();//
+
 
         void CreateNewBook(Books book);//
         void AddRemoveBookCopy(int bookId, int ChangeByNumber);//does both jobs at once
 
-        Members SearchMember(int id);//
+
+        void SearchMember(int id);//
+
         //checks if member exists, if they do return all their info and whether they have rented any books
         //and whether they can rent more
-        Members SearchMember(string fullName);
+        void SearchMember(string fullName);
         //checks if member exists, if they do return all their info and whether they have rented any books
         //and whether they can rent more
 

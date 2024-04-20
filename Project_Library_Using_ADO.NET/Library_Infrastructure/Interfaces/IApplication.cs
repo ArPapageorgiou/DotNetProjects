@@ -24,12 +24,16 @@ namespace Library_Application.Interfaces
         //returns all books that dont have a single rented copy
         void SearchAllBooks();//
         //returns all books with all rental info 
+
         void SearchAllAvailableBooks();//
+
 
         void CreateNewBook(Books book);//
         void AddRemoveBookCopy(int bookId, int ChangeByNumber);//does both jobs at once
 
+
         void SearchMember(int id);//
+
         //checks if member exists, if they do return all their info and whether they have rented any books
         //and whether they can rent more
         void SearchMember(string fullName);

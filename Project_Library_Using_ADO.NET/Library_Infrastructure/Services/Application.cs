@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Library_Application.Interfaces;
+
 using System.Net;
 
 namespace Library_Application.Services
@@ -32,6 +33,7 @@ namespace Library_Application.Services
 
                     if (_booksRepository.IsBookAvailable(bookId))
                     {
+
                         Console.WriteLine("------------------------------------------------");
                         Console.WriteLine($"Title: {book.Title}");
                         Console.WriteLine("------------------------------------------------");
@@ -45,6 +47,7 @@ namespace Library_Application.Services
                     else
                     {
                         Console.WriteLine("Sorry, title has no available copies.");
+r
                     }
                 }
                 else
@@ -62,7 +65,9 @@ namespace Library_Application.Services
 
         
         
+
         public void SearchBook(string title) 
+
         {
             try
             {
@@ -100,7 +105,9 @@ namespace Library_Application.Services
 
         
         
+
         public void SearchAllRentedBooks()
+
         {
              try
             {
@@ -134,7 +141,9 @@ namespace Library_Application.Services
 
         
         
+
         public void SearchAllNotRentedBooks() 
+
         {
 
             try
@@ -170,7 +179,9 @@ namespace Library_Application.Services
 
        
         
+
         public void SearchAllBooks() 
+
         {
             try
             {
@@ -203,7 +214,9 @@ namespace Library_Application.Services
 
         
         
+
         public void SearchAllAvailableBooks() 
+
         {
             try
             {
@@ -234,8 +247,10 @@ namespace Library_Application.Services
             }
         }
 
+
         
         
+
         public void AddRemoveBookCopy(int bookId, int changeByNumber) 
 
         {
@@ -244,11 +259,13 @@ namespace Library_Application.Services
                 if (_booksRepository.DoesBookExist(bookId))
                 {
                     _booksRepository.AddRemoveBookCopy(bookId, changeByNumber);
+
                     Console.WriteLine($"Title record with ID {bookId} has been updated");
                 }
                 else
                 {
                     Console.WriteLine($"Title with the title \"{bookId}\" does not exist. Please check the information you provided and try again.");
+
                 }
             }
             catch (Exception ex)
@@ -262,6 +279,8 @@ namespace Library_Application.Services
 
         
         public void CreateNewBook(Books book) 
+
+
 
         {
             try
@@ -278,12 +297,15 @@ namespace Library_Application.Services
         
 
         
+
         public void SearchMember(int memberId) 
+
         {
             try
             {
                 if (_membersRepository.DoesMemberExist(memberId))
                 {
+
                     Members member = _membersRepository.GetMember(memberId);
                     Console.WriteLine("------------------------------------------------");
                     Console.WriteLine($"Full Name: {member.FirstName} {member.LastName}");
@@ -293,6 +315,7 @@ namespace Library_Application.Services
                     Console.WriteLine($"Phone: {member.Phone}");
                     Console.WriteLine($"E-mail: {member.Email}");
                     Console.WriteLine($"Owed items: {member.RentedBooksCount}");
+
                 }
                 else
                 {
@@ -307,7 +330,9 @@ namespace Library_Application.Services
         
         
         
+
         public void SearchMember(string fullName)
+
         {
             try
             {
@@ -365,7 +390,9 @@ namespace Library_Application.Services
                     }
                     else if (_transactionsRepository.HasMemberAlreadyRentedBook(memberId, bookId)) 
                     {
+
                         Console.WriteLine($"Member allready owes one book with the same ID");
+
                     }
                     else
                     {
@@ -431,13 +458,17 @@ namespace Library_Application.Services
                 }
                 else
                 {
+
                     Console.WriteLine("Member not found. Please check the information you provided and try again.");
+
                 }
             }
             catch (Exception ex)
             {
 
+
                 Console.WriteLine($"An error occurred during deletion: {ex.Message}");
+
 
             }
         }

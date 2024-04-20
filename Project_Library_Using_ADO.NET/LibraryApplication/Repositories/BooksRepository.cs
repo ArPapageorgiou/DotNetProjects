@@ -3,8 +3,6 @@ using Domain.Entities;
 using Microsoft.Data.SqlClient;
 using Library_Infrastructure.Constants;
 using System.Data;
-using System.Net;
-using System.Diagnostics;
 
 
 namespace Library_Infrastructure.Repositories

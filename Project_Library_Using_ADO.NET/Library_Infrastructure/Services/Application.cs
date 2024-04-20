@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Library_Application.Interfaces;
+using System.Net;
 
 namespace Library_Application.Services
 {
@@ -21,136 +22,215 @@ namespace Library_Application.Services
         }
 
 
-        public Books SearchBook(int bookId) 
+        public void SearchBook(int bookId) 
         {
             try
             {
                 if (_booksRepository.DoesBookExist(bookId))
                 {
+                    Books book = _booksRepository.GetBook(bookId);  
+
                     if (_booksRepository.IsBookAvailable(bookId))
                     {
-                        int numberOfAvailablecopies = _booksRepository.GetBook(bookId).AvailableCopies;
-                        Console.WriteLine($"Book with id number {bookId} has {numberOfAvailablecopies} available.");
-                        return _booksRepository.GetBook(bookId);
+                        Console.WriteLine("------------------------------------------------");
+                        Console.WriteLine($"Title: {book.Title}");
+                        Console.WriteLine("------------------------------------------------");
+                        Console.WriteLine($"Book ID: {book.BookId}");
+                        Console.WriteLine($"Genre: {book.Genre}");
+                        Console.WriteLine($"Description: {book.Description}");
+                        Console.WriteLine($"ISBN: {book.ISBN}");
+                        Console.WriteLine($"Total Copies: {book.TotalCopies}");
+                        Console.WriteLine($"This title has {book.AvailableCopies} copies available.");
                     }
                     else
                     {
-                        Console.WriteLine("Book has no available copies.");
-                        return _booksRepository.GetBook(bookId);
+                        Console.WriteLine("Sorry, title has no available copies.");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Book not found.");
-                    return null;
+                    Console.WriteLine($"Title with book ID {bookId} does not exist. Please check the information you provided and try again.");
                 }
             }
             catch (Exception ex)
             {
 
-                Console.WriteLine($"An error occurred while searching for the book: {ex.Message}");
-                return null;
+                Console.WriteLine($"An error occurred during the search: {ex.Message}");
             }
             
         }
 
         
         
-        public Books SearchBook(string title) 
+        public void SearchBook(string title) 
         {
             try
             {
                 if (_booksRepository.DoesBookExist(title))
                 {
+                    Books book = _booksRepository.GetBook(title);
+
                     if (_booksRepository.IsBookAvailable(title))
                     {
-                        return _booksRepository.GetBook(title);
+                        Console.WriteLine("------------------------------------------------");
+                        Console.WriteLine($"Title: {book.Title}");
+                        Console.WriteLine("------------------------------------------------");
+                        Console.WriteLine($"Book ID: {book.BookId}");
+                        Console.WriteLine($"Genre: {book.Genre}");
+                        Console.WriteLine($"Description: {book.Description}");
+                        Console.WriteLine($"ISBN: {book.ISBN}");
+                        Console.WriteLine($"Total Copies: {book.TotalCopies}");
+                        Console.WriteLine($"This title has {book.AvailableCopies} copies available.");
                     }
                     else
                     {
-                        Console.WriteLine("Book is not available.");
-                        return null;
+                        Console.WriteLine("Sorry, title has no available copies.");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Book not found.");
-                    return null;
+                    Console.WriteLine($"Title with the title \"{title}\" does not exist. Please check the information you provided and try again.");
                 }
             }
             catch (Exception ex)
             {
-
-                Console.WriteLine($"An error occurred while searching for the book: {ex.Message}");
-                return null;
+                    Console.WriteLine($"An error occurred during the search: {ex.Message}");
             }
         }
 
         
         
-        public IEnumerable<Books> SearchAllRentedBooks()
+        public void SearchAllRentedBooks()
         {
              try
             {
-                return _booksRepository.GetAllRentedBooks();
+                List<Books> books = _booksRepository.GetAllRentedBooks().ToList();
+                if (books.Count > 0)
+                {
+                    foreach (var item in books)
+                    {
+                        Console.WriteLine("------------------------------------------------");
+                        Console.WriteLine($"Title: {item.Title}");
+                        Console.WriteLine("------------------------------------------------");
+                        Console.WriteLine($"Book ID: {item.BookId}");
+                        Console.WriteLine($"Genre: {item.Genre}");
+                        Console.WriteLine($"Description: {item.Description}");
+                        Console.WriteLine($"ISBN: {item.ISBN}");
+                        Console.WriteLine($"Total Copies: {item.TotalCopies}");
+                        Console.WriteLine($"This title has {item.AvailableCopies} copies available.");
+                    }
+                }
+                else { Console.WriteLine("The list is empty"); }
+                
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred during the search: {ex.Message}");
-                return null;
+                
             }
 
         }
 
         
         
-        public IEnumerable<Books> SearchAllNotRentedBooks() 
+        public void SearchAllNotRentedBooks() 
         {
 
             try
             {
-                return _booksRepository.GetAllNotRentedBooks();
+                List<Books> books = _booksRepository.GetAllNotRentedBooks().ToList();
+                if (books.Count > 0)
+                {
+                    foreach (var item in books)
+                    {
+                        Console.WriteLine("------------------------------------------------");
+                        Console.WriteLine($"Title: {item.Title}");
+                        Console.WriteLine("------------------------------------------------");
+                        Console.WriteLine($"Book ID: {item.BookId}");
+                        Console.WriteLine($"Genre: {item.Genre}");
+                        Console.WriteLine($"Description: {item.Description}");
+                        Console.WriteLine($"ISBN: {item.ISBN}");
+                        Console.WriteLine($"Total Copies: {item.TotalCopies}");
+                        Console.WriteLine($"This title has {item.AvailableCopies} copies available.");
+                    }
+                }
+                else { Console.WriteLine("The list is empty"); }
+
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred during the search: {ex.Message}");
-                return null;
+
             }
-            
+
 
         }
 
        
         
-        public IEnumerable<Books> SearchAllBooks() 
+        public void SearchAllBooks() 
         {
-
             try
             {
-                return _booksRepository.GetAllBooks();
+                List<Books> books = _booksRepository.GetAllBooks().ToList();
+                if (books.Count > 0)
+                {
+                    foreach (var item in books)
+                    {
+                        Console.WriteLine("------------------------------------------------");
+                        Console.WriteLine($"Title: {item.Title}");
+                        Console.WriteLine("------------------------------------------------");
+                        Console.WriteLine($"Book ID: {item.BookId}");
+                        Console.WriteLine($"Genre: {item.Genre}");
+                        Console.WriteLine($"Description: {item.Description}");
+                        Console.WriteLine($"ISBN: {item.ISBN}");
+                        Console.WriteLine($"Total Copies: {item.TotalCopies}");
+                        Console.WriteLine($"This title has {item.AvailableCopies} copies available.");
+                    }
+                }
+                else { Console.WriteLine("The list is empty"); }
+
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred during the search: {ex.Message}");
-                return null;
-            }
 
+            }
         }
 
         
         
-        public IEnumerable<Books> SearchAllAvailableBooks() 
+        public void SearchAllAvailableBooks() 
         {
-
             try
             {
-                return _booksRepository.GetAvailableBooks();
+                List<Books> books = _booksRepository.GetAvailableBooks().ToList();  
+                if (books.Count > 0)
+                {
+                    foreach (var item in books)
+                    {
+                        Console.WriteLine("------------------------------------------------");
+                        Console.WriteLine($"Title: {item.Title}");
+                        Console.WriteLine("------------------------------------------------");
+                        Console.WriteLine($"Book ID: {item.BookId}");
+                        Console.WriteLine($"Genre: {item.Genre}");
+                        Console.WriteLine($"Description: {item.Description}");
+                        Console.WriteLine($"ISBN: {item.ISBN}");
+                        Console.WriteLine($"Total Copies: {item.TotalCopies}");
+                        Console.WriteLine($"This title has {item.AvailableCopies} copies available.");
+                    }
+                }
+                else { Console.WriteLine("The list is empty"); }
+
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred during the search: {ex.Message}");
-                return null;
+
             }
         }
 
@@ -164,10 +244,11 @@ namespace Library_Application.Services
                 if (_booksRepository.DoesBookExist(bookId))
                 {
                     _booksRepository.AddRemoveBookCopy(bookId, changeByNumber);
+                    Console.WriteLine($"Title record with ID {bookId} has been updated");
                 }
                 else
                 {
-                    Console.WriteLine("Book not found.");
+                    Console.WriteLine($"Title with the title \"{bookId}\" does not exist. Please check the information you provided and try again.");
                 }
             }
             catch (Exception ex)
@@ -197,50 +278,59 @@ namespace Library_Application.Services
         
 
         
-        public Members SearchMember(int memberId) 
+        public void SearchMember(int memberId) 
         {
             try
             {
                 if (_membersRepository.DoesMemberExist(memberId))
                 {
-                    return _membersRepository.GetMember(memberId);
-
+                    Members member = _membersRepository.GetMember(memberId);
+                    Console.WriteLine("------------------------------------------------");
+                    Console.WriteLine($"Full Name: {member.FirstName} {member.LastName}");
+                    Console.WriteLine("------------------------------------------------");
+                    Console.WriteLine($"Member ID: {member.MemberId}");
+                    Console.WriteLine($"Address: {member.Address}");
+                    Console.WriteLine($"Phone: {member.Phone}");
+                    Console.WriteLine($"E-mail: {member.Email}");
+                    Console.WriteLine($"Owed items: {member.RentedBooksCount}");
                 }
                 else
                 {
-                    Console.WriteLine("Member not found.");
-                    return null;
+                    Console.WriteLine($"Member with ID \"{memberId}\" does not exist. Please check the information you provided and try again.");
                 }
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine($"An error occurred while searching for the member: {ex.Message}");
-                return null;
             }
         }
         
         
         
-        public Members SearchMember(string fullName)
+        public void SearchMember(string fullName)
         {
             try
             {
                 if (_membersRepository.DoesMemberExist(fullName))
                 {
-                    return _membersRepository.GetMember(fullName);
+                    Members member = _membersRepository.GetMember(fullName);
+                    Console.WriteLine("------------------------------------------------");
+                    Console.WriteLine($"Full Name: {member.FirstName} {member.LastName}");
+                    Console.WriteLine("------------------------------------------------");
+                    Console.WriteLine($"Member ID: {member.MemberId}");
+                    Console.WriteLine($"Address: {member.Address}");
+                    Console.WriteLine($"Phone: {member.Phone}");
+                    Console.WriteLine($"E-mail: {member.Email}");
+                    Console.WriteLine($"Owed items: {member.RentedBooksCount}");
                 }
                 else
                 {
-                    Console.WriteLine("Member not found.");
-                    return null;
+                    Console.WriteLine($"Member with Name \"{fullName}\" does not exist. Please check the information you provided and try again.");
                 }
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine($"An error occurred while searching for the member: {ex.Message}");
-                return null;
             }
 
         }
@@ -275,7 +365,7 @@ namespace Library_Application.Services
                     }
                     else if (_transactionsRepository.HasMemberAlreadyRentedBook(memberId, bookId)) 
                     {
-                        Console.WriteLine($"Member allready owes one book with id number {bookId}");
+                        Console.WriteLine($"Member allready owes one book with the same ID");
                     }
                     else
                     {
@@ -285,7 +375,7 @@ namespace Library_Application.Services
                 }
                 else 
                 {
-                    Console.WriteLine("Member and/or book not found.");
+                    Console.WriteLine("Member and/or book not found. Please check the information you provided and try again.");
                 }
             }
             catch (Exception ex)
@@ -317,7 +407,7 @@ namespace Library_Application.Services
                 }
                 else 
                 {
-                    Console.WriteLine("Member and/or book not found.");
+                    Console.WriteLine("Member and/or book not found. Please check the information you provided and try again.");
                 }
             }
             catch (Exception ex)
@@ -341,13 +431,13 @@ namespace Library_Application.Services
                 }
                 else
                 {
-                    Console.WriteLine("Member not found.");
+                    Console.WriteLine("Member not found. Please check the information you provided and try again.");
                 }
             }
             catch (Exception ex)
             {
 
-                Console.WriteLine($"An error occurred: {ex.Message}");
+                Console.WriteLine($"An error occurred during deletion: {ex.Message}");
 
             }
         }

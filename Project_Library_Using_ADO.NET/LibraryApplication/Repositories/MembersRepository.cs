@@ -1,3 +1,4 @@
+
 ﻿using Library_Application.Interfaces;
 using Domain.Entities;
 using Microsoft.Data.SqlClient;
@@ -15,6 +16,7 @@ namespace Library_Infrastructure.Repositories
         {
             _databaseConfiguration = databaseConfiguration;
         }
+
 
         public bool DoesMemberExist(int memberId) 
         {
@@ -242,5 +244,6 @@ namespace Library_Infrastructure.Repositories
                 Console.WriteLine($"An error has occurred: {ex.Message}");
             }
         }
+
     }
 }

@@ -1,6 +1,8 @@
 
 ﻿using Domain.Entities;
+
 using System.Net;
+
 namespace Library_Application.Interfaces
 {
     public interface IMembersRepository

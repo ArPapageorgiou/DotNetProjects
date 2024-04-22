@@ -286,6 +286,7 @@ r
             try
             {
                 _booksRepository.InsertNewBook(book);
+                Console.WriteLine($"New book profile with Title \"{book.Title}\" has been created successfuly");
             }
             catch (Exception ex)
             {
@@ -398,6 +399,7 @@ r
                     {
                         _transactionsRepository.CreateTransaction(memberId, bookId);
                         _membersRepository.AddRentedBookToMember(memberId);
+                        Console.WriteLine($"Book with ID number {bookId} has been rented to member with ID number {memberId}");
                     }
                 }
                 else 

@@ -1,5 +1,7 @@
+
 ﻿using Domain.Entities;
 using Library_Application.Interfaces;
+
 
 namespace Library_Services
 {
@@ -23,12 +25,15 @@ namespace Library_Services
                     Console.WriteLine("--------------------------------------------");
                     Console.WriteLine("Welcome User");
                     Console.WriteLine("--------------------------------------------");
+
                     Console.WriteLine();
+
                     Console.WriteLine("Please choose one of the following options by typing the appropriate number.");
                     Console.WriteLine();
                     Console.WriteLine("1) Search Book by ID or Title");
                     Console.WriteLine("2) Search all books with at least one rented copy");
                     Console.WriteLine("3) Search all books with no rented copies");
+
                     Console.WriteLine("4) Search all Titles with available copies");
                     Console.WriteLine("5) Complete Inventory List");
                     Console.WriteLine("6) Insert new Book profile");
@@ -41,17 +46,21 @@ namespace Library_Services
                     Console.WriteLine("Type exit to leave");
                     string input = Console.ReadLine().Trim().ToUpper();
 
+
                     switch (input) 
                     {
                         case "1": 
                             {
                                 Console.WriteLine("Please type the ID or full title of the book you are looking for:");
+
                                 string userInput = Console.ReadLine().Trim();
+
                                 int bookId;
                                 if (int.TryParse(userInput, out bookId))
                                 {
                                     _application.SearchBook(bookId);
                                 }
+
                                 else
                                 {
                                     string bookTitle = userInput.ToUpper();
@@ -284,6 +293,7 @@ namespace Library_Services
                                 run = false;
                                 Console.WriteLine("Exiting the application");
                                 Console.ReadLine();
+
                                 break;
                             }
                         default:

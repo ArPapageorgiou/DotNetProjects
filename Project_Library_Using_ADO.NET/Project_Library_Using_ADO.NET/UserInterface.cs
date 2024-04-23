@@ -104,7 +104,9 @@ namespace Library_Services
                             }
                         case "6":
                             {
+
                                 Console.Clear();
+
 
                                 Books book = new Books();
                                 Console.WriteLine("---------------------------------------------------------------");
@@ -115,6 +117,7 @@ namespace Library_Services
                                 
                                 Console.WriteLine("Please insert Title:");
                                 book.Title = Console.ReadLine().Trim();
+
                                 
 
                                 Console.WriteLine("Please insert book Genre:");
@@ -247,6 +250,7 @@ namespace Library_Services
                                 {
                                     _application.RentBookToMember(memberId, bookId);
                                 }
+
                                 
                                 break;
                             }

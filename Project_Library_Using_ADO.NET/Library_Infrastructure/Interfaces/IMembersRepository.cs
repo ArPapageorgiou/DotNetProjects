@@ -9,7 +9,7 @@ namespace Library_Application.Interfaces
     {
 
         bool DoesMemberExist(int memberId);
-        bool DoesMemberExist(string fullName);
+        bool DoesMemberExistByFullName(string fullName);
         bool MemberHasMaxBooks(int memberId);
 
         Members GetMember(int memberId);

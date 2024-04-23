@@ -27,28 +27,24 @@ namespace Library_Application.Services
         {
             try
             {
+                Console.Clear();
+
                 if (_booksRepository.DoesBookExist(bookId))
                 {
-                    Books book = _booksRepository.GetBook(bookId);  
+                    Books book = _booksRepository.GetBook(bookId);
 
-                    if (_booksRepository.IsBookAvailable(bookId))
-                    {
-
-                        Console.WriteLine("------------------------------------------------");
-                        Console.WriteLine($"Title: {book.Title}");
-                        Console.WriteLine("------------------------------------------------");
-                        Console.WriteLine($"Book ID: {book.BookId}");
-                        Console.WriteLine($"Genre: {book.Genre}");
-                        Console.WriteLine($"Description: {book.Description}");
-                        Console.WriteLine($"ISBN: {book.ISBN}");
-                        Console.WriteLine($"Total Copies: {book.TotalCopies}");
-                        Console.WriteLine($"This title has {book.AvailableCopies} copies available.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Sorry, title has no available copies.");
-r
-                    }
+                    Console.WriteLine("------------------------------------------------");
+                    Console.WriteLine($"Title: {book.Title}");
+                    Console.WriteLine("------------------------------------------------");
+                    Console.WriteLine($"Book ID: {book.BookId}");
+                    Console.WriteLine($"Genre: {book.Genre}");
+                    Console.WriteLine($"Description: {book.Description}");
+                    Console.WriteLine($"ISBN: {book.ISBN}");
+                    Console.WriteLine($"Total Copies: {book.TotalCopies}");
+                    Console.WriteLine($"This title has {book.AvailableCopies} copies available.");
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter key to return to main menu");
+                    Console.ReadLine();
                 }
                 else
                 {
@@ -71,26 +67,24 @@ r
         {
             try
             {
-                if (_booksRepository.DoesBookExist(title))
+                Console.Clear();
+
+                if (_booksRepository.DoesBookExistByTitle(title))
                 {
                     Books book = _booksRepository.GetBook(title);
 
-                    if (_booksRepository.IsBookAvailable(title))
-                    {
-                        Console.WriteLine("------------------------------------------------");
-                        Console.WriteLine($"Title: {book.Title}");
-                        Console.WriteLine("------------------------------------------------");
-                        Console.WriteLine($"Book ID: {book.BookId}");
-                        Console.WriteLine($"Genre: {book.Genre}");
-                        Console.WriteLine($"Description: {book.Description}");
-                        Console.WriteLine($"ISBN: {book.ISBN}");
-                        Console.WriteLine($"Total Copies: {book.TotalCopies}");
-                        Console.WriteLine($"This title has {book.AvailableCopies} copies available.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Sorry, title has no available copies.");
-                    }
+                    Console.WriteLine("------------------------------------------------");
+                    Console.WriteLine($"Title: {book.Title}");
+                    Console.WriteLine("------------------------------------------------");
+                    Console.WriteLine($"Book ID: {book.BookId}");
+                    Console.WriteLine($"Genre: {book.Genre}");
+                    Console.WriteLine($"Description: {book.Description}");
+                    Console.WriteLine($"ISBN: {book.ISBN}");
+                    Console.WriteLine($"Total Copies: {book.TotalCopies}");
+                    Console.WriteLine($"This title has {book.AvailableCopies} copies available.");
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter key to return to main menu");
+                    Console.ReadLine();
                 }
                 else
                 {
@@ -111,6 +105,8 @@ r
         {
              try
             {
+                Console.Clear();
+                
                 List<Books> books = _booksRepository.GetAllRentedBooks().ToList();
                 if (books.Count > 0)
                 {
@@ -127,8 +123,18 @@ r
                         Console.WriteLine($"This title has {item.AvailableCopies} copies available.");
                     }
                 }
-                else { Console.WriteLine("The list is empty"); }
-                
+                else 
+                { 
+                    Console.WriteLine("The list is empty");
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter key to return to main menu");
+                    Console.ReadLine();
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Press Enter key to return to main menu");
+                Console.ReadLine();
+
 
             }
             catch (Exception ex)
@@ -148,6 +154,8 @@ r
 
             try
             {
+                Console.Clear();
+                
                 List<Books> books = _booksRepository.GetAllNotRentedBooks().ToList();
                 if (books.Count > 0)
                 {
@@ -162,9 +170,14 @@ r
                         Console.WriteLine($"ISBN: {item.ISBN}");
                         Console.WriteLine($"Total Copies: {item.TotalCopies}");
                         Console.WriteLine($"This title has {item.AvailableCopies} copies available.");
+                        
                     }
                 }
                 else { Console.WriteLine("The list is empty"); }
+
+                Console.WriteLine();
+                Console.WriteLine("Press Enter key to return to main menu");
+                Console.ReadLine();
 
 
             }
@@ -185,6 +198,8 @@ r
         {
             try
             {
+                Console.Clear();
+               
                 List<Books> books = _booksRepository.GetAllBooks().ToList();
                 if (books.Count > 0)
                 {
@@ -199,9 +214,14 @@ r
                         Console.WriteLine($"ISBN: {item.ISBN}");
                         Console.WriteLine($"Total Copies: {item.TotalCopies}");
                         Console.WriteLine($"This title has {item.AvailableCopies} copies available.");
+                        
                     }
                 }
                 else { Console.WriteLine("The list is empty"); }
+
+                Console.WriteLine();
+                Console.WriteLine("Press Enter key to return to main menu");
+                Console.ReadLine();
 
 
             }
@@ -220,6 +240,8 @@ r
         {
             try
             {
+                Console.Clear();
+                
                 List<Books> books = _booksRepository.GetAvailableBooks().ToList();  
                 if (books.Count > 0)
                 {
@@ -237,6 +259,10 @@ r
                     }
                 }
                 else { Console.WriteLine("The list is empty"); }
+
+                Console.WriteLine();
+                Console.WriteLine("Press Enter key to return to main menu");
+                Console.ReadLine();
 
 
             }
@@ -256,15 +282,23 @@ r
         {
             try
             {
+                Console.Clear();
+
                 if (_booksRepository.DoesBookExist(bookId))
                 {
                     _booksRepository.AddRemoveBookCopy(bookId, changeByNumber);
 
                     Console.WriteLine($"Title record with ID {bookId} has been updated");
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter key to return to main menu");
+                    Console.ReadLine();
                 }
                 else
                 {
                     Console.WriteLine($"Title with the title \"{bookId}\" does not exist. Please check the information you provided and try again.");
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter key to return to main menu");
+                    Console.ReadLine();
 
                 }
             }
@@ -285,8 +319,13 @@ r
         {
             try
             {
+                Console.Clear();
+
                 _booksRepository.InsertNewBook(book);
                 Console.WriteLine($"New book profile with Title \"{book.Title}\" has been created successfuly");
+                Console.WriteLine();
+                Console.WriteLine("Press Enter key to return to main menu");
+                Console.ReadLine();
             }
             catch (Exception ex)
             {
@@ -304,6 +343,8 @@ r
         {
             try
             {
+                Console.Clear();
+
                 if (_membersRepository.DoesMemberExist(memberId))
                 {
 
@@ -316,11 +357,17 @@ r
                     Console.WriteLine($"Phone: {member.Phone}");
                     Console.WriteLine($"E-mail: {member.Email}");
                     Console.WriteLine($"Owed items: {member.RentedBooksCount}");
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter key to return to main menu");
+                    Console.ReadLine();
 
                 }
                 else
                 {
                     Console.WriteLine($"Member with ID \"{memberId}\" does not exist. Please check the information you provided and try again.");
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter key to return to main menu");
+                    Console.ReadLine();
                 }
             }
             catch (Exception ex)
@@ -337,7 +384,9 @@ r
         {
             try
             {
-                if (_membersRepository.DoesMemberExist(fullName))
+                Console.Clear();
+
+                if (_membersRepository.DoesMemberExistByFullName(fullName))
                 {
                     Members member = _membersRepository.GetMember(fullName);
                     Console.WriteLine("------------------------------------------------");
@@ -348,10 +397,16 @@ r
                     Console.WriteLine($"Phone: {member.Phone}");
                     Console.WriteLine($"E-mail: {member.Email}");
                     Console.WriteLine($"Owed items: {member.RentedBooksCount}");
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter key to return to main menu");
+                    Console.ReadLine();
                 }
                 else
                 {
                     Console.WriteLine($"Member with Name \"{fullName}\" does not exist. Please check the information you provided and try again.");
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter key to return to main menu");
+                    Console.ReadLine();
                 }
             }
             catch (Exception ex)
@@ -368,8 +423,13 @@ r
 
             try
             {
+                Console.Clear();
+
                 _membersRepository.InsertMember(member);
                 Console.WriteLine($"New member profile created.");
+                Console.WriteLine();
+                Console.WriteLine("Press Enter key to return to main menu");
+                Console.ReadLine();
             }
             catch (Exception ex)
             {
@@ -383,16 +443,24 @@ r
         {
             try
             {
+                Console.Clear();
+
                 if (_membersRepository.DoesMemberExist(memberId) && _booksRepository.DoesBookExist(bookId))
                 {
                     if (_membersRepository.MemberHasMaxBooks(memberId))
                     {
                         Console.WriteLine("Member has reached the rental limit.");
+                        Console.WriteLine();
+                        Console.WriteLine("Press Enter key to return to main menu");
+                        Console.ReadLine();
                     }
                     else if (_transactionsRepository.HasMemberAlreadyRentedBook(memberId, bookId)) 
                     {
 
                         Console.WriteLine($"Member allready owes one book with the same ID");
+                        Console.WriteLine();
+                        Console.WriteLine("Press Enter key to return to main menu");
+                        Console.ReadLine();
 
                     }
                     else
@@ -400,11 +468,19 @@ r
                         _transactionsRepository.CreateTransaction(memberId, bookId);
                         _membersRepository.AddRentedBookToMember(memberId);
                         Console.WriteLine($"Book with ID number {bookId} has been rented to member with ID number {memberId}");
+                        Console.WriteLine();
+                        Console.WriteLine("Press Enter key to return to main menu");
+                        Console.ReadLine();
                     }
                 }
                 else 
                 {
+                    bool bookExists = _booksRepository.DoesBookExist(bookId);
+                    bool memberExists = _membersRepository.DoesMemberExist(memberId);
                     Console.WriteLine("Member and/or book not found. Please check the information you provided and try again.");
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter key to return to main menu");
+                    Console.ReadLine();
                 }
             }
             catch (Exception ex)
@@ -421,6 +497,8 @@ r
 
             try
             {
+                Console.Clear();
+
                 if (_membersRepository.DoesMemberExist(memberId) && _booksRepository.DoesBookExist(bookId))
                 {
                     
@@ -428,15 +506,25 @@ r
                     {
                         _transactionsRepository.UpdateTransaction(memberId, bookId);
                         _membersRepository.RemoveRentedBookFromMember(memberId);
+                        Console.WriteLine("Book returned to inventory");
+                        Console.WriteLine();
+                        Console.WriteLine("Press Enter key to return to main menu");
+                        Console.ReadLine();
                     }
                     else 
                     {
-                        Console.WriteLine("Transaction not found.");
+                        Console.WriteLine($"This member doesn't seem to owe a book with ID {bookId}.");
+                        Console.WriteLine();
+                        Console.WriteLine("Press Enter key to return to main menu");
+                        Console.ReadLine();
                     }
                 }
                 else 
                 {
                     Console.WriteLine("Member and/or book not found. Please check the information you provided and try again.");
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter key to return to main menu");
+                    Console.ReadLine();
                 }
             }
             catch (Exception ex)
@@ -452,16 +540,23 @@ r
         {
             try
             {
+                Console.Clear();
 
                 if (_membersRepository.DoesMemberExist(memberId))
                 {
                     _membersRepository.DeleteMember(memberId);
                     Console.WriteLine($"Member with id number {memberId} has been deleted.");
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter key to return to main menu");
+                    Console.ReadLine();
                 }
                 else
                 {
 
                     Console.WriteLine("Member not found. Please check the information you provided and try again.");
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter key to return to main menu");
+                    Console.ReadLine();
 
                 }
             }

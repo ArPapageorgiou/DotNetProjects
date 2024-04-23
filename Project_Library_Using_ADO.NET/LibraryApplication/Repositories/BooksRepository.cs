@@ -26,6 +26,7 @@ namespace Library_Infrastructure.Repositories
                 using (SqlConnection connection = GetSqlConnection()) 
                 {
                     SqlCommand cmd = new SqlCommand(Stored_Procedures.spDoesBookExistById, connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@BookId", bookId);
 
                     return ((int)cmd.ExecuteScalar() > 0);
@@ -39,11 +40,11 @@ namespace Library_Infrastructure.Repositories
             }
         }
 
-        
-        
-        
 
-        public bool DoesBookExist(string title) 
+
+
+
+        public bool DoesBookExistByTitle(string title)
         {
             try
             {
@@ -54,7 +55,7 @@ namespace Library_Infrastructure.Repositories
                     cmd.Parameters.AddWithValue("@Title", title);
 
                     return ((int)cmd.ExecuteScalar() > 0);
-                    
+
 
                 }
             }
@@ -65,9 +66,9 @@ namespace Library_Infrastructure.Repositories
             }
         }
 
-        
-        
-        
+
+
+
         public bool IsBookAvailable(int bookId) 
         {
             try
@@ -163,7 +164,7 @@ namespace Library_Infrastructure.Repositories
             {
                 using (SqlConnection connection = GetSqlConnection())
                 {
-                    SqlCommand cmd = new SqlCommand(Stored_Procedures.spGetBookById, connection);
+                    SqlCommand cmd = new SqlCommand(Stored_Procedures.spGetBookByTitle, connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Title", title);
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -201,7 +202,7 @@ namespace Library_Infrastructure.Repositories
         
         public IEnumerable<Books> GetAllBooks() 
         {
-            List<Books> books = null;
+            List<Books> books = new List<Books>();
             try
             {
                 using (SqlConnection connection = GetSqlConnection()) 

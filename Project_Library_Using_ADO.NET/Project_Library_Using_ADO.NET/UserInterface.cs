@@ -22,6 +22,8 @@ namespace Library_Services
 
                 while (run) 
                 {
+                    Console.Clear();
+
                     Console.WriteLine("--------------------------------------------");
                     Console.WriteLine("Welcome User");
                     Console.WriteLine("--------------------------------------------");
@@ -102,6 +104,10 @@ namespace Library_Services
                             }
                         case "6":
                             {
+
+                                Console.Clear();
+
+
                                 Books book = new Books();
                                 Console.WriteLine("---------------------------------------------------------------");
                                 Console.WriteLine("Please follow the instructions to create a new book profile:");
@@ -111,23 +117,24 @@ namespace Library_Services
                                 
                                 Console.WriteLine("Please insert Title:");
                                 book.Title = Console.ReadLine().Trim();
-                                Console.Clear();
+
+                                
 
                                 Console.WriteLine("Please insert book Genre:");
                                 book.Genre = Console.ReadLine().Trim();
-                                Console.Clear();
+                                
 
                                 Console.WriteLine("Please insert book Description:");
                                 book.Description = Console.ReadLine().Trim();
-                                Console.Clear();
+                                
 
                                 Console.WriteLine("Please insert ISBN (13 digits):");
                                 book.ISBN = Console.ReadLine().Trim();
-                                Console.Clear();
+                                
 
                                 Console.WriteLine("Please insert number of copies:");
                                 book.TotalCopies = Convert.ToInt32(Console.ReadLine().Trim());
-                                Console.Clear();
+                                
 
                                 book.AvailableCopies = book.TotalCopies;
                                 
@@ -180,12 +187,12 @@ namespace Library_Services
                                 int memberId;
                                 if (int.TryParse(userInput3, out memberId))
                                 {
-                                    _application.SearchBook(memberId);
+                                    _application.SearchMember(memberId);
                                 }
                                 else
                                 {
                                     string bookTitle = userInput3.ToUpper();
-                                    _application.SearchBook(bookTitle);
+                                    _application.SearchMember(bookTitle);
                                 }
                                 break;
                             }
@@ -214,6 +221,9 @@ namespace Library_Services
 
                                 Console.WriteLine("Please insert member e-mail:");
                                 member.Email = Console.ReadLine().Trim();
+
+                                _application.CreateMember(member);
+
                                 Console.Clear();
 
                                 break;
@@ -238,8 +248,9 @@ namespace Library_Services
 
                                 if (int.TryParse(userInput4, out bookId) && int.TryParse(userInput5, out memberId)) 
                                 {
-                                    _application.RentBookToMember(bookId, memberId);
+                                    _application.RentBookToMember(memberId, bookId);
                                 }
+
                                 
                                 break;
                             }
@@ -297,6 +308,7 @@ namespace Library_Services
                                 break;
                             }
                         default:
+                            Console.WriteLine("Invalid option. Please try again.");
                             break;
                             
                     }

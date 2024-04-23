@@ -7,7 +7,7 @@ namespace Library_Application.Interfaces
     {
 
         bool DoesBookExist(int bookId);
-        bool DoesBookExist(string title);
+        bool DoesBookExistByTitle(string title);
         bool IsBookAvailable(int bookId);
         bool IsBookAvailable(string title);
         Books GetBook(int bookId);

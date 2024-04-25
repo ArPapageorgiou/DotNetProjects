@@ -6,7 +6,7 @@ namespace Library_Application.Interfaces
     public interface IBooksRepository
     {
 
-        bool DoesBookExist(int bookId);
+        bool DoesBookExistById(int bookId);
         bool DoesBookExistByTitle(string title);
         bool IsBookAvailable(int bookId);
         bool IsBookAvailable(string title);

@@ -29,7 +29,9 @@ namespace Library_Application.Services
             {
                 Console.Clear();
 
+
                 if (_booksRepository.DoesBookExistById(bookId))
+
                 {
                     Books book = _booksRepository.GetBook(bookId);
 
@@ -284,7 +286,9 @@ namespace Library_Application.Services
             {
                 Console.Clear();
 
+
                 if (_booksRepository.DoesBookExistById(bookId))
+
                 {
                     _booksRepository.AddRemoveBookCopy(bookId, changeByNumber);
 
@@ -347,7 +351,9 @@ namespace Library_Application.Services
             {
                 Console.Clear();
 
+
                 if (_membersRepository.DoesMemberExistById(memberId))
+
                 {
 
                     Members member = _membersRepository.GetMember(memberId);
@@ -447,7 +453,9 @@ namespace Library_Application.Services
             {
                 Console.Clear();
 
+
                 if (_membersRepository.DoesMemberExistById(memberId) && _booksRepository.DoesBookExistById(bookId))
+
                 {
                     if (_membersRepository.MemberHasMaxBooks(memberId))
                     {
@@ -479,8 +487,10 @@ namespace Library_Application.Services
                 }
                 else 
                 {
+
                     bool bookExists = _booksRepository.DoesBookExistById(bookId);
                     bool memberExists = _membersRepository.DoesMemberExistById(memberId);
+
                     Console.WriteLine("Member and/or book not found. Please check the information you provided and try again.");
                     Console.WriteLine();
                     Console.WriteLine("Press Enter key to return to main menu");
@@ -503,7 +513,9 @@ namespace Library_Application.Services
             {
                 Console.Clear();
 
+
                 if (_membersRepository.DoesMemberExistById(memberId) && _booksRepository.DoesBookExistById(bookId))
+
                 {
                     
                     if (_transactionsRepository.DoesTransactionExist(memberId, bookId))

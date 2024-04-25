@@ -8,7 +8,9 @@ namespace Library_Application.Interfaces
     public interface IMembersRepository
     {
 
+
         bool DoesMemberExistById(int memberId);
+
         bool DoesMemberExistByFullName(string fullName);
         bool MemberHasMaxBooks(int memberId);
 

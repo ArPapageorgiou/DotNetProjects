@@ -27,7 +27,6 @@ namespace Library_Infrastructure.Repositories
                     SqlCommand cmd = new SqlCommand(Stored_Procedures.spDoesMemberExistById, connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     SqlParameter param = new SqlParameter("@MemberId", SqlDbType.Int);
-                    param.Value = memberId;
                     return ((int)cmd.ExecuteScalar() > 0);
                 }
             }

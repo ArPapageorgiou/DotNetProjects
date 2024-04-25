@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.WebSockets;
 using API_Practice_BookProject.DTO_s;
+
 using System.Security.Cryptography.X509Certificates;
 using API_Practice_BookProject.Data;
+
 
 
 namespace WebApplication1.Controllers
@@ -13,6 +15,7 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
+
         private readonly BookDbContext _bookDbContext;
 
         
@@ -22,11 +25,13 @@ namespace WebApplication1.Controllers
         }
 
        
+
         [HttpGet]
         public ActionResult<IEnumerable<Book>> GetAllBooks()
         {
             try
             {
+
                 var bookList = _bookDbContext.books.ToList();
                 return Ok(bookList);
 
@@ -42,7 +47,9 @@ namespace WebApplication1.Controllers
         {
             try
             {
+
                 var book = _bookDbContext.books.FirstOrDefault(book => book.BookId == id);
+
                 return Ok(book);
             }
             catch (Exception ex)
@@ -51,6 +58,7 @@ namespace WebApplication1.Controllers
             }
 
         }
+
 
         [HttpGet("author/{Author}")]
         public IActionResult GetBookByAuthor(string Author)
@@ -73,6 +81,7 @@ namespace WebApplication1.Controllers
             try
             {
                 var rentedBooks = _bookDbContext.books.Where(book => book.isRented).ToList();
+
                 return Ok(rentedBooks);
             }
             catch (Exception ex)
@@ -91,7 +100,9 @@ namespace WebApplication1.Controllers
                     return BadRequest("Not all information was provided by the client");
                 }
 
+
                 Book book = _bookDbContext.books.FirstOrDefault(book => book.BookId == bookId);
+
 
                 if (book == null)
                 {
@@ -101,7 +112,9 @@ namespace WebApplication1.Controllers
                 book.Author = bookRequest.Author;
                 book.Description = bookRequest.Description;
                 book.Title = bookRequest.Title;
+
                 _bookDbContext.SaveChanges();
+
 
                 return CreatedAtAction(nameof(GetBook), new { id = book.BookId }, book);
             }
@@ -109,6 +122,7 @@ namespace WebApplication1.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
+
 
 
 
@@ -167,6 +181,7 @@ namespace WebApplication1.Controllers
 
                 return StatusCode(500, ex.Message);
             }
+
         }
 
 

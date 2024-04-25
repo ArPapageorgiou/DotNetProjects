@@ -19,7 +19,7 @@ namespace Library_Infrastructure.Repositories
         }
 
 
-        public bool DoesBookExist(int bookId) 
+        public bool DoesBookExistById(int bookId) 
         {
             try
             {
@@ -50,7 +50,7 @@ namespace Library_Infrastructure.Repositories
             {
                 using (SqlConnection connection = GetSqlConnection())
                 {
-                    SqlCommand cmd = new SqlCommand(Stored_Procedures.spDoesBookExistByTitle, connection);//a select count query where if query result is 1 then return true
+                    SqlCommand cmd = new SqlCommand(Stored_Procedures.spDoesBookExistByTitle, connection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Title", title);
 

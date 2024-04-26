@@ -4,6 +4,10 @@ using API_Practice_BookProject.DTO_s;
 using API_Practice_BookProject.Repository;
 
 
+using System.Security.Cryptography.X509Certificates;
+using API_Practice_BookProject.Data;
+
+
 
 namespace WebApplication1.Controllers
 {
@@ -11,12 +15,14 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
+
         private readonly IBookRepository _bookRepository;
 
         
         public BooksController(IBookRepository bookRepository)
         {
                 _bookRepository = bookRepository;
+
         }
 
        
@@ -26,7 +32,9 @@ namespace WebApplication1.Controllers
         {
             try
             {
+
                 var bookList = _bookRepository.GetAllBooks();
+
                 return Ok(bookList);
 
             }
@@ -41,7 +49,9 @@ namespace WebApplication1.Controllers
         {
             try
             {
+
                 var book = _bookRepository.GetBookById(id);
+
 
                 return Ok(book);
             }
@@ -55,6 +65,7 @@ namespace WebApplication1.Controllers
 
         [HttpGet("author/{Author}")]
         public IActionResult GetBookByAuthor(string Author)
+
         {
             try
             {
@@ -74,6 +85,7 @@ namespace WebApplication1.Controllers
             try
             {
                 var rentedBooks = _bookRepository.GetRentedBooks();
+
                 return Ok(rentedBooks);
             }
             catch (Exception ex)
@@ -92,7 +104,9 @@ namespace WebApplication1.Controllers
                     return BadRequest("Not all information was provided by the client");
                 }
 
+
                 Book book = _bookRepository.GetBookById(bookId);
+
 
 
                 if (book == null)
@@ -103,12 +117,75 @@ namespace WebApplication1.Controllers
                 _bookRepository.UpdateBook(bookId, bookRequest);
 
 
+                _bookDbContext.SaveChanges();
+
+
                 return CreatedAtAction(nameof(GetBook), new { id = book.BookId }, book);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
+
+
+
+
+
+
+        }
+
+        [HttpPost("add")]
+
+        public IActionResult addBook([FromBody] BookRequest bookRequest)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid book data");
+                }
+
+                var book = new Book
+                {
+                    Title = bookRequest.Title,
+                    Author = bookRequest.Author,
+                    Description = bookRequest.Description
+                };
+
+                _bookDbContext.books.Add(book);
+                _bookDbContext.SaveChanges();
+
+                return CreatedAtAction(nameof(GetBook), new { id = book.BookId }, book);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBook(int id)
+        {
+            try
+            {
+                var bookToDelete = _bookDbContext.books.FirstOrDefault(book => book.BookId == id);
+                if (bookToDelete == null)
+                {
+                    return NotFound("Book not found!");
+                }
+
+                _bookDbContext.books.Remove(bookToDelete);
+                _bookDbContext.SaveChanges();
+                return NoContent();
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, ex.Message);
+            }
+
 
 
 
@@ -159,6 +236,7 @@ namespace WebApplication1.Controllers
 
                 return StatusCode(500, ex.Message);
             }
+
 
         }
 

@@ -1,3 +1,7 @@
+using API_Practice_BookProject.Data;
+using API_Practice_BookProject.Repository;
+using Microsoft.EntityFrameworkCore;
+
 
 using API_Practice_BookProject.Models;
 using API_Practice_BookProject.Data;
@@ -16,6 +20,9 @@ namespace API_Practice_BookProject
 
             builder.Services.AddDbContext<BookDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("BookDbConnection")));
 
+
+            //BookRepository dependency injection
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

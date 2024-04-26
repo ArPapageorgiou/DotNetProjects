@@ -4,6 +4,7 @@ using API_Practice_BookProject.DTO_s;
 using API_Practice_BookProject.Repository;
 
 
+
 namespace WebApplication1.Controllers
 {
     [Route("api/[controller]")]
@@ -19,6 +20,7 @@ namespace WebApplication1.Controllers
         }
 
        
+
         [HttpGet]
         public ActionResult<IEnumerable<Book>> GetAllBooks()
         {
@@ -40,6 +42,7 @@ namespace WebApplication1.Controllers
             try
             {
                 var book = _bookRepository.GetBookById(id);
+
                 return Ok(book);
             }
             catch (Exception ex)
@@ -48,6 +51,7 @@ namespace WebApplication1.Controllers
             }
 
         }
+
 
         [HttpGet("author/{Author}")]
         public IActionResult GetBookByAuthor(string Author)
@@ -90,6 +94,7 @@ namespace WebApplication1.Controllers
 
                 Book book = _bookRepository.GetBookById(bookId);
 
+
                 if (book == null)
                 {
                     return NotFound("Book object does not exist");
@@ -97,12 +102,14 @@ namespace WebApplication1.Controllers
 
                 _bookRepository.UpdateBook(bookId, bookRequest);
 
+
                 return CreatedAtAction(nameof(GetBook), new { id = book.BookId }, book);
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
+
 
 
 
@@ -152,6 +159,7 @@ namespace WebApplication1.Controllers
 
                 return StatusCode(500, ex.Message);
             }
+
         }
 
 

@@ -2,6 +2,7 @@ using API_Practice_BookProject.Data;
 using API_Practice_BookProject.Repository;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace API_Practice_BookProject
 {
     public class Program
@@ -11,6 +12,7 @@ namespace API_Practice_BookProject
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
             builder.Services.AddDbContext<BookDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("BookDbConnection")));
 
             //BookRepository dependency injection

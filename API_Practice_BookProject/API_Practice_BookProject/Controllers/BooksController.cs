@@ -1,10 +1,7 @@
 ﻿using API_Practice_BookProject.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.WebSockets;
 using API_Practice_BookProject.DTO_s;
-using System.Security.Cryptography.X509Certificates;
-using API_Practice_BookProject.Data;
+using API_Practice_BookProject.Repository;
 
 
 namespace WebApplication1.Controllers
@@ -13,12 +10,12 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly BookDbContext _bookDbContext;
+        private readonly IBookRepository _bookRepository;
 
         
-        public BooksController(BookDbContext bookDbContext)
+        public BooksController(IBookRepository bookRepository)
         {
-                _bookDbContext = bookDbContext;
+                _bookRepository = bookRepository;
         }
 
        
@@ -27,7 +24,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                var bookList = _bookDbContext.books.ToList();
+                var bookList = _bookRepository.GetAllBooks();
                 return Ok(bookList);
 
             }
@@ -42,7 +39,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                var book = _bookDbContext.books.FirstOrDefault(book => book.BookId == id);
+                var book = _bookRepository.GetBookById(id);
                 return Ok(book);
             }
             catch (Exception ex)
@@ -57,7 +54,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                var book = _bookDbContext.books.FirstOrDefault(book => book.Author == Author);
+                var book = _bookRepository.GetBookByAuthor(Author);
                 return Ok(book);
             }
             catch (Exception ex)
@@ -72,7 +69,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                var rentedBooks = _bookDbContext.books.Where(book => book.isRented).ToList();
+                var rentedBooks = _bookRepository.GetRentedBooks();
                 return Ok(rentedBooks);
             }
             catch (Exception ex)
@@ -91,17 +88,14 @@ namespace WebApplication1.Controllers
                     return BadRequest("Not all information was provided by the client");
                 }
 
-                Book book = _bookDbContext.books.FirstOrDefault(book => book.BookId == bookId);
+                Book book = _bookRepository.GetBookById(bookId);
 
                 if (book == null)
                 {
-                    return BadRequest("Book object does not exist");
+                    return NotFound("Book object does not exist");
                 }
 
-                book.Author = bookRequest.Author;
-                book.Description = bookRequest.Description;
-                book.Title = bookRequest.Title;
-                _bookDbContext.SaveChanges();
+                _bookRepository.UpdateBook(bookId, bookRequest);
 
                 return CreatedAtAction(nameof(GetBook), new { id = book.BookId }, book);
             }
@@ -127,17 +121,15 @@ namespace WebApplication1.Controllers
                     return BadRequest("Invalid book data");
                 }
 
-                var book = new Book
+                _bookRepository.AddBook(bookRequest);
+
+                var newBook = _bookRepository.GetBookByAuthor(bookRequest.Author);
+                if (newBook == null) 
                 {
-                    Title = bookRequest.Title,
-                    Author = bookRequest.Author,
-                    Description = bookRequest.Description
-                };
+                    return NotFound("Failed to retrieve the newly created book");
+                }
 
-                _bookDbContext.books.Add(book);
-                _bookDbContext.SaveChanges();
-
-                return CreatedAtAction(nameof(GetBook), new { id = book.BookId }, book);
+                return CreatedAtAction(nameof(GetBook), new { id = newBook.BookId }, newBook);
             }
             catch (Exception ex)
             {
@@ -151,14 +143,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                var bookToDelete = _bookDbContext.books.FirstOrDefault(book => book.BookId == id);
-                if (bookToDelete == null)
-                {
-                    return NotFound("Book not found!");
-                }
-
-                _bookDbContext.books.Remove(bookToDelete);
-                _bookDbContext.SaveChanges();
+                _bookRepository.DeleteBook(id);
                 return NoContent();
 
             }

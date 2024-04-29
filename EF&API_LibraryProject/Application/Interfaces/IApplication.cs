@@ -1,9 +1,13 @@
+
 ﻿using Domain.Models;
+
+
 
 namespace Application.Interfaces
 {
     internal interface IApplication
     {
+
         void GetBook(int bookId);
         void GetAllBooks(int bookId);
         void InsertNewBook(Book book);
@@ -13,6 +17,7 @@ namespace Application.Interfaces
         void DeleteBook(int bookId);
         void GetMember(int memberId);
         void DeleteMember(int memberId);
+
 
     }
 }

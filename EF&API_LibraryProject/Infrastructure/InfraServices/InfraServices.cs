@@ -13,7 +13,7 @@ namespace Infrastructure.InfraServices
             DatabaseConfiguration databaseConfiguration = (DatabaseConfiguration)ConfigurationManager.GetSection("DataBaseConfigurationSection");
             
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(databaseConfiguration.ConnectionString));
-            services.AddScoped<IBook, Book>
+            
             
             return services;
         }

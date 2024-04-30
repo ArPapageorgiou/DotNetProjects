@@ -14,6 +14,7 @@ namespace Domain.Models
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public int RentedBooks { get; set; }
-    }
+        public int RentedBooks { get; set; } = 0;
+        public ICollection<RentalTransaction> rentalTransactions { get; set; }
+     }
 }

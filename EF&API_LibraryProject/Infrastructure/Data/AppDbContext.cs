@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Domain.Models;
+using Domain.Configurations;
 
 namespace Infrastructure.Data
 {
@@ -8,5 +9,13 @@ namespace Infrastructure.Data
         public DbSet<Book> books { get; set; }
         public DbSet<Member> members { get; set; }
         public DbSet<RentalTransaction> rentalTransactions {get; set;}
+        
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new BookConfiguration());
+            modelBuilder.ApplyConfiguration(new MemberConfiguration());
+            modelBuilder.ApplyConfiguration(new RentalTransactionConfiguration());
+        }
     }
 }

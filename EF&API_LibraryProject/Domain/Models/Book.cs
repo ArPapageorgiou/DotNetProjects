@@ -14,5 +14,7 @@ namespace Domain.Models
         public string Description { get; set; }
         public int TotalCopies { get; set; }
         public int AvailableCopies { get; set; }
+        public ICollection<RentalTransaction> rentalTransactions { get; set; }
+        
     }
 }

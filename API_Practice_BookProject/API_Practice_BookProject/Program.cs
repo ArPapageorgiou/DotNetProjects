@@ -23,6 +23,8 @@ namespace API_Practice_BookProject
             //BookRepository dependency injection
             builder.Services.AddScoped<IBookRepository, BookRepository>();
 
+
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

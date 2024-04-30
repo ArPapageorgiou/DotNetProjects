@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Configuration>
-	<ConfigSections>
-		<section name="DataBaseConfigurationSection" type="Infrastructure.DatabaseConfiguration, Infrastructure"/>
-		</ConfigSections>
-	<DataBaseConfigurationSection
-		connectionString="data source=DESKTOP-3BA0QHV; database=LibraryDB_API_EF; integrated security=SSPI; Trust Server Certificate=true"/>
-	</Configuration>

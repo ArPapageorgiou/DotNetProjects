@@ -1,3 +1,9 @@
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Infrastructure.InfraServices;
+using Microsoft.Identity.Client;
+
 
 namespace EF_API_LibraryProject
 {
@@ -8,6 +14,7 @@ namespace EF_API_LibraryProject
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.InfraServices();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -32,5 +39,8 @@ namespace EF_API_LibraryProject
 
             app.Run();
         }
+
+        
+
     }
 }

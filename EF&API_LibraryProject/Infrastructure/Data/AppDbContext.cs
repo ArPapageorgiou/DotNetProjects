@@ -1,16 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Domain.Models;
 using Domain.Configurations;
+using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Data
 {
-    internal class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+    public class AppDbContext : DbContext
     {
-        public DbSet<Book> books { get; set; }
-        public DbSet<Member> members { get; set; }
-        public DbSet<RentalTransaction> rentalTransactions {get; set;}
-        
-        
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Member> Members { get; set; }
+        public DbSet<RentalTransaction> RentalTransactions {get; set;}
+
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+                
+        }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new BookConfiguration());

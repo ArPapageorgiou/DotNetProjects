@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
-using Domain.Models;
 
 namespace Infrastructure.InfraServices
 {
@@ -11,7 +10,10 @@ namespace Infrastructure.InfraServices
         public static IServiceCollection InfraServices(this IServiceCollection services) 
         {
             DatabaseConfiguration databaseConfiguration = (DatabaseConfiguration)ConfigurationManager.GetSection("DataBaseConfigurationSection");
-            
+
+            var connectionString = databaseConfiguration.ConnectionString;
+
+
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(databaseConfiguration.ConnectionString));
             
             

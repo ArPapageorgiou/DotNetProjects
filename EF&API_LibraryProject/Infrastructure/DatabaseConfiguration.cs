@@ -3,7 +3,7 @@
 
 namespace Infrastructure
 {
-    internal class DatabaseConfiguration : ConfigurationSection
+    public class DatabaseConfiguration : ConfigurationSection
     {
         [ConfigurationProperty("connectionString")]
         public string ConnectionString 

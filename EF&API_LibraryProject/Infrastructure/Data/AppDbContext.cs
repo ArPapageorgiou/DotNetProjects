@@ -1,12 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Domain.Models;
 using Domain.Configurations;
+
 using Microsoft.Extensions.Options;
+
 
 namespace Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
+
         public DbSet<Book> Books { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<RentalTransaction> RentalTransactions {get; set;}
@@ -15,6 +18,7 @@ namespace Infrastructure.Data
         {
                 
         }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

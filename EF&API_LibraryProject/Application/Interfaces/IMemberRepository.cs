@@ -1,10 +1,9 @@
-
 ﻿using Domain.Models;
 
 
 namespace Application.Interfaces
 {
-    internal interface IMemberRepository
+    public interface IMemberRepository
     {
 
         bool DoesMemberExistById(int memberId);

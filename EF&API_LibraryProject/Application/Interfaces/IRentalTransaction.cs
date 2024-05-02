@@ -1,10 +1,6 @@
-
-﻿using Domain.Models;
-
-
 namespace Application.Interfaces
 {
-    internal interface IRentalTransaction
+    public interface IRentalTransaction 
     {
 
         void CreateTransaction(int memberId, int bookId);

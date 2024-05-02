@@ -5,7 +5,7 @@
 
 namespace Application.Interfaces
 {
-    internal interface IApplication
+    public interface IApplication
     {
 
         void GetBook(int bookId);

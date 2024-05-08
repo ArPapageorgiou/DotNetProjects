@@ -4,7 +4,7 @@ using Infrastructure.Data;
 
 namespace Infrastructure.Repositories
 {
-    public class MemberRepository : IMemberRepository
+    internal class MemberRepository : IMemberRepository
     {
         private readonly AppDbContext _appDbContext;
 
@@ -30,8 +30,15 @@ namespace Infrastructure.Repositories
         public void DeleteMember(int memberId)
         {
             var member = _appDbContext.Members.FirstOrDefault(m => m.MemberId == memberId);
-            _appDbContext.Members.Remove(member);
-            _appDbContext.SaveChanges();
+            if (member != null)
+            {
+                _appDbContext.Members.Remove(member);
+                _appDbContext.SaveChanges();
+            }
+            else 
+            {
+                throw new ArgumentException("Member does not exist");
+            }
         }
 
         public bool DoesMemberExistById(int memberId)
@@ -39,18 +46,14 @@ namespace Infrastructure.Repositories
             var member = _appDbContext.Members.FirstOrDefault(m => m.MemberId == memberId);
             if (member != null)
             {
-                return member.MemberId == memberId;
+                return true;
             }
-            else 
-            {
-                return false;
-            }
+            else return false;
         }
 
         public Member GetMemberById(int memberId)
         {
             return _appDbContext.Members.FirstOrDefault(m => m.MemberId == memberId);
-            
         }
 
         public void InsertNewMember(Member member)
@@ -61,15 +64,7 @@ namespace Infrastructure.Repositories
 
         public bool MemberHasMaxBooks(int memberId)
         {
-            var member = _appDbContext.Members.FirstOrDefault(m => m.MemberId == memberId);
-            if (member.RentedBooks >= 2)
-            {
-                return true;
-            }
-            else 
-            {
-                return false;
-            }
+            return _appDbContext.Members.FirstOrDefault(m => m.MemberId == memberId).RentedBooks >= 2;
         }
 
         public void RemoveRentedBookFromMember(int memberId)
@@ -77,15 +72,8 @@ namespace Infrastructure.Repositories
             var member = _appDbContext.Members.FirstOrDefault(m => m.MemberId == memberId);
             if (member != null)
             {
-                if (member.RentedBooks > 0)
-                {
-                    member.RentedBooks -= 1;
-                    _appDbContext.SaveChanges();
-                }
-                else
-                {
-                    throw new ArgumentException("There cannot be a negative number of rented books");
-                }
+                member.RentedBooks -= 1;
+                _appDbContext.SaveChanges();
             }
             else 
             {

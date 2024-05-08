@@ -14,7 +14,7 @@ namespace Domain.Models
         public int BookId { get; set;}
         public Book Book { get; set;}
         public DateTime RentedAt { get; set;}
-        public DateTime ReturnedAt { get; set; }
+        public DateTime? ReturnedAt { get; set; }
         
     }
 }

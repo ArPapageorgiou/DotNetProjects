@@ -1,8 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain.Models;
 using Infrastructure.Data;
-
-
+using System.Linq;
 
 namespace Infrastructure.Repositories
 {
@@ -35,7 +34,7 @@ namespace Infrastructure.Repositories
                     }
                     else
                     {
-                        throw new ArgumentException("There cannot be a negative number of Book copies");
+                        throw new ArgumentException("Not enough copies available to remove");
                     }
                 }
                 else
@@ -76,13 +75,12 @@ namespace Infrastructure.Repositories
 
         public IEnumerable<Book> GetAllBooks()
         {
-            var allBooks = _appDbContext.Books.ToList();
-            return allBooks;
+            return _appDbContext.Books.ToList();
         }
 
         public Book GetBookById(int bookId)
         {
-            return _appDbContext.Books.FirstOrDefault(b => b.BookId == bookId);
+           return _appDbContext.Books.FirstOrDefault(b => b.BookId == bookId);
         }
 
         public void InsertNewBook(Book book)
@@ -93,8 +91,7 @@ namespace Infrastructure.Repositories
 
         public bool IsBookAvailable(int bookId)
         {
-            var book = _appDbContext.Books.FirstOrDefault(b => b.BookId == bookId);
-            return book.AvailableCopies > 0;   
+            return _appDbContext.Books.FirstOrDefault(b => b.BookId == bookId).AvailableCopies > 0;
         }
     }
 }

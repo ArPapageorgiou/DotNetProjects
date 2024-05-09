@@ -16,7 +16,6 @@ namespace EF_API_LibraryProject
 
             // Add services to the container.
             builder.Services.InfraServices();
-
             builder.Services.AppService();
 
             builder.Services.AddControllers();

@@ -32,15 +32,7 @@ namespace Infrastructure.Repositories
 
         public bool HasMemberAlreadyRentedBook(int memberId, int bookId)
         {
-            var transaction = _appDbContext.RentalTransactions.Any(r => r.MemberId == memberId && r.BookId == bookId && r.ReturnedAt == null);
-            if (transaction != null)
-            {
-                return true;
-            }
-            else 
-            { 
-                return false;   
-            }
+            return _appDbContext.RentalTransactions.Any(r => r.MemberId == memberId && r.BookId == bookId && r.ReturnedAt == null);
         }
 
         public void UpdateTransaction(int memberId, int bookId)

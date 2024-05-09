@@ -65,12 +65,7 @@ namespace Infrastructure.Repositories
 
         public bool DoesBookExistById(int bookId)
         {
-            var book = _appDbContext.Books.FirstOrDefault(b => b.BookId == bookId);
-            if (book != null) 
-            {
-                return true;
-            }
-            else return false;
+            return _appDbContext.Books.Any(b => b.BookId == bookId);
         }
 
         public IEnumerable<Book> GetAllBooks()

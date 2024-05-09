@@ -43,12 +43,7 @@ namespace Infrastructure.Repositories
 
         public bool DoesMemberExistById(int memberId)
         {
-            var member = _appDbContext.Members.FirstOrDefault(m => m.MemberId == memberId);
-            if (member != null)
-            {
-                return true;
-            }
-            else return false;
+            return _appDbContext.Members.Any(m => m.MemberId == memberId);
         }
 
         public Member GetMemberById(int memberId)

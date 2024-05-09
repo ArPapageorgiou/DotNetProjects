@@ -104,10 +104,12 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("RentedAt")
+
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ReturnedAt")
+
                         .HasColumnType("datetime2");
 
                     b.HasKey("RentalTransactionId");

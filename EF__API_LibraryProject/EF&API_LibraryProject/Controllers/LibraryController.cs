@@ -17,25 +17,47 @@ namespace EF_API_LibraryProject.Controllers
             _application = application;
         }
 
-        [HttpPut("add-ramove-bookcopy")]
+        [HttpPut("add-remove-bookcopy")]
 
         public IActionResult AddRemoveBookCopy(int bookId, int ChangeByNumber) 
         {
             try
             {
-                if (bookId != null)
-                {
-                    _application.AddRemoveBookCopy(bookId, ChangeByNumber);
+                _application.AddRemoveBookCopy(bookId, ChangeByNumber);
                     return NoContent();
-                }
-                else 
-                {
-                    return BadRequest("Invalid Book Id");
-                }
             }
             catch (Exception ex)
             {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
+        [HttpDelete ("delete-book")]
+
+        public IActionResult DeleteBook(int bookId) 
+        {
+            try
+            {
+                _application.DeleteBook(bookId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpDelete("delete-member")]
+
+        public IActionResult DeleteMember(int memberId)
+        {
+            try
+            {
+                _application.DeleteMember(memberId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
                 return StatusCode(500, ex.Message);
             }
         }
@@ -60,6 +82,36 @@ namespace EF_API_LibraryProject.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-        }  
+        }
+
+        [HttpGet("get-book")]
+
+        public IActionResult GetBook(int memberId) 
+        {
+            try
+            {
+                var book = _application.GetBook(memberId);
+                return Ok(book);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("get-member")]
+
+        public IActionResult GetMember(int memberId) 
+        {
+            try
+            {
+                var member = _application.GetMember(memberId);
+                return Ok(member);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

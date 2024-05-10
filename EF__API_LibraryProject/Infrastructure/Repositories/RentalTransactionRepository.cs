@@ -13,6 +13,11 @@ namespace Infrastructure.Repositories
             _appDbContext = appDbContext;
         }
 
+        public RentalTransaction GetTransaction(int transactionId) 
+        {
+            return _appDbContext.RentalTransactions.FirstOrDefault(r => r.RentalTransactionId == transactionId);
+        }
+
         public void CreateTransaction(int memberId, int bookId)
         {
             var transaction = new RentalTransaction { MemberId = memberId, BookId = bookId };
@@ -22,12 +27,7 @@ namespace Infrastructure.Repositories
 
         public bool DoesTransactionExist(int memberId, int bookId)
         {
-            var transaction = _appDbContext.RentalTransactions.Any(r => r.MemberId == memberId && r.BookId == bookId && r.ReturnedAt != null);
-            if (transaction != null) 
-            { 
-            return true;
-            }
-            else return false;
+            return _appDbContext.RentalTransactions.Any(r => r.MemberId == memberId && r.BookId == bookId && r.ReturnedAt != null);
         }
 
         public bool HasMemberAlreadyRentedBook(int memberId, int bookId)

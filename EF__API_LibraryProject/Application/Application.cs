@@ -1,6 +1,8 @@
 
 ﻿using Application.Interfaces;
 using Domain.Models;
+using EF_API_LibraryProject.DTOs;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace Application
@@ -83,9 +85,48 @@ namespace Application
             }
         }
 
-        public void InsertNewBook(Book book)
+        public RentalTransaction GetRentalTransaction(int transactionId, int bookId, int memberId) 
         {
+            if (_rentalTransaction.DoesTransactionExist(memberId, bookId))
+            {
+                return _rentalTransaction.GetTransaction(transactionId);
+            }
+            else 
+            {
+                throw new ArgumentException("Transaction does not exist");
+            }
+        }
+
+        public int InsertNewBook([FromBody] BookRequest bookRequest)
+        {
+            var book = new Book() 
+            { 
+            Title = bookRequest.Title,
+            Genre = bookRequest.Genre,
+            Description = bookRequest.Description,
+            TotalCopies = bookRequest.TotalCopies,
+            AvailableCopies = bookRequest.TotalCopies
+            };
+
+            return book.BookId;
+
             _bookRepository.InsertNewBook(book);
+        }
+
+        public int InsertNewMember([FromBody] MemberRequest memberRequest)
+        {
+            var member = new Member() 
+            { 
+            FirstName = memberRequest.FirstName,
+            LastName = memberRequest.LastName,
+            Address = memberRequest.Address,
+            Phone = memberRequest.Phone,
+            Email = memberRequest.Email
+            };
+
+            return member.MemberId;
+            
+            _memberRepository.InsertNewMember(member);
         }
 
         public void RentBook(int bookId, int memberId)
@@ -110,7 +151,7 @@ namespace Application
                 throw new ArgumentException("Member has reached the rental limit of 2 books");
             }
 
-            _rentalTransaction.CreateTransaction(bookId, memberId);
+             _rentalTransaction.CreateTransaction(bookId, memberId);
 
         }
 

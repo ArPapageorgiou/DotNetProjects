@@ -1,8 +1,7 @@
-﻿using Infrastructure.Data;
-using Application.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Models;
+using EF_API_LibraryProject.DTOs;
 
 namespace EF_API_LibraryProject.Controllers
 {
@@ -17,7 +16,7 @@ namespace EF_API_LibraryProject.Controllers
             _application = application;
         }
 
-        [HttpPut("add-remove-bookcopy")]
+        [HttpPut("add-remove-bookcopy/{bookId}/{ChangeByNumber}")]
 
         public IActionResult AddRemoveBookCopy(int bookId, int ChangeByNumber) 
         {
@@ -32,7 +31,7 @@ namespace EF_API_LibraryProject.Controllers
             }
         }
 
-        [HttpDelete ("delete-book")]
+        [HttpDelete ("delete-book/{memberId}")]
 
         public IActionResult DeleteBook(int bookId) 
         {
@@ -47,7 +46,7 @@ namespace EF_API_LibraryProject.Controllers
             }
         }
 
-        [HttpDelete("delete-member")]
+        [HttpDelete("delete-member/{memberId}")]
 
         public IActionResult DeleteMember(int memberId)
         {
@@ -62,7 +61,7 @@ namespace EF_API_LibraryProject.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("get-all-books")]
 
         public ActionResult<IEnumerable<Book>> GetAllBooks() 
         {
@@ -84,13 +83,13 @@ namespace EF_API_LibraryProject.Controllers
             }
         }
 
-        [HttpGet("get-book")]
+        [HttpGet("get-book/{bookId}")]
 
-        public IActionResult GetBook(int memberId) 
+        public IActionResult GetBook(int bookId) 
         {
             try
             {
-                var book = _application.GetBook(memberId);
+                var book = _application.GetBook(bookId);
                 return Ok(book);
             }
             catch (Exception ex)
@@ -99,7 +98,7 @@ namespace EF_API_LibraryProject.Controllers
             }
         }
 
-        [HttpGet("get-member")]
+        [HttpGet("get-member/{memberId}")]
 
         public IActionResult GetMember(int memberId) 
         {
@@ -111,6 +110,67 @@ namespace EF_API_LibraryProject.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("get-transaction/{}")]
+
+        [HttpPost("insert-member/{member}")]
+
+        public IActionResult InsertNewMember([FromBody] MemberRequest memberRequest) 
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var newMemberId = _application.InsertNewMember(memberRequest);
+                    return CreatedAtAction(nameof(GetMember), new { memberId = newMemberId});
+                }
+                else 
+                {
+                    return BadRequest("Not all information was provided by the client");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+            
+        }
+
+        [HttpPost("insert-book/{book}")]
+
+        public IActionResult InsertBook([FromBody] BookRequest bookRequest)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var newBookId = _application.InsertNewBook(bookRequest);
+                    return CreatedAtAction(nameof(GetMember), new { memberId = newBookId });
+                }
+                else
+                {
+                    return BadRequest("Not all information was provided by the client");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+
+        public IActionResult RentBook(int bookId, int memberId) 
+        {
+            try
+            {
+                _application.RentBook(bookId, memberId);
+                return CreatedAtAction(nameof())
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Not all information was provided by the client");
             }
         }
     }

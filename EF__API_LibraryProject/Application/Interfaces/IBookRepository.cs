@@ -13,6 +13,8 @@ namespace Application.Interfaces
         bool IsBookAvailable (int bookId);
         void InsertNewBook (Book book);
         void AddRemoveBookCopy(int bookId, int increaseByNumber);
+        void AddAvailableCopies(int bookId);
+        void RemoveAvailableCopies(int bookId);
         void DeleteBook(int bookId);
 
     }

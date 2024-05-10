@@ -59,7 +59,8 @@ namespace Infrastructure.Repositories
 
         public bool MemberHasMaxBooks(int memberId)
         {
-            return _appDbContext.Members.FirstOrDefault(m => m.MemberId == memberId).RentedBooks >= 2;
+            var member = _appDbContext.Members.FirstOrDefault(m => m.MemberId == memberId);
+            return member.RentedBooks >= 2;
         }
 
         public void RemoveRentedBookFromMember(int memberId)

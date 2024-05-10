@@ -1,7 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Models;
 using Infrastructure.Data;
-using System.Linq;
 
 namespace Infrastructure.Repositories
 {
@@ -87,6 +86,18 @@ namespace Infrastructure.Repositories
         public bool IsBookAvailable(int bookId)
         {
             return _appDbContext.Books.FirstOrDefault(b => b.BookId == bookId).AvailableCopies > 0;
+        }
+
+        public void AddAvailableCopies(int bookId) 
+        {
+            _appDbContext.Books.FirstOrDefault(b => b.BookId == bookId).AvailableCopies += 1;
+            _appDbContext.SaveChanges();
+        }
+
+        public void RemoveAvailableCopies(int bookId)
+        {
+            _appDbContext.Books.FirstOrDefault(b => b.BookId == bookId).AvailableCopies -= 1;
+            _appDbContext.SaveChanges();
         }
     }
 }

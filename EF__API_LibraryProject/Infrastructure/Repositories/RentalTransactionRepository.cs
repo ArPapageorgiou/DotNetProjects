@@ -13,9 +13,9 @@ namespace Infrastructure.Repositories
             _appDbContext = appDbContext;
         }
 
-        public RentalTransaction GetTransaction(int transactionId) 
+        public RentalTransaction GetTransaction(RentalTransaction rentalTransaction) 
         {
-            return _appDbContext.RentalTransactions.FirstOrDefault(r => r.RentalTransactionId == transactionId);
+            return _appDbContext.RentalTransactions.FirstOrDefault(r => r.RentalTransactionId == rentalTransaction.RentalTransactionId);
         }
 
         public void CreateTransaction(int memberId, int bookId)

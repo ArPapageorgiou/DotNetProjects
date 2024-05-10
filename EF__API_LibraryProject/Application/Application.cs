@@ -1,9 +1,9 @@
 
-﻿using Application.Interfaces;
+using Application.Interfaces;
 using Domain.Models;
 using EF_API_LibraryProject.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Application
 {
@@ -85,11 +85,11 @@ namespace Application
             }
         }
 
-        public RentalTransaction GetRentalTransaction(int transactionId, int bookId, int memberId) 
+        public RentalTransaction GetRentalTransaction(RentalTransaction rentalTransaction) 
         {
-            if (_rentalTransaction.DoesTransactionExist(memberId, bookId))
+            if (_rentalTransaction.DoesTransactionExist(rentalTransaction.MemberId, rentalTransaction.BookId))
             {
-                return _rentalTransaction.GetTransaction(transactionId);
+                return _rentalTransaction.GetTransaction(rentalTransaction);
             }
             else 
             {
@@ -97,36 +97,22 @@ namespace Application
             }
         }
 
-        public int InsertNewBook([FromBody] BookRequest bookRequest)
+        public void InsertNewBook(Book book)
         {
-            var book = new Book() 
-            { 
-            Title = bookRequest.Title,
-            Genre = bookRequest.Genre,
-            Description = bookRequest.Description,
-            TotalCopies = bookRequest.TotalCopies,
-            AvailableCopies = bookRequest.TotalCopies
-            };
-
-            return book.BookId;
+            
 
             _bookRepository.InsertNewBook(book);
+            
+            
         }
 
-        public int InsertNewMember([FromBody] MemberRequest memberRequest)
+        public void InsertNewMember(Member member)
         {
-            var member = new Member() 
-            { 
-            FirstName = memberRequest.FirstName,
-            LastName = memberRequest.LastName,
-            Address = memberRequest.Address,
-            Phone = memberRequest.Phone,
-            Email = memberRequest.Email
-            };
-
-            return member.MemberId;
             
+
             _memberRepository.InsertNewMember(member);
+
+            
         }
 
         public void RentBook(int bookId, int memberId)
@@ -146,12 +132,15 @@ namespace Application
                 throw new ArgumentException("Book is not available");
             }
 
-            if (!_memberRepository.MemberHasMaxBooks(memberId)) 
+            if (_memberRepository.MemberHasMaxBooks(memberId)) 
             {
                 throw new ArgumentException("Member has reached the rental limit of 2 books");
             }
 
              _rentalTransaction.CreateTransaction(bookId, memberId);
+             _memberRepository.AddRentedBookToMember(memberId);
+             _bookRepository.RemoveAvailableCopies(bookId);
+            
 
         }
 
@@ -173,6 +162,8 @@ namespace Application
             }
 
             _rentalTransaction.UpdateTransaction(memberId, bookId);
+            _memberRepository.RemoveRentedBookFromMember(memberId);
+            _bookRepository.AddAvailableCopies(bookId);
         }
 
     }

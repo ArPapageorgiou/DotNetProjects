@@ -18,7 +18,8 @@ namespace Domain.Configurations
                 .WithMany(m => m.rentalTransactions)
                 .HasForeignKey(r => r.MemberId);
 
-            builder.Property(r => r.RentedAt).ValueGeneratedOnAdd();
+
+            
 
         }
     }

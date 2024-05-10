@@ -16,7 +16,9 @@ namespace EF_API_LibraryProject.Controllers
             _application = application;
         }
 
+
         [HttpPut("add-remove-bookcopy/{bookId}/{ChangeByNumber}")]
+
 
 
         public IActionResult AddRemoveBookCopy(int bookId, int ChangeByNumber) 
@@ -33,7 +35,9 @@ namespace EF_API_LibraryProject.Controllers
             }
         }
 
+
         [HttpDelete ("delete-book/{memberId}")]
+
 
         public IActionResult DeleteBook(int bookId) 
         {
@@ -48,7 +52,9 @@ namespace EF_API_LibraryProject.Controllers
             }
         }
 
+
         [HttpDelete("delete-member/{memberId}")]
+
 
         public IActionResult DeleteMember(int memberId)
         {
@@ -87,6 +93,7 @@ namespace EF_API_LibraryProject.Controllers
 
         }
 
+
         [HttpGet("get-book/{bookId}")]
 
         public IActionResult GetBook(int bookId) 
@@ -94,6 +101,7 @@ namespace EF_API_LibraryProject.Controllers
             try
             {
                 var book = _application.GetBook(bookId);
+
                 return Ok(book);
             }
             catch (Exception ex)
@@ -102,7 +110,9 @@ namespace EF_API_LibraryProject.Controllers
             }
         }
 
+
         [HttpGet("get-member/{memberId}")]
+
 
         public IActionResult GetMember(int memberId) 
         {
@@ -116,6 +126,7 @@ namespace EF_API_LibraryProject.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
 
         [HttpGet("get-transaction/{}")]
 
@@ -177,6 +188,7 @@ namespace EF_API_LibraryProject.Controllers
                 return BadRequest("Not all information was provided by the client");
             }
         }
+
 
     }
 }

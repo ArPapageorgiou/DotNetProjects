@@ -17,6 +17,7 @@ namespace EF_API_LibraryProject.Controllers
             _application = application;
         }
 
+
         [HttpPut("add-remove-bookcopy/{bookId}/{ChangeByNumber}")]
 
 
@@ -49,7 +50,9 @@ namespace EF_API_LibraryProject.Controllers
             }
         }
 
+
         [HttpDelete("delete-member/{memberId}")]
+
 
         public IActionResult DeleteMember(int memberId)
         {
@@ -88,6 +91,7 @@ namespace EF_API_LibraryProject.Controllers
 
         }
 
+
         [HttpGet("get-book/{bookId}")]
 
         public IActionResult GetBook(int bookId)
@@ -95,6 +99,7 @@ namespace EF_API_LibraryProject.Controllers
             try
             {
                 var book = _application.GetBook(bookId);
+
                 return Ok(book);
             }
             catch (Exception ex)
@@ -102,6 +107,7 @@ namespace EF_API_LibraryProject.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
 
         [HttpGet("get-member/{memberId}")]
 
@@ -233,6 +239,7 @@ namespace EF_API_LibraryProject.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
 
     }
 }

@@ -18,10 +18,12 @@ namespace EF_API_LibraryProject.Controllers
 
         [HttpPut("add-remove-bookcopy/{bookId}/{ChangeByNumber}")]
 
+
         public IActionResult AddRemoveBookCopy(int bookId, int ChangeByNumber) 
         {
             try
             {
+
                 _application.AddRemoveBookCopy(bookId, ChangeByNumber);
                     return NoContent();
             }
@@ -57,6 +59,7 @@ namespace EF_API_LibraryProject.Controllers
             }
             catch (Exception ex)
             {
+
                 return StatusCode(500, ex.Message);
             }
         }
@@ -81,6 +84,7 @@ namespace EF_API_LibraryProject.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
+
         }
 
         [HttpGet("get-book/{bookId}")]
@@ -173,5 +177,6 @@ namespace EF_API_LibraryProject.Controllers
                 return BadRequest("Not all information was provided by the client");
             }
         }
+
     }
 }

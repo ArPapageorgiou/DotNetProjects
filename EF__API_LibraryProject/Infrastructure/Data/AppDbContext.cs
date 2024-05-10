@@ -2,8 +2,6 @@
 using Domain.Models;
 using Domain.Configurations;
 
-using Microsoft.Extensions.Options;
-
 
 namespace Infrastructure.Data
 {
@@ -26,6 +24,13 @@ namespace Infrastructure.Data
             modelBuilder.ApplyConfiguration(new BookConfiguration());
             modelBuilder.ApplyConfiguration(new MemberConfiguration());
             modelBuilder.ApplyConfiguration(new RentalTransactionConfiguration());
+
+
+
+            modelBuilder.Entity<RentalTransaction>()
+                .Property(e => e.RentedAt)
+                .HasDefaultValue(DateTime.Now);
+
         }
     }
 }

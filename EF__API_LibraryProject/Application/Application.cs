@@ -1,7 +1,9 @@
 
-﻿using Application.Interfaces;
+using Application.Interfaces;
 using Domain.Models;
-using System.Net;
+using EF_API_LibraryProject.DTOs;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Application
 {
@@ -83,9 +85,34 @@ namespace Application
             }
         }
 
+        public RentalTransaction GetRentalTransaction(RentalTransaction rentalTransaction) 
+        {
+            if (_rentalTransaction.DoesTransactionExist(rentalTransaction.MemberId, rentalTransaction.BookId))
+            {
+                return _rentalTransaction.GetTransaction(rentalTransaction);
+            }
+            else 
+            {
+                throw new ArgumentException("Transaction does not exist");
+            }
+        }
+
         public void InsertNewBook(Book book)
         {
+            
+
             _bookRepository.InsertNewBook(book);
+            
+            
+        }
+
+        public void InsertNewMember(Member member)
+        {
+            
+
+            _memberRepository.InsertNewMember(member);
+
+            
         }
 
         public void RentBook(int bookId, int memberId)
@@ -105,12 +132,15 @@ namespace Application
                 throw new ArgumentException("Book is not available");
             }
 
-            if (!_memberRepository.MemberHasMaxBooks(memberId)) 
+            if (_memberRepository.MemberHasMaxBooks(memberId)) 
             {
                 throw new ArgumentException("Member has reached the rental limit of 2 books");
             }
 
-            _rentalTransaction.CreateTransaction(bookId, memberId);
+             _rentalTransaction.CreateTransaction(bookId, memberId);
+             _memberRepository.AddRentedBookToMember(memberId);
+             _bookRepository.RemoveAvailableCopies(bookId);
+            
 
         }
 
@@ -132,6 +162,8 @@ namespace Application
             }
 
             _rentalTransaction.UpdateTransaction(memberId, bookId);
+            _memberRepository.RemoveRentedBookFromMember(memberId);
+            _bookRepository.AddAvailableCopies(bookId);
         }
 
     }

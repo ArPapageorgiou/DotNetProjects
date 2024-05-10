@@ -1,8 +1,4 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Infrastructure.InfraServices;
-using Microsoft.Identity.Client;
 using Application.Application_Module;
 
 

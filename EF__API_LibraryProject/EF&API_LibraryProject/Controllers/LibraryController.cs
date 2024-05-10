@@ -1,8 +1,8 @@
-﻿using Infrastructure.Data;
-using Application.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Models;
+using EF_API_LibraryProject.DTOs;
+using Application.DTOs;
 
 namespace EF_API_LibraryProject.Controllers
 {
@@ -18,16 +18,16 @@ namespace EF_API_LibraryProject.Controllers
         }
 
 
-        [HttpPut("add-remove-bookcopy")]
+        [HttpPut("add-remove-bookcopy/{bookId}/{ChangeByNumber}")]
 
 
-        public IActionResult AddRemoveBookCopy(int bookId, int ChangeByNumber) 
+        public IActionResult AddRemoveBookCopy(int bookId, int ChangeByNumber)
         {
             try
             {
 
                 _application.AddRemoveBookCopy(bookId, ChangeByNumber);
-                    return NoContent();
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -35,9 +35,9 @@ namespace EF_API_LibraryProject.Controllers
             }
         }
 
-        [HttpDelete ("delete-book")]
+        [HttpDelete("delete-book/{memberId}")]
 
-        public IActionResult DeleteBook(int bookId) 
+        public IActionResult DeleteBook(int bookId)
         {
             try
             {
@@ -50,7 +50,9 @@ namespace EF_API_LibraryProject.Controllers
             }
         }
 
-        [HttpDelete("delete-member")]
+
+        [HttpDelete("delete-member/{memberId}")]
+
 
         public IActionResult DeleteMember(int memberId)
         {
@@ -66,9 +68,9 @@ namespace EF_API_LibraryProject.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("get-all-books")]
 
-        public ActionResult<IEnumerable<Book>> GetAllBooks() 
+        public ActionResult<IEnumerable<Book>> GetAllBooks()
         {
             try
             {
@@ -77,7 +79,7 @@ namespace EF_API_LibraryProject.Controllers
                 {
                     return Ok(bookList);
                 }
-                else 
+                else
                 {
                     return Ok(new List<Book>());
                 }
@@ -89,13 +91,15 @@ namespace EF_API_LibraryProject.Controllers
 
         }
 
-        [HttpGet("get-book")]
 
-        public IActionResult GetBook(int memberId) 
+        [HttpGet("get-book/{bookId}")]
+
+        public IActionResult GetBook(int bookId)
         {
             try
             {
-                var book = _application.GetBook(memberId);
+                var book = _application.GetBook(bookId);
+
                 return Ok(book);
             }
             catch (Exception ex)
@@ -104,9 +108,10 @@ namespace EF_API_LibraryProject.Controllers
             }
         }
 
-        [HttpGet("get-member")]
 
-        public IActionResult GetMember(int memberId) 
+        [HttpGet("get-member/{memberId}")]
+
+        public IActionResult GetMember(int memberId)
         {
             try
             {
@@ -118,6 +123,123 @@ namespace EF_API_LibraryProject.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+
+        [HttpPost("insert-member")]
+
+        public IActionResult InsertNewMember([FromBody] MemberRequest memberRequest)
+        {
+            try
+            {
+                var member = new Member()
+                {
+                    FirstName = memberRequest.FirstName,
+                    LastName = memberRequest.LastName,
+                    Address = memberRequest.Address,
+                    Phone = memberRequest.Phone,
+                    Email = memberRequest.Email
+                };
+
+                if (ModelState.IsValid)
+                {
+                    _application.InsertNewMember(member);
+                    return CreatedAtAction(nameof(GetMember), new { memberId = member.MemberId }, member);
+                }
+                else
+                {
+                    return BadRequest("Not all information was provided by the client");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+
+        [HttpPost("insert-book")]
+
+        public IActionResult InsertBook([FromBody] BookRequest bookRequest)
+        {
+            try
+            {
+                var book = new Book()
+                {
+                    Title = bookRequest.Title,
+                    Genre = bookRequest.Genre,
+                    Description = bookRequest.Description,
+                    TotalCopies = bookRequest.TotalCopies,
+                    AvailableCopies = bookRequest.TotalCopies
+                };
+                if (ModelState.IsValid)
+                {
+                    _application.InsertNewBook(book);
+                    return CreatedAtAction(nameof(GetBook), new { bookId = book.BookId }, book);
+                }
+                else
+                {
+                    return BadRequest("Not all information was provided by the client");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+
+        [HttpGet("get-transaction")]
+
+        public IActionResult GetRentalTransaction(RentalTransaction rentalTransaction)
+        {
+            try
+            {
+                var transaction = _application.GetRentalTransaction(rentalTransaction);
+                return Ok(transaction);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost("rent-book")]
+        public IActionResult RentBook(RentalTransactionRequest rentalTransaction) 
+        {
+            try
+            {
+                var transaction = new RentalTransaction()
+                {
+                    BookId = rentalTransaction.BookId,
+                    MemberId = rentalTransaction.MemberId,
+                    RentedAt = DateTime.Now
+                    
+                };
+
+                _application.RentBook(rentalTransaction.BookId, rentalTransaction.MemberId);
+                return CreatedAtAction(nameof(GetRentalTransaction), new {transactionId = transaction.RentalTransactionId}, transaction);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPut("return-book")]
+
+        public IActionResult ReturnBook(RentalTransaction rentalTransaction) 
+        {
+            try
+            {
+                _application.ReturnBook(rentalTransaction.BookId, rentalTransaction.MemberId);
+                return Ok("Transaction complete");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
 
     }
 }

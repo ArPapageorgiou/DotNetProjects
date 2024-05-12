@@ -25,11 +25,8 @@ namespace Library_Infrastructure.Repositories
                 {
                     SqlCommand cmd = new SqlCommand(Stored_Procedures.spDoesMemberExistById, connection);
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.AddWithValue("@MemberId", memberId);
                     
-                   
-
                     return ((int)cmd.ExecuteScalar() > 0);
                 }
             }
@@ -49,6 +46,7 @@ namespace Library_Infrastructure.Repositories
                 using (SqlConnection connection = GetSqlConnection())
                 {
                     SqlCommand cmd = new SqlCommand(Stored_Procedures.spDoesMemberExistByFullName, connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@MemberFullName", fullName);
                     return (int)cmd.ExecuteScalar() > 0;
                 }
@@ -70,8 +68,7 @@ namespace Library_Infrastructure.Repositories
                 {
                     SqlCommand cmd = new SqlCommand(Stored_Procedures.spMemberHasMaxBooks, connection);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    SqlParameter param = new SqlParameter("@MemberId", SqlDbType.Int);
-                    param.Value = memberId;
+                    cmd.Parameters.AddWithValue("@MemberId", memberId);
                     return (int)cmd.ExecuteScalar() > 1;
                 }
 
@@ -202,8 +199,7 @@ namespace Library_Infrastructure.Repositories
                 {
                     SqlCommand cmd = new SqlCommand(Stored_Procedures.spAddRentedBookToMember, connection);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    SqlParameter param = new SqlParameter("@MemberId", SqlDbType.Int);
-                    param.Value = memberId;
+                    cmd.Parameters.AddWithValue("@MemberId", memberId);
                     cmd.ExecuteNonQuery(); 
                 }
             }
@@ -223,8 +219,7 @@ namespace Library_Infrastructure.Repositories
                 {
                     SqlCommand cmd = new SqlCommand(Stored_Procedures.spRemoveRentedBookFromMember, connection);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    SqlParameter param = new SqlParameter("@MemberId", SqlDbType.Int);
-                    param.Value = memberId;
+                    cmd.Parameters.AddWithValue("@MemberId", memberId);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -244,8 +239,7 @@ namespace Library_Infrastructure.Repositories
                 {
                     SqlCommand cmd = new SqlCommand(Stored_Procedures.spDeleteMember, connection);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    SqlParameter param = new SqlParameter("@MemberId", SqlDbType.Int);
-                    param.Value = memberId;
+                    cmd.Parameters.AddWithValue("@MemberId", memberId);
                     cmd.ExecuteNonQuery();
                 }
             }

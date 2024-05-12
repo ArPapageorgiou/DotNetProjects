@@ -457,7 +457,14 @@ namespace Library_Application.Services
                 if (_membersRepository.DoesMemberExistById(memberId) && _booksRepository.DoesBookExistById(bookId))
 
                 {
-                    if (_membersRepository.MemberHasMaxBooks(memberId))
+                    if (_booksRepository.IsBookAvailable(bookId)) 
+                    {
+                        Console.WriteLine("Book is not currently available.");
+                        Console.WriteLine();
+                        Console.WriteLine("Press Enter key to return to main menu");
+                        Console.ReadLine();
+                    }
+                    else if (_membersRepository.MemberHasMaxBooks(memberId))
                     {
                         Console.WriteLine("Member has reached the rental limit.");
                         Console.WriteLine();

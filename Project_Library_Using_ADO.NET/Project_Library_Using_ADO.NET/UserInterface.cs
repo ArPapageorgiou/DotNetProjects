@@ -191,8 +191,8 @@ namespace Library_Services
                                 }
                                 else
                                 {
-                                    string bookTitle = userInput3.ToUpper();
-                                    _application.SearchMember(bookTitle);
+                                    string fullName = userInput3.ToUpper();
+                                    _application.SearchMember(fullName);
                                 }
                                 break;
                             }
@@ -274,7 +274,7 @@ namespace Library_Services
 
                                 if (int.TryParse(userInput4, out bookId) && int.TryParse(userInput5, out memberId))
                                 {
-                                    _application.ReturnBook(bookId, memberId);
+                                    _application.ReturnBook(memberId, bookId);
                                 }
 
                                 break;

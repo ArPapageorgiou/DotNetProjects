@@ -48,6 +48,7 @@ namespace Library_Infrastructure.Repositories
                 using (SqlConnection connection = GetSqlConnection())
                 {
                     SqlCommand cmd = new SqlCommand(Stored_Procedures.spDoesTransactionExist, connection);
+                    cmd.CommandType= CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@MemberId", memberId);
                     cmd.Parameters.AddWithValue("@BookId", bookId);
                     return ((int)cmd.ExecuteScalar() > 0);

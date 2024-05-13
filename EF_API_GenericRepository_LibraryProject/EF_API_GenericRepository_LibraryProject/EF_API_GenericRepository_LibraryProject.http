@@ -1,0 +1,6 @@
+@EF_API_GenericRepository_LibraryProject_HostAddress = http://localhost:5121
+
+GET {{EF_API_GenericRepository_LibraryProject_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

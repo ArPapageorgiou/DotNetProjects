@@ -1,3 +1,4 @@
+
 ﻿using Domain.Models;
 
 namespace Application.Interfaces
@@ -6,5 +7,6 @@ namespace Application.Interfaces
     {
         bool HasMemberAlreadyRentedBook(int memberId, int bookId);
         void UpdateTransaction(int memberId, int bookId);
+
     }
 }

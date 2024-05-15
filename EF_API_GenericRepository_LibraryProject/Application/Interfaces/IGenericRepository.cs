@@ -1,6 +1,11 @@
 ﻿namespace Application.Interfaces
 {
-    internal interface IGenericRepository
+    public interface IGenericRepository<T> where T : class
     {
+       IEnumerable<T> GetAll();
+        T GetById(int id);
+        bool DoesItemExist(int id);
+        void Add(T entity);
+        void Delete(int id);
     }
 }

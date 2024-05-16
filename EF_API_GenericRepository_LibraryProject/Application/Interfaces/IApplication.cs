@@ -12,7 +12,7 @@ namespace Application.Interfaces
         void ReturnBook(int bookId, int memberId);
         void DeleteBook(int bookId);
         Member GetMember(int memberId);
-        Transaction GetRentalTransaction(Transaction rentalTransaction);
+        Transaction GetTransaction(Transaction rentalTransaction);
         void InsertNewMember(Member member);
         void DeleteMember(int memberId);
     }

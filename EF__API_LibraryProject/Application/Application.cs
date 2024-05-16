@@ -1,9 +1,6 @@
 
 using Application.Interfaces;
 using Domain.Models;
-using EF_API_LibraryProject.DTOs;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Application
 {

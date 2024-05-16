@@ -39,6 +39,7 @@ namespace Infrastructure.Repositories
         public IEnumerable<T> GetAll()
         {
             return _dbSet.ToList();
+
         }
 
         public T GetById(int id)

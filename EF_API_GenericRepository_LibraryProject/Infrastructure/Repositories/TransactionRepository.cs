@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Infrastructure.Data;
-using System.Transactions;
+using Domain.Models;
+
 
 namespace Infrastructure.Repositories
 {
@@ -13,9 +14,11 @@ namespace Infrastructure.Repositories
             _appDbContext = appDbContext;
         }
 
+
         public bool HasMemberAlreadyRentedBook(int memberId, int bookId)
         {
             return _appDbContext.transactions.Any(t => t.MemberId == memberId && t.BookId == bookId && t.ReturnedAt == null);
+            
         }
 
         public void UpdateTransaction(int memberId, int bookId)
@@ -32,5 +35,7 @@ namespace Infrastructure.Repositories
             }
             
         }
+
+        
     }
 }

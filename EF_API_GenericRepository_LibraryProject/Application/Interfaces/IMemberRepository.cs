@@ -1,3 +1,4 @@
+
 ﻿using Domain.Models;
 
 namespace Application.Interfaces
@@ -7,5 +8,6 @@ namespace Application.Interfaces
         bool MemberHasMaxBooks(int memberId);
         void AddRentedBookToMember(int memberId);
         void RemoveRentedBookFromMember(int memberId);
+
     }
 }

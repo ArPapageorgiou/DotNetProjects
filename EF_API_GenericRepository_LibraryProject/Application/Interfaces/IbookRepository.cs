@@ -1,3 +1,4 @@
+
 ﻿using Domain.Models;
 
 namespace Application.Interfaces
@@ -8,5 +9,6 @@ namespace Application.Interfaces
         bool IsBookAvailable(int bookId);
         void AddAvailableCopies(int bookId);
         void RemoveAvailableCopies(int bookId);
+
     }
 }

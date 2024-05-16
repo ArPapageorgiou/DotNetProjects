@@ -1,6 +1,152 @@
-﻿namespace Application
+
+﻿using Application.Interfaces;
+using Domain.Models;
+using System.Net;
+
+
+namespace Application
 {
-    internal class Application
+    public class Application : IApplication
     {
+        private readonly IbookRepository _bookRepository;
+        private readonly IMemberRepository _memberRepository;
+        private readonly ITransactionRepository _transactionRepository;
+        
+
+        public Application(IbookRepository ibookRepository, IMemberRepository memberRepository, ITransactionRepository transactionRepository)
+        {
+            _bookRepository = ibookRepository;
+            _memberRepository = memberRepository;
+            _transactionRepository = transactionRepository;
+            
+        }
+
+        public void AddRemoveBookCopy(int bookId, int ChangeByNumber)
+        {
+            if (_bookRepository.DoesItemExist(bookId))
+            {
+                _bookRepository.AddRemoveBookCopy(bookId, ChangeByNumber);
+            }
+            else
+            {
+                throw new ArgumentException("Book does not exist");
+            }
+        }
+
+        public void DeleteBook(int bookId)
+        {
+            if (_bookRepository.DoesItemExist(bookId))
+            {
+                _bookRepository.Delete(bookId);
+            }
+            else
+            {
+                throw new ArgumentException("Book does not exist");
+            }
+        }
+
+        public void DeleteMember(int memberId)
+        {
+            if (_memberRepository.DoesItemExist(memberId))
+            {
+                _memberRepository.Delete(memberId);
+            }
+            else
+            {
+                throw new ArgumentException("Member does not exist");
+            }
+        }
+
+        public IEnumerable<Book> GetAllBooks()
+        {
+            return _bookRepository.GetAll();
+        }
+
+        public Book GetBook(int bookId)
+        {
+            if (_bookRepository.DoesItemExist(bookId))
+            {
+                return _bookRepository.GetById(bookId);
+            }
+            else
+            {
+                throw new ArgumentException("Book does not exist");
+            }
+        }
+
+        public Member GetMember(int memberId)
+        {
+            if (_memberRepository.DoesItemExist(memberId))
+            {
+                return _memberRepository.GetById(memberId);
+            }
+            else
+            {
+                throw new ArgumentException("Member does not exist");
+            }
+        }
+
+        public Transaction GetTransaction(Transaction transaction)
+        {
+            if (_transactionRepository.DoesItemExist(transaction.BookId))
+            {
+                return _transactionRepository.GetById(transaction.TransactionId);
+            }
+            else
+            {
+                throw new ArgumentException("Transaction does not exist");
+            }
+        }
+
+        public void InsertNewBook(Book book)
+        {
+            _bookRepository.Add(book);
+        }
+
+        public void InsertNewMember(Member member)
+        {
+            _memberRepository.Add(member);
+        }
+
+        public void RentBook(int bookId, int memberId)
+        {
+            if (!_bookRepository.DoesItemExist(bookId))
+            {
+                throw new ArgumentException("Book does not exist");
+            }
+
+            if (!_memberRepository.DoesItemExist(memberId))
+            {
+                throw new ArgumentException("Member does not exist");
+            }
+
+            if (!_bookRepository.IsBookAvailable(bookId))
+            {
+                throw new ArgumentException("Book is not available");
+            }
+
+            if (_transactionRepository.HasMemberAlreadyRentedBook(memberId, bookId))
+            {
+                throw new ArgumentException("Member allready owes a book with this ID");
+            }
+
+            if (_memberRepository.MemberHasMaxBooks(memberId))
+            {
+                throw new ArgumentException("Member has reached rental limit");
+            }
+
+            var transaction = new Transaction
+            {
+
+            };
+
+            _transactionRepository.Add();
+        }
+
+        public void ReturnBook(int bookId, int memberId)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

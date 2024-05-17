@@ -36,6 +36,21 @@ namespace Infrastructure.Repositories
             
         }
 
-        
+
+        public void CreateTransaction (int memberId, int bookId) 
+        { 
+            var transaction = new Transaction { MemberId = memberId, BookId = bookId };
+            _appDbContext.transactions.Add(transaction);
+            _appDbContext.SaveChanges();
+
+        }
+
+        public bool DoesTransactionExist(int memberId, int bookId) 
+        { 
+            return _appDbContext.transactions.Any(t => t.MemberId == memberId && t.BookId == bookId && t.ReturnedAt == null);
+        }
+
+
+
     }
 }

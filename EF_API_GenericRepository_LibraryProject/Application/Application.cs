@@ -1,7 +1,6 @@
 
-﻿using Application.Interfaces;
+using Application.Interfaces;
 using Domain.Models;
-using System.Net;
 
 
 namespace Application
@@ -135,17 +134,33 @@ namespace Application
                 throw new ArgumentException("Member has reached rental limit");
             }
 
-            var transaction = new Transaction
-            {
-
-            };
-
-            _transactionRepository.Add();
+            _transactionRepository.CreateTransaction(memberId, bookId);
+            _bookRepository.RemoveAvailableCopies(bookId);
+            _memberRepository.AddRentedBookToMember(memberId);
+        
         }
 
         public void ReturnBook(int bookId, int memberId)
         {
-            throw new NotImplementedException();
+            if (!_bookRepository.DoesItemExist(bookId))
+            {
+                throw new ArgumentException("Book does not exist");
+            }
+
+            if (!_memberRepository.DoesItemExist(memberId))
+            {
+                throw new ArgumentException("Member does not exist");
+            }
+
+            if (!_transactionRepository.DoesTransactionExist(memberId, bookId)) 
+            {
+                throw new ArgumentException("Transaction does not exist");
+            }
+
+            _transactionRepository.UpdateTransaction(memberId, bookId);
+            _bookRepository.AddAvailableCopies(bookId);
+            _memberRepository.RemoveRentedBookFromMember(memberId);
+        
         }
 
     }

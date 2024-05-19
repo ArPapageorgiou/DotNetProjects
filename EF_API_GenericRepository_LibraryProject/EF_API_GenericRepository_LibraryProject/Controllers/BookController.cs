@@ -1,8 +1,10 @@
+
 ﻿using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Application.DTOs;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore.Metadata;
+
 
 namespace EF_API_GenericRepository_LibraryProject.Controllers
 {
@@ -10,6 +12,7 @@ namespace EF_API_GenericRepository_LibraryProject.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
+
         private readonly IApplication _application;
 
         public BookController(IApplication application)
@@ -122,5 +125,6 @@ namespace EF_API_GenericRepository_LibraryProject.Controllers
         }
 
         
+
     }
 }

@@ -11,6 +11,8 @@ namespace Application.Interfaces
 
         bool DoesTransactionExist(int memberId, int bookId);
 
+
+
         
 
     }

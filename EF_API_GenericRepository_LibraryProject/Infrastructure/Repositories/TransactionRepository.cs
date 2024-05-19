@@ -36,6 +36,7 @@ namespace Infrastructure.Repositories
             
         }
 
+
         public void CreateTransaction (int memberId, int bookId) 
         { 
             var transaction = new Transaction { MemberId = memberId, BookId = bookId };
@@ -48,6 +49,7 @@ namespace Infrastructure.Repositories
         { 
             return _appDbContext.transactions.Any(t => t.MemberId == memberId && t.BookId == bookId && t.ReturnedAt == null);
         }
+
 
 
     }

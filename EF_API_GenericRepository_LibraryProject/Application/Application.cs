@@ -1,6 +1,8 @@
 
+
 using Application.Interfaces;
 using Domain.Models;
+
 
 
 namespace Application
@@ -134,6 +136,7 @@ namespace Application
                 throw new ArgumentException("Member has reached rental limit");
             }
 
+
             _transactionRepository.CreateTransaction(memberId, bookId);
             _bookRepository.RemoveAvailableCopies(bookId);
             _memberRepository.AddRentedBookToMember(memberId);
@@ -161,6 +164,7 @@ namespace Application
             _bookRepository.AddAvailableCopies(bookId);
             _memberRepository.RemoveRentedBookFromMember(memberId);
         
+
         }
 
     }

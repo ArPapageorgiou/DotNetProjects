@@ -10,6 +10,9 @@ namespace Application.Interfaces
         void CreateTransaction(int memberId, int bookId);
 
         bool DoesTransactionExist(int memberId, int bookId);
+
+
+
         
 
     }

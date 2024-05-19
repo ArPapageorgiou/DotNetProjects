@@ -9,12 +9,12 @@ namespace Application
 {
     public class Application : IApplication
     {
-        private readonly IbookRepository _bookRepository;
+        private readonly IBookRepository _bookRepository;
         private readonly IMemberRepository _memberRepository;
         private readonly ITransactionRepository _transactionRepository;
         
 
-        public Application(IbookRepository ibookRepository, IMemberRepository memberRepository, ITransactionRepository transactionRepository)
+        public Application(IBookRepository ibookRepository, IMemberRepository memberRepository, ITransactionRepository transactionRepository)
         {
             _bookRepository = ibookRepository;
             _memberRepository = memberRepository;
@@ -89,7 +89,7 @@ namespace Application
 
         public Transaction GetTransaction(Transaction transaction)
         {
-            if (_transactionRepository.DoesItemExist(transaction.BookId))
+            if (_transactionRepository.DoesTransactionExist(transaction.MemberId, transaction.BookId))
             {
                 return _transactionRepository.GetById(transaction.TransactionId);
             }

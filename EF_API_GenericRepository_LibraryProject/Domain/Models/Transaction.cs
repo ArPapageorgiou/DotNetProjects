@@ -7,7 +7,7 @@
         public Member Member { get; set; }
         public int BookId { get; set; }
         public Book Book { get; set; }
-        public DateTime RentedAt { get; set; }
+        public DateTime RentedAt { get; set; } = DateTime.UtcNow;
         public DateTime? ReturnedAt { get; set; }
     }
 }

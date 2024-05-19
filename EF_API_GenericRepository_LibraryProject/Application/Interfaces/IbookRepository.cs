@@ -3,7 +3,7 @@
 
 namespace Application.Interfaces
 {
-    public interface IbookRepository : IGenericRepository<Book>
+    public interface IBookRepository : IGenericRepository<Book>
     {
         void AddRemoveBookCopy(int bookId, int copyChange);
         bool IsBookAvailable(int bookId);

@@ -14,6 +14,7 @@ namespace EF_API_GenericRepository_LibraryProject
             // Add services to the container.
 
             builder.Services.InfraServices();
+            builder.Services.AppServices();
 
 
             builder.Services.AddControllers();

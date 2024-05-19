@@ -4,7 +4,7 @@ using Domain.Models;
 
 namespace Infrastructure.Repositories
 {
-    public class BookRepository : GenericRepository<Book>, IbookRepository
+    public class BookRepository : GenericRepository<Book>, IBookRepository
     {
         private readonly AppDbContext _appDbContext;
 

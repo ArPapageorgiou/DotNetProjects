@@ -89,9 +89,11 @@ namespace Application
 
         public IEnumerable<Transaction> GetTransactions(int memberId, int bookId)
         {
+
             var transactions = _transactionRepository.GetTransactions(memberId, bookId);
 
             if (transactions.Count() > 0)
+
             {
                 return transactions;
             }

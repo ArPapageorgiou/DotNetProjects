@@ -87,15 +87,19 @@ namespace Application
             }
         }
 
-        public Transaction GetTransaction(Transaction transaction)
+        public IEnumerable<Transaction> GetTransactions(int memberId, int bookId)
         {
-            if (_transactionRepository.DoesTransactionExist(transaction.MemberId, transaction.BookId))
+
+            var transactions = _transactionRepository.GetTransactions(memberId, bookId);
+
+            if (transactions.Count() > 0)
+
             {
-                return _transactionRepository.GetById(transaction.TransactionId);
+                return transactions;
             }
             else
             {
-                throw new ArgumentException("Transaction does not exist");
+                throw new ArgumentException("No transaction was found");
             }
         }
 
@@ -155,7 +159,7 @@ namespace Application
                 throw new ArgumentException("Member does not exist");
             }
 
-            if (!_transactionRepository.DoesTransactionExist(memberId, bookId)) 
+            if (!_transactionRepository.DoesOpenTransactionExist(memberId, bookId)) 
             {
                 throw new ArgumentException("Transaction does not exist");
             }

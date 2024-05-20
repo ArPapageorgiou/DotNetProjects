@@ -12,7 +12,9 @@ namespace Application.Interfaces
         void ReturnBook(int bookId, int memberId);
         void DeleteBook(int bookId);
         Member GetMember(int memberId);
-        Transaction GetTransaction(Transaction transaction);
+
+        IEnumerable<Transaction> GetTransactions(int memberId, int bookId);
+
         void InsertNewMember(Member member);
         void DeleteMember(int memberId);
     }

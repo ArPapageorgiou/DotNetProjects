@@ -36,6 +36,11 @@ namespace Infrastructure.Repositories
             
         }
 
+        public IEnumerable<Transaction> GetTransactions(int memberId, int bookId) 
+        {
+            var transactions = _appDbContext.transactions.Where(t => t.MemberId == memberId && t.BookId == bookId).ToList();
+            return transactions;
+        }
 
         public void CreateTransaction (int memberId, int bookId) 
         { 
@@ -45,7 +50,7 @@ namespace Infrastructure.Repositories
 
         }
 
-        public bool DoesTransactionExist(int memberId, int bookId) 
+        public bool DoesOpenTransactionExist(int memberId, int bookId) 
         { 
             return _appDbContext.transactions.Any(t => t.MemberId == memberId && t.BookId == bookId && t.ReturnedAt == null);
         }

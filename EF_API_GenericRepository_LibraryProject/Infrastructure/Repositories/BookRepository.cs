@@ -19,6 +19,7 @@ namespace Infrastructure.Repositories
             if (book != null)
             {
                 book.AvailableCopies += 1;
+                _appDbContext.SaveChanges();    
             }
             else 
             {
@@ -31,7 +32,9 @@ namespace Infrastructure.Repositories
             var book = _appDbContext.books.FirstOrDefault(x => x.BookId == bookId);
             if (book != null) 
             { 
-            book.TotalCopies -= 1;
+                //book.TotalCopies += copyChange;
+                book.AvailableCopies += copyChange;
+                _appDbContext.SaveChanges();
             }
             else
             {
@@ -50,6 +53,7 @@ namespace Infrastructure.Repositories
             if (book != null)
             {
                 book.AvailableCopies -= 1;
+                _appDbContext.SaveChanges();
             }
             else
             {

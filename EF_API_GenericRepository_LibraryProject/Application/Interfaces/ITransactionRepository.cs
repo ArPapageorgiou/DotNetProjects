@@ -11,6 +11,8 @@ namespace Application.Interfaces
         IEnumerable<Transaction> GetTransactions(int memberId, int bookId);
         bool DoesOpenTransactionExist(int memberId, int bookId);
 
+
+
         
 
     }

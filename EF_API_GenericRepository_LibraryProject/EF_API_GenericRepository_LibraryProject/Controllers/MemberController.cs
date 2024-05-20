@@ -1,7 +1,9 @@
+
 ﻿using Application.DTOs;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Models;
+
 
 namespace EF_API_GenericRepository_LibraryProject.Controllers
 {
@@ -9,6 +11,7 @@ namespace EF_API_GenericRepository_LibraryProject.Controllers
     [ApiController]
     public class MemberController : ControllerBase
     {
+
         private readonly IApplication _application;
 
         public MemberController(IApplication application)
@@ -68,5 +71,6 @@ namespace EF_API_GenericRepository_LibraryProject.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
     }
 }

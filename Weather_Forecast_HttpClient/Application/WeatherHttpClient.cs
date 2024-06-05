@@ -16,6 +16,7 @@ namespace Application
         {
             try
             {
+
                 _httpClient.BaseAddress = new Uri("http://api.weatherbit.io/v2.0/current");
 
                 var apiKey = "c969571a57e44642be74e4a2373949bd";
@@ -27,12 +28,14 @@ namespace Application
 
                 if (response.IsSuccessStatusCode)
                 {
+
                     var responseBody = await response.Content.ReadAsStringAsync();
 
                     var options = new JsonSerializerOptions
                     {
                         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                     };
+
 
                     var weatherData = JsonSerializer.Deserialize<WeatherData>(responseBody, options);
 
@@ -42,14 +45,17 @@ namespace Application
                         {
                             await Console.Out.WriteLineAsync($"City Name: {item.CityName}\n" +
                                 $"Temperature: {item.Temp} \n" +
+
                                 $"Description: {item.Weather.Description}\n");
                         }
                     }
                 }
+
                 else 
                 {
                     Console.WriteLine($"Failed to fetch weather data. Status code: {response.StatusCode}");
                 }
+
             }
             catch (Exception ex)
             {

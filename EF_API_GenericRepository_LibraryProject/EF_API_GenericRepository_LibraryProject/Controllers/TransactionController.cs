@@ -19,12 +19,14 @@ namespace EF_API_GenericRepository_LibraryProject.Controllers
             _application = application;
         }
 
+
         [HttpGet("{memberId}/{bookId}")]
         public IActionResult GetTransactions(int memberId, int bookId) 
         {
             try
             {
                 var transaction = _application.GetTransactions(memberId, bookId);
+
                 return Ok(transaction);
             }
             catch (Exception ex)
@@ -46,7 +48,9 @@ namespace EF_API_GenericRepository_LibraryProject.Controllers
                 };
 
                 _application.RentBook(transaction.BookId, transaction.MemberId);
+
                 return CreatedAtAction(nameof(GetTransactions), new { memberId = transaction.MemberId, bookId = transaction.BookId}, transaction);
+
             }
             catch (Exception ex)
             {

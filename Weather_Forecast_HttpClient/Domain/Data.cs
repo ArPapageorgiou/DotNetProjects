@@ -21,7 +21,7 @@
         public int HAngle { get; set; }
         public double Dewpt { get; set; }
         public Weather Weather { get; set; }
-        public int Uv { get; set; }
+        public float Uv { get; set; }
         public int Aqi { get; set; }
         public string Station { get; set; }
         public List<string> Sources { get; set; }

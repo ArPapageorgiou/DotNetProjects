@@ -1,3 +1,4 @@
+
 ﻿using Application.Interfaces;
 using Domain.Models;
 
@@ -55,5 +56,6 @@ namespace Application
                 throw new Exception(ex.Message);
             }
         }
+
     }
 }

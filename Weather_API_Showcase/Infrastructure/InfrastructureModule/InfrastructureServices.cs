@@ -6,10 +6,13 @@ using Application.Interfaces;
 using Infrastructure.Repositories;
 
 
+
+
 namespace Infrastructure.InfrastructureModule
 {
     public static class InfrastructureServices
     {
+
         public static IServiceCollection InfraService(this IServiceCollection service) 
         {
             DatabaseConfiguration dataBaseConfiguration = (DatabaseConfiguration)ConfigurationManager.GetSection("DatabaseConfigurationSection");
@@ -21,6 +24,7 @@ namespace Infrastructure.InfrastructureModule
             service.AddScoped<ICacheAccess, CacheAccess>();
             service.AddScoped<IWeatherDataRepository, WeatherDataRepository>();
             service.AddSingleton(dataBaseConfiguration);
+
             
             return service;
         }

@@ -1,3 +1,4 @@
+
 ﻿using Domain.Models;
 using Infrastructure.Data;
 using Microsoft.Data.SqlClient;
@@ -5,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Data;
 using Infrastructure.Constants;
 using Application.Interfaces;
+
 
 namespace Infrastructure.Repositories
 {
@@ -18,6 +20,7 @@ namespace Infrastructure.Repositories
 
         public async Task<WeatherData> GetWeatherDataAsync(string CountryCode, string CityName)
         {
+
             if(CountryCode == null || CityName == null)
             {
                 throw new ArgumentException("CountryCode and CityName cannot be null");
@@ -49,6 +52,7 @@ namespace Infrastructure.Repositories
                 catch (Exception)
                 {
                     await transaction.RollbackAsync();
+
                     throw;
                 }
             }
@@ -56,6 +60,7 @@ namespace Infrastructure.Repositories
 
         public async Task SetWeatherDataAsync(WeatherData weatherData)
         {
+
 
             try
             {
@@ -144,5 +149,6 @@ namespace Infrastructure.Repositories
         }
     }
 }
+
 
 

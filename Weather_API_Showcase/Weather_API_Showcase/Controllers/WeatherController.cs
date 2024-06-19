@@ -9,16 +9,20 @@ namespace Weather_API_Showcase.Controllers
     [ApiController]
     public class WeatherController : ControllerBase
     {
+
         private readonly IWeatherDataService _weatherDataService;
         public WeatherController(IWeatherDataService weatherDataService)
         {
             _weatherDataService = weatherDataService;
+
         }
 
         [HttpGet]
         public async Task<ActionResult<WeatherData>> GetWeather(string countryCode, string cityName) 
         {
+
             var weatherData = await _weatherDataService.GetWeatherAsync(countryCode, cityName);
+
             return Ok(weatherData);
         }
     }

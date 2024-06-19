@@ -4,7 +4,11 @@ namespace Application.Interfaces
 {
     public interface ICacheAccess
     {
-        WeatherData GetData(string countryCode, string cityName); 
-        void SetData(WeatherData weatherData);  
+
+        Task<WeatherData> GetDataAsync(string countryCode, string cityName); 
+        Task SetDataAsync(WeatherData weatherData);  
+        string GenerateCacheKey(string countryCode, string cityName);
+
+
     }
 }

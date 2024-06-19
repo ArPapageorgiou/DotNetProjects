@@ -1,12 +1,14 @@
-﻿using Infrastructure.Data;
-using Microsoft.Data.SqlClient;
+
+﻿using Microsoft.Data.SqlClient;
+
 
 namespace Infrastructure
 {
     public abstract class BaseRepository
     {
         private readonly DatabaseConfiguration _databaseConfiguration;
-        private readonly AppDbContext _appDbContext;
+
+        
 
         public BaseRepository(DatabaseConfiguration databaseConfiguration)
         {

@@ -1,4 +1,5 @@
 using Infrastructure.InfrastructureModule;
+using Application.ApplicationModule;
 
 namespace Weather_API_Showcase
 {
@@ -9,7 +10,8 @@ namespace Weather_API_Showcase
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.InfraServices();
+            builder.Services.InfraService();
+            builder.Services.AppService();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -9,10 +9,12 @@ namespace Weather_API_Showcase.Controllers
     [ApiController]
     public class WeatherController : ControllerBase
     {
+
         private readonly IWeatherDataService _weatherDataService;
         public WeatherController(IWeatherDataService weatherDataService)
         {
             _weatherDataService = weatherDataService;
+
         }
 
         [HttpGet]

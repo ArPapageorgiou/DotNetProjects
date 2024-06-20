@@ -1,3 +1,4 @@
+
 ﻿using Application.Interfaces;
 using Domain.Models;
 
@@ -60,5 +61,6 @@ namespace Application.Services
                 throw new Exception(ex.Message);
             }
         }
+
     }
 }

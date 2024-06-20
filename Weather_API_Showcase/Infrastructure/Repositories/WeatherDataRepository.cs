@@ -35,11 +35,6 @@ namespace Infrastructure.Repositories
                         .OrderByDescending(x => x.Datetime)
                         .FirstOrDefaultAsync();
 
-                    if(data == null)
-                    {
-                        return null;
-                    }
-
                     var weatherData = await _appDbContext.WeatherData
                         .Where(x => x.Id == data.WeatherDataForeignKey)
                         .FirstOrDefaultAsync();

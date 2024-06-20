@@ -20,9 +20,7 @@ namespace Weather_API_Showcase.Controllers
         [HttpGet]
         public async Task<ActionResult<WeatherData>> GetWeather(string countryCode, string cityName) 
         {
-
-            var weatherData = await _weatherDataService.GetWeatherAsync(countryCode, cityName);
-
+            var weatherData = await _weatherDataService.GetWeatherAsync(countryCode, cityName, false);
             return Ok(weatherData);
         }
     }

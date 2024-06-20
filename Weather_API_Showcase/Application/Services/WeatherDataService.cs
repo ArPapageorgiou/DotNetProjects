@@ -2,7 +2,7 @@
 ﻿using Application.Interfaces;
 using Domain.Models;
 
-namespace Application
+namespace Application.Services
 {
     public class WeatherDataService : IWeatherDataService
     {
@@ -17,26 +17,31 @@ namespace Application
             _cacheAccess = cacheAccess;
         }
 
-        public async Task<WeatherData> GetWeatherAsync(string CountryCode, string CityName)
+        public async Task<WeatherData> GetWeatherAsync(string CountryCode, string CityName, bool forceRefresh = false)
         {
             try
             {
-                if(string.IsNullOrEmpty(CountryCode) || string.IsNullOrEmpty(CityName))
+                if (string.IsNullOrEmpty(CountryCode) || string.IsNullOrEmpty(CityName))
                 {
                     throw new ArgumentException("Country Code and City name cannot be null or empty");
                 }
 
-                var data = await _cacheAccess.GetDataAsync(CountryCode, CityName);
-                if (data != null)
-                {
-                    return data;
-                }
+                var data = new WeatherData();
 
-                data = await _weatherDataRepository.GetWeatherDataAsync(CountryCode, CityName);
-                if(data != null)
+                if (forceRefresh)
                 {
-                    await _cacheAccess.SetDataAsync(data);
-                    return data;
+                    data = await _cacheAccess.GetDataAsync(CountryCode, CityName);
+                    if (data != null)
+                    {
+                        return data;
+                    }
+
+                    data = await _weatherDataRepository.GetWeatherDataAsync(CountryCode, CityName);
+                    if (data != null)
+                    {
+                        await _cacheAccess.SetDataAsync(data);
+                        return data;
+                    }
                 }
 
                 data = await _httpClientRepository.GetWeatherHttpClientAsync(CountryCode, CityName);

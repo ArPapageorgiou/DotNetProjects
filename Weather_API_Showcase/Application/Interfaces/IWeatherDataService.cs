@@ -4,7 +4,7 @@ namespace Application.Interfaces
 {
     public interface IWeatherDataService
     {
-        Task<WeatherData> GetWeatherAsync(string CountryCode, string CityName);
+        Task<WeatherData> GetWeatherAsync(string CountryCode, string CityName, bool forceRefresh);
 
     }
 }

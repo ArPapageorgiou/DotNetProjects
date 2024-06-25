@@ -1,7 +1,6 @@
 ﻿using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Application.Interfaces;
-using System.Text.Json;
 
 namespace Weather_API_Showcase.Controllers
 {

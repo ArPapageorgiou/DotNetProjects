@@ -1,6 +1,8 @@
 
 ﻿using Application.Interfaces;
 using Domain.Models;
+using Microsoft.Extensions.Logging;
+using System.Runtime.CompilerServices;
 
 namespace Application.Services
 {
@@ -9,12 +11,14 @@ namespace Application.Services
         private readonly IHttpClientRepository _httpClientRepository;
         private readonly IWeatherDataRepository _weatherDataRepository;
         private readonly ICacheAccess _cacheAccess;
+        private readonly ILogger<WeatherDataService> _logger;
 
-        public WeatherDataService(IHttpClientRepository httpClientRepository, IWeatherDataRepository weatherDataRepository, ICacheAccess cacheAccess)
+        public WeatherDataService(IHttpClientRepository httpClientRepository, IWeatherDataRepository weatherDataRepository, ICacheAccess cacheAccess, ILogger<WeatherDataService> logger)
         {
             _httpClientRepository = httpClientRepository;
             _weatherDataRepository = weatherDataRepository;
             _cacheAccess = cacheAccess;
+            _logger = logger;
         }
 
         public async Task<WeatherData> GetWeatherAsync(string CountryCode, string CityName, bool forceRefresh = false)
@@ -57,7 +61,7 @@ namespace Application.Services
             }
             catch (Exception ex)
             {
-
+                _logger.LogError(ex, "There was an error while getting weather data from a source for the application the service");
                 throw new Exception(ex.Message);
             }
         }

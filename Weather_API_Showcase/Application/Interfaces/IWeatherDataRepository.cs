@@ -6,5 +6,6 @@ namespace Application.Interfaces
     {
         Task<WeatherData> GetWeatherDataAsync(string CountryCode, string CityName);
         Task SetWeatherDataAsync(WeatherData weatherData);
+        
     }
 }

@@ -23,7 +23,7 @@ namespace Application.Services
         {
             _logger.LogInformation("Weather Update Service is strating");
 
-            _timer = new Timer(UpdateWeather, null, TimeSpan.Zero, TimeSpan.FromHours(1));
+            _timer = new Timer(UpdateWeather, null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
             return Task.CompletedTask;
         }
 
@@ -49,11 +49,6 @@ namespace Application.Services
                     {
                         _logger.LogInformation($"Updating weather for keyword: {City}");
                         var weatherResponse = await weatherService.GetWeatherAsync(countryCode, City, forceRefresh : true);
-
-                        if (weatherResponse != null)
-                        {
-                            
-                        }
                     }
                     catch (Exception ex)
                     {

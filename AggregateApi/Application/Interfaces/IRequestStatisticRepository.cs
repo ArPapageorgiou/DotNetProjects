@@ -6,6 +6,8 @@ namespace Application.Interfaces
     {
         void AddRequestStatistics(RequestStatistic requestStatistic); 
 
-        IEnumerable<RequestStatistic> GetStatistic();
+
+        IEnumerable<RequestStatistic> GetStatistics();
+
     }
 }

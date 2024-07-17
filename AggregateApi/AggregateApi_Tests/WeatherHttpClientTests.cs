@@ -158,5 +158,11 @@ namespace AggregateApi_Tests
             Assert.AreEqual("An error occured while fetching data from the api", ex.Message);
         }
 
+        [TearDown]
+        public void Dispose()
+        {
+            _httpClient.Dispose();
+        }
+
     }
 }

@@ -13,7 +13,7 @@ namespace Infrastructure.Repositories
             _requestStatistics.Add(requestStatistic);
         }
 
-        public IEnumerable<RequestStatistic> GetStatistic()
+        public IEnumerable<RequestStatistic> GetStatistics()
         {
             return _requestStatistics;
         }

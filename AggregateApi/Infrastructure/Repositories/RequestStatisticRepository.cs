@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 
 namespace Infrastructure.Repositories
 {
-    internal class RequestStatisticRepository : IRequestStatisticRepository
+    public class RequestStatisticRepository : IRequestStatisticRepository
     {
         private readonly ConcurrentBag<RequestStatistic> _requestStatistics = new ConcurrentBag<Domain.ApiRequestStatistic.RequestStatistic>();
         

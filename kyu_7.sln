@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountingSheep", "CountingSheep\CountingSheep.csproj", "{FCB4A452-AE02-4B0E-806A-F79CF3D52341}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeginnerSeries#_SumOfNumbers", "BeginnerSeries#_SumOfNumbers\BeginnerSeries#_SumOfNumbers.csproj", "{12EB6DCF-B710-4940-9AD7-E3B04A715519}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{FCB4A452-AE02-4B0E-806A-F79CF3D52341}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCB4A452-AE02-4B0E-806A-F79CF3D52341}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCB4A452-AE02-4B0E-806A-F79CF3D52341}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12EB6DCF-B710-4940-9AD7-E3B04A715519}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12EB6DCF-B710-4940-9AD7-E3B04A715519}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12EB6DCF-B710-4940-9AD7-E3B04A715519}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12EB6DCF-B710-4940-9AD7-E3B04A715519}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

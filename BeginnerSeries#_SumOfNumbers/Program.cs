@@ -28,7 +28,11 @@ namespace BeginnerSeries3_SumOfNumbers
 
         }
         
+
+        /*public static int GetSum(int a, int b)
+
         public static int GetSum(int a, int b)
+
      {
        
        int sum = 0;
@@ -63,6 +67,23 @@ namespace BeginnerSeries3_SumOfNumbers
        {
          return a;
        }
+
+     }*/
+
+    //Ilike how concise and easy to read this next method is though.
+     public static int GetSum(int a, int b)
+     {
+        int min = Math.Min(a,b);
+        int max = Math.Max(a,b);
+
+        int result = 0;
+        for (int i = min; i <= max; i++)
+        {
+            result += i;
+        }
+
+        return result;
+
      }
 
     }

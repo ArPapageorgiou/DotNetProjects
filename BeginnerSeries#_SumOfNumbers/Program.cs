@@ -28,7 +28,11 @@ namespace BeginnerSeries3_SumOfNumbers
 
         }
         
+
         /*public static int GetSum(int a, int b)
+
+        public static int GetSum(int a, int b)
+
      {
        
        int sum = 0;
@@ -63,6 +67,7 @@ namespace BeginnerSeries3_SumOfNumbers
        {
          return a;
        }
+
      }*/
 
     //Ilike how concise and easy to read this next method is though.
@@ -78,6 +83,7 @@ namespace BeginnerSeries3_SumOfNumbers
         }
 
         return result;
+
      }
 
     }

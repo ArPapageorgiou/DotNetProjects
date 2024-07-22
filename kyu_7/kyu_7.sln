@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountingSheep", "CountingSh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeginnerSeries#_SumOfNumbers", "BeginnerSeries#_SumOfNumbers\BeginnerSeries#_SumOfNumbers.csproj", "{12EB6DCF-B710-4940-9AD7-E3B04A715519}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Binary_Addition", "Binary_Addition\Binary_Addition.csproj", "{D9A58A8D-8FB4-4B40-8DD2-5701FE798D32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{12EB6DCF-B710-4940-9AD7-E3B04A715519}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12EB6DCF-B710-4940-9AD7-E3B04A715519}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12EB6DCF-B710-4940-9AD7-E3B04A715519}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9A58A8D-8FB4-4B40-8DD2-5701FE798D32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9A58A8D-8FB4-4B40-8DD2-5701FE798D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9A58A8D-8FB4-4B40-8DD2-5701FE798D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9A58A8D-8FB4-4B40-8DD2-5701FE798D32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

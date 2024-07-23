@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeginnerSeries#_SumOfNumber
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Binary_Addition", "Binary_Addition\Binary_Addition.csproj", "{D9A58A8D-8FB4-4B40-8DD2-5701FE798D32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regex_validate_PIN_code", "Regex_validate_PIN_code\Regex_validate_PIN_code.csproj", "{5ACB07CD-B4C0-4764-888B-6F1EE30F9F0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,13 @@ Global
 		{D9A58A8D-8FB4-4B40-8DD2-5701FE798D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9A58A8D-8FB4-4B40-8DD2-5701FE798D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9A58A8D-8FB4-4B40-8DD2-5701FE798D32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE9B86D0-EC0D-4D6A-9FE0-A6F18B74803A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE9B86D0-EC0D-4D6A-9FE0-A6F18B74803A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE9B86D0-EC0D-4D6A-9FE0-A6F18B74803A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE9B86D0-EC0D-4D6A-9FE0-A6F18B74803A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ACB07CD-B4C0-4764-888B-6F1EE30F9F0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ACB07CD-B4C0-4764-888B-6F1EE30F9F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ACB07CD-B4C0-4764-888B-6F1EE30F9F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ACB07CD-B4C0-4764-888B-6F1EE30F9F0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

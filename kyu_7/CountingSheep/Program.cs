@@ -30,7 +30,7 @@ namespace CountingSheep
         }
 
 
-        /*public static int CountSheeps(bool[] sheeps)
+        public static int CountSheeps(bool[] sheeps)
 
         {
             int count = 0;
@@ -47,9 +47,9 @@ namespace CountingSheep
             return count;
 
 
-        }*/
+        }
 
-        public static int 
+        
 
 
     }

@@ -9,6 +9,7 @@ namespace Application.Application_Module
     {
         public static IServiceCollection AppServices(this IServiceCollection service)
         {
+            service.AddScoped<IRequestStatisticsService, RequestStatisticsService>();
             service.AddScoped<IWeatherService, WeatherService>();
             return service;
         }

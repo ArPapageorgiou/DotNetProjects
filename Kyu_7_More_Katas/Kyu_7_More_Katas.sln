@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reversed_Strings", "Reversed_Strings\Reversed_Strings.csproj", "{D85E1550-FE21-46F4-B955-F06328AF8A8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jaden_Casing_Strings", "Jaden_Casing_Strings\Jaden_Casing_Strings.csproj", "{A5BF7ADA-3321-40D9-BBFB-60B03EE6083D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D85E1550-FE21-46F4-B955-F06328AF8A8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D85E1550-FE21-46F4-B955-F06328AF8A8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D85E1550-FE21-46F4-B955-F06328AF8A8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5BF7ADA-3321-40D9-BBFB-60B03EE6083D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5BF7ADA-3321-40D9-BBFB-60B03EE6083D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5BF7ADA-3321-40D9-BBFB-60B03EE6083D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5BF7ADA-3321-40D9-BBFB-60B03EE6083D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

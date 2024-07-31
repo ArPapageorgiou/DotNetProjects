@@ -34,9 +34,11 @@
 
         }
 
+
         /*public static int PeopleLeftOnTheBus(List<int[]> peopleListInOut)
         {
             if(peopleListInOut is null) { return 0; }
+
 
             int peopleIn = 0;
             int peopleOut = 0;
@@ -50,6 +52,7 @@
             int passengersAsleep = peopleIn - peopleOut;
 
             return passengersAsleep;
+
         }*/
 
         //A much more concise implementation using LINQ with null-conditional (?) and null-coalescing (??) operations
@@ -59,6 +62,7 @@
         {
             return peopleListInOut?.Sum(item => item[0] - item[1]) ?? 0;
         }
+
 
 
 

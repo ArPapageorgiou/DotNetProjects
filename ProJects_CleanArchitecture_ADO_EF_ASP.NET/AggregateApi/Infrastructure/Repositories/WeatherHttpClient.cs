@@ -24,8 +24,8 @@ namespace Infrastructure.Repositories
             ApiKey = configuration["ApiSettings:WeatherBitApiKey"];
 
             //Define a retry policy where the http client will retry up to 3 times with an exponentialy
-            //increasing timespan between retrt attempts.In Math.Pow(2, retryAttempt) 2 is the base while retryAttempt
-            //is the power we raise 2 to.
+            //increasing timespan between retry attempts.
+            //In Math.Pow(2, retryAttempt) 2 is the base while retryAttempt is the power we raise 2 to.
             var retryPolicy = Policy.HandleResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
                 .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 

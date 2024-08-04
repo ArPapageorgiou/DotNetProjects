@@ -3,8 +3,8 @@ using Domain.FootballAPI_ModelClasses.ApiFootball;
 
 namespace Application.Interfaces
 {
-    internal interface IFootballStandingsService
+    public interface IFootballStandingsService
     {
-        Task<IEnumerable<ApiResponse>> GetFootbalStandings(string league, string season);
+        Task<ApiResponse> GetFootbalStandingsAsync(string league, string season);
     }
 }

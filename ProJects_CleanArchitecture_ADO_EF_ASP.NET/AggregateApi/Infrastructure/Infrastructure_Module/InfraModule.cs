@@ -11,6 +11,7 @@ namespace Infrastructure.Infrastructure_Module
         {
             service.AddHttpClient();
             service.AddScoped<IWeatherHttpClient, WeatherHttpClient>();
+            service.AddScoped<IFootballAPI_HttpClient, FootballAPI_HttpClient>();
             service.AddSingleton<IRequestStatisticRepository, RequestStatisticRepository>();
             return service;
         }

@@ -4,6 +4,8 @@ namespace Application.Interfaces
 {
     public interface IFootballAPI_HttpClient
     {
-        Task<ApiResponse> GetFootballData(string leagueId, string season);
+
+        Task<ApiResponse> GetFootballDataAsync(string leagueId, string season);
+
     }
 }

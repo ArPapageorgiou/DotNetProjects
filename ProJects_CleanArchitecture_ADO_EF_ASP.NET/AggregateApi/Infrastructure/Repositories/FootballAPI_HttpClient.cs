@@ -40,7 +40,8 @@ namespace Infrastructure.Repositories
 
         }
 
-        public async Task<ApiResponse> GetFootballData(string leagueId, string season)
+        public async Task<ApiResponse> GetFootballDataAsync(string leagueId, string season)
+
         {
             var url = $"{_baseUrl}?&league={leagueId}&season={season}&key={_apiKey}";
 

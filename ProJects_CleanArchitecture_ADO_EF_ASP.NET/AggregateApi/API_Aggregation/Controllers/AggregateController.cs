@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Application.Interfaces;
 using Domain.ApiRequestStatistic;
+using Microsoft.AspNetCore.Http.Metadata;
+
 
 namespace API_Aggregation.Controllers
 {
@@ -10,19 +12,28 @@ namespace API_Aggregation.Controllers
     public class AggregateController : ControllerBase
     {
         private readonly IWeatherService _weatherService;
+        private readonly IFootballStandingsService _footballStandingsService;
         private readonly IRequestStatisticsService _requestStatisticsService;
 
-        public AggregateController(IWeatherService weatherService, IRequestStatisticsService requestStatisticsService)
+        public AggregateController(IWeatherService weatherService, IRequestStatisticsService requestStatisticsService, IFootballStandingsService footballStandingsService)
         {
             _weatherService = weatherService;
             _requestStatisticsService = requestStatisticsService;
+            _footballStandingsService = footballStandingsService;
         }
 
-        [HttpGet("weatherData")]
-        public async Task<IActionResult> GetWeatherData(string sortByTemperature = "temperature", bool ascending = true)
+        //[HttpGet("weatherData")]
+        //public async Task<IActionResult> GetWeatherData(string sortByTemperature = "temperature", bool ascending = true)
+        //{
+        //    var weatherData = await _weatherService.GetWeatherData(sortByTemperature, ascending);
+        //    return Ok(weatherData);
+        //}
+
+        [HttpGet("footballStandingData")]
+        public async Task<IActionResult> GetFootballStandingDataAsync(string league, string season)
         {
-            var weatherData = await _weatherService.GetWeatherData(sortByTemperature, ascending);
-            return Ok(weatherData);
+            var footballStandingData = await _footballStandingsService.GetFootbalStandingsAsync(league, season);
+            return Ok(footballStandingData);
         }
 
         [HttpGet("statistics")]

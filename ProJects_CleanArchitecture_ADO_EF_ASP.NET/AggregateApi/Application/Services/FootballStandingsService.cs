@@ -22,17 +22,27 @@ namespace Application.Services
         }
 
 
-        public async Task<ApiResponse> GetFootbalStandingsAsync(string leagueId, string season)
+        public async Task<ApiResponse> GetFootbalStandingsAsync()
         {
+            string leagueId = FootballLeagueId.SuperLeague1;
+            string season = DateTime.Now.Year.ToString();
+
             var footballStandingResponse = await _distributedCache.GetRecordAsync<ApiResponse>(GetCacheKey(leagueId, season), GetJsonSerializerOptions());
 
             if (footballStandingResponse == null)
             {
-                footballStandingResponse = await FetchFootballStandingFromApi();
-            }
-            else
-            {
-                footballStandingResponse = await CreateDefaultFootballStandingResponse();
+
+                footballStandingResponse = await FetchFootballStandingFromApi(leagueId, season);
+
+                if (footballStandingResponse == null)
+                {
+                    footballStandingResponse = await CreateDefaultFootballStandingResponse();
+                }
+                else
+                {
+                    await _distributedCache.SetRecordAsync(GetCacheKey(leagueId, season), footballStandingResponse);
+                }
+
             }
 
             return footballStandingResponse;
@@ -68,13 +78,13 @@ namespace Application.Services
             return new JsonSerializerOptions{ PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
         }
 
-        private async Task<ApiResponse> FetchFootballStandingFromApi()
-        {
-            var league = FootballLeagueId.SuperLeague1;
 
+        private async Task<ApiResponse> FetchFootballStandingFromApi(string leagueId, string season)
+        {
             try
             {
-                var footballStandingData = await _footballStandingshttpClient.GetFootballDataAsync(league, DateTime.Now.Year.ToString());
+                var footballStandingData = await _footballStandingshttpClient.GetFootballDataAsync(leagueId, season);
+
                 return footballStandingData;
             }
             catch (Exception)
@@ -94,7 +104,12 @@ namespace Application.Services
                     League = "N/A",
                     Season = "N/A"
                 },
-                Errors = new List<string> { "N/A" },
+
+                Errors = new Dictionary<string, string>
+                {
+                    {"token", "N/A"}
+                },
+
                 Results = -1,
                 Paging = new Paging
                 {

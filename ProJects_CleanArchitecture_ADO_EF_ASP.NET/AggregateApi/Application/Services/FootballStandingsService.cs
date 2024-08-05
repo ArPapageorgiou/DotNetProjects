@@ -21,6 +21,7 @@ namespace Application.Services
             _distributedCache = distributedCache;
         }
 
+
         public async Task<ApiResponse> GetFootbalStandingsAsync()
         {
             string leagueId = FootballLeagueId.SuperLeague1;
@@ -30,6 +31,7 @@ namespace Application.Services
 
             if (footballStandingResponse == null)
             {
+
                 footballStandingResponse = await FetchFootballStandingFromApi(leagueId, season);
 
                 if (footballStandingResponse == null)
@@ -40,6 +42,7 @@ namespace Application.Services
                 {
                     await _distributedCache.SetRecordAsync(GetCacheKey(leagueId, season), footballStandingResponse);
                 }
+
             }
 
             return footballStandingResponse;
@@ -75,11 +78,13 @@ namespace Application.Services
             return new JsonSerializerOptions{ PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
         }
 
+
         private async Task<ApiResponse> FetchFootballStandingFromApi(string leagueId, string season)
         {
             try
             {
                 var footballStandingData = await _footballStandingshttpClient.GetFootballDataAsync(leagueId, season);
+
                 return footballStandingData;
             }
             catch (Exception)
@@ -99,10 +104,12 @@ namespace Application.Services
                     League = "N/A",
                     Season = "N/A"
                 },
+
                 Errors = new Dictionary<string, string>
                 {
                     {"token", "N/A"}
                 },
+
                 Results = -1,
                 Paging = new Paging
                 {

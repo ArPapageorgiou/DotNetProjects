@@ -30,9 +30,11 @@ namespace API_Aggregation.Controllers
         //}
 
         [HttpGet("footballStandingData")]
+
         public async Task<IActionResult> GetFootballStandingDataAsync()
         {
             var footballStandingData = await _footballStandingsService.GetFootbalStandingsAsync();
+
             return Ok(footballStandingData);
         }
 

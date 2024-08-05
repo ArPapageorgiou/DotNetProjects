@@ -1,9 +1,11 @@
 ﻿using Application.Interfaces;
 using Domain.FootballAPI_ModelClasses.ApiFootball;
 using Microsoft.Extensions.Caching.Distributed;
+
 using System.Text.Json;
 using Application.AppConstants;
 using Domain.FootballAPI_ModelClasses;
+
 
 namespace Application.Services
 {
@@ -50,6 +52,7 @@ namespace Application.Services
             if (leagueId != null)
             {
                 keyParts.Add($"league_{leagueId}");
+
             }
 
             if (season != null)
@@ -185,6 +188,7 @@ namespace Application.Services
             return defaultResponse;
 
         }
+
 
 
 

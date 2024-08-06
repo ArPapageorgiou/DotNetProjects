@@ -29,6 +29,7 @@ namespace Application.Services
             string leagueId = FootballLeagueId.SuperLeague1;
             string season = DateTime.Now.Year.ToString();
 
+
             var cacheKey = GetCacheKey(leagueId, season);
             _logger.LogInformation($"Fetching data from cache with key: {cacheKey}");
 
@@ -37,15 +38,19 @@ namespace Application.Services
             if (footballStandingResponse == null)
             {
                 _logger.LogInformation("Data not found in cache. Fetching from API.");
+
                 footballStandingResponse = await FetchFootballStandingFromApi(leagueId, season);
 
                 if (footballStandingResponse == null)
                 {
+
                     _logger.LogInformation("API response is null. Creating default response.");
+
                     footballStandingResponse = await CreateDefaultFootballStandingResponse();
                 }
                 else
                 {
+
                     _logger.LogInformation("Data fetched from API. Setting data in cache.");
                     await _distributedCache.SetRecordAsync(GetCacheKey(leagueId, season), footballStandingResponse);
                 }
@@ -53,6 +58,7 @@ namespace Application.Services
             else
             {
                 _logger.LogInformation("Data fetched from cache.");
+
             }
 
             return footballStandingResponse;
@@ -115,11 +121,13 @@ namespace Application.Services
                     League = "N/A",
                     Season = "N/A"
                 },
+
                 //Errors = new Dictionary<string, string>
                 //{
                 //    {"token", "N/A"}
                 //},
                 Errors = new string[1],
+
                 Results = -1,
                 Paging = new Paging
                 {

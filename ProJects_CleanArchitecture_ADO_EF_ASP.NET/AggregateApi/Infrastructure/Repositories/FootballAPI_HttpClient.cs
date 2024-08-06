@@ -23,10 +23,12 @@ namespace Infrastructure.Repositories
         private readonly AsyncPolicyWrap<HttpResponseMessage> _retryAndBreakerPolicy;
         private readonly ILogger<FootballAPI_HttpClient> _logger;
 
+
         public FootballAPI_HttpClient(IRequestStatisticRepository requestStatisticRepository, IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogger<FootballAPI_HttpClient> logger)
         {
             _requestStatisticRepository = requestStatisticRepository;
             _httpClientFactory = httpClientFactory;
+
             _logger = logger;
             //_baseUrl = configuration["ApiSettings:FootballAPIUrl"] ?? throw new ArgumentNullException("FootballAPIUrl not configured");
             //_apiKey = configuration["ApiSettings:FootballAPIApiKey"] ?? throw new ArgumentNullException("FootballAPIKey not configured");
@@ -44,7 +46,9 @@ namespace Infrastructure.Repositories
         public async Task<ApiResponse> GetFootballDataAsync(string leagueId, string season)
 
         {
+
             var client = _httpClientFactory.CreateClient("FootballAPI");
+
 
             var url = $"?league={leagueId}&season={season}";
 

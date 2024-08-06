@@ -11,11 +11,14 @@ namespace Infrastructure.Infrastructure_Module
         public static IServiceCollection InfraServices(this IServiceCollection service, IConfiguration configuration)
         {
             service.AddHttpClient();
-            service.AddHttpClient<IFootballAPI_HttpClient, FootballAPI_HttpClient>(client =>
+
+            
+            service.AddHttpClient("FootballAPI", client =>
             { 
                 client.BaseAddress = new Uri(configuration["ApiSettings:FootballAPIUrl"]);
-                client.DefaultRequestHeaders.Add("football_api_host", configuration["ApiSettings:FootballAPIHost"]);
-                client.DefaultRequestHeaders.Add("football_api_key", configuration["ApiSettings:FootballAPIApiKey"]);
+                client.DefaultRequestHeaders.Add("x-apisports-key", configuration["ApiSettings:FootballAPIApiKey"]);
+                client.DefaultRequestHeaders.Add("x-rapidapi-host", configuration["ApiSettings:FootballAPIHost"]);
+
             });
 
 

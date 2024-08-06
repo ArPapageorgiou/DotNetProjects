@@ -5,20 +5,22 @@ using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 using Application.AppConstants;
 using Domain.FootballAPI_ModelClasses;
+using Microsoft.Extensions.Logging;
 
 
 namespace Application.Services
 {
     public class FootballStandingsService : IFootballStandingsService
     {
-
         private readonly IDistributedCache _distributedCache;
         private readonly IFootballAPI_HttpClient _footballStandingshttpClient;
+        private readonly ILogger<FootballStandingsService> _logger;
 
-        public FootballStandingsService(IFootballAPI_HttpClient footballStandingshttpClient, IDistributedCache distributedCache)
+        public FootballStandingsService(IFootballAPI_HttpClient footballStandingshttpClient, IDistributedCache distributedCache, ILogger<FootballStandingsService> logger)
         {
             _footballStandingshttpClient = footballStandingshttpClient;
             _distributedCache = distributedCache;
+            _logger = logger;
         }
 
 
@@ -27,21 +29,35 @@ namespace Application.Services
             string leagueId = FootballLeagueId.SuperLeague1;
             string season = DateTime.Now.Year.ToString();
 
-            var footballStandingResponse = await _distributedCache.GetRecordAsync<ApiResponse>(GetCacheKey(leagueId, season), GetJsonSerializerOptions());
+
+            var cacheKey = GetCacheKey(leagueId, season);
+            _logger.LogInformation($"Fetching data from cache with key: {cacheKey}");
+
+            var footballStandingResponse = await _distributedCache.GetRecordAsync<ApiResponse>(cacheKey, GetJsonSerializerOptions());
 
             if (footballStandingResponse == null)
             {
+                _logger.LogInformation("Data not found in cache. Fetching from API.");
 
                 footballStandingResponse = await FetchFootballStandingFromApi(leagueId, season);
 
                 if (footballStandingResponse == null)
                 {
+
+                    _logger.LogInformation("API response is null. Creating default response.");
+
                     footballStandingResponse = await CreateDefaultFootballStandingResponse();
                 }
                 else
                 {
+
+                    _logger.LogInformation("Data fetched from API. Setting data in cache.");
                     await _distributedCache.SetRecordAsync(GetCacheKey(leagueId, season), footballStandingResponse);
                 }
+            }
+            else
+            {
+                _logger.LogInformation("Data fetched from cache.");
 
             }
 
@@ -87,8 +103,9 @@ namespace Application.Services
 
                 return footballStandingData;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError($"Error fetching data from API: {ex.Message}");
                 return null;
             }
 
@@ -105,10 +122,11 @@ namespace Application.Services
                     Season = "N/A"
                 },
 
-                Errors = new Dictionary<string, string>
-                {
-                    {"token", "N/A"}
-                },
+                //Errors = new Dictionary<string, string>
+                //{
+                //    {"token", "N/A"}
+                //},
+                Errors = new string[1],
 
                 Results = -1,
                 Paging = new Paging

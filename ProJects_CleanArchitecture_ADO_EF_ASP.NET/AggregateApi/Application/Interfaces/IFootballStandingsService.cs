@@ -6,6 +6,8 @@ namespace Application.Interfaces
 
     public interface IFootballStandingsService
     {
+
         Task<ApiResponse> GetFootbalStandingsAsync();
+
     }
 }

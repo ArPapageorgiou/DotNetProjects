@@ -23,6 +23,7 @@ namespace Application.Services
             _logger = logger;
         }
 
+
         public async Task<ApiResponse> GetFootbalStandingsAsync()
         {
             string leagueId = FootballLeagueId.SuperLeague1;
@@ -87,11 +88,13 @@ namespace Application.Services
             return new JsonSerializerOptions{ PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
         }
 
+
         private async Task<ApiResponse> FetchFootballStandingFromApi(string leagueId, string season)
         {
             try
             {
                 var footballStandingData = await _footballStandingshttpClient.GetFootballDataAsync(leagueId, season);
+
                 return footballStandingData;
             }
             catch (Exception ex)

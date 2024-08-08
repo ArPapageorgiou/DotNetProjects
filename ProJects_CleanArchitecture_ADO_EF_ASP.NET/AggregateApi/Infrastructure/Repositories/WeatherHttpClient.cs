@@ -7,6 +7,7 @@ using Polly.CircuitBreaker;
 using System.Text.Json;
 using System.Diagnostics;
 using Domain.ApiRequestStatistic;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Repositories
 {
@@ -15,10 +16,13 @@ namespace Infrastructure.Repositories
         private readonly IRequestStatisticRepository _requestStatistic; 
         private IHttpClientFactory _httpClientFactory;
         private readonly AsyncPolicyWrap<HttpResponseMessage> _retryAndBreakerPolicy;
-        public WeatherHttpClient(IConfiguration configuration, IRequestStatisticRepository apiRequestStatistic, IHttpClientFactory httpClientFactory)
+        private readonly ILogger<IWeatherHttpClient> _logger;
+        public WeatherHttpClient(IConfiguration configuration, IRequestStatisticRepository apiRequestStatistic, IHttpClientFactory httpClientFactory, ILogger<IWeatherHttpClient> logger)
         {
             _httpClientFactory = httpClientFactory;
             
+            _logger = logger;
+
             //Define a retry policy where the http client will retry up to 3 times with an exponentialy
             //increasing timespan between retry attempts.
             //In Math.Pow(2, retryAttempt) 2 is the base while retryAttempt is the power we raise 2 to.
@@ -39,6 +43,7 @@ namespace Infrastructure.Repositories
             var client = _httpClientFactory.CreateClient("WeatherApi"); 
 
             var url = $"?city={cityName}&country={countryCode}";
+            _logger.LogDebug($"Constructed url = {url}");
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);
 
@@ -53,11 +58,12 @@ namespace Infrastructure.Repositories
             }
             catch (BrokenCircuitException)
             {
-
+                _logger.LogError("Circuit Breaker is open. Unable to fetch data from the Api");
                 throw new Exception("Circuit Breaker is open. Unable to fetch data from the Api");
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Exception: {ex.Message}");
                 throw new Exception("An error occured while fetching data from the api");
             }
             finally 
@@ -74,19 +80,33 @@ namespace Infrastructure.Repositories
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
+                _logger.LogDebug($"Raw JSON Response: {json}");
 
                 var options = new JsonSerializerOptions()
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 };
 
-                var weatherApiResponse = JsonSerializer.Deserialize<WeatherData>(json, options);
+                try
+                {
+                    var weatherApiResponse = JsonSerializer.Deserialize<WeatherData>(json, options);
+                    _logger.LogDebug($"Deserialized Response: {weatherApiResponse}");
 
-                return weatherApiResponse;
+                    return weatherApiResponse;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Deserialization Error: {ex.Message}");
+                    _logger.LogError($"Raw JSON: {json}");
+                    throw new Exception("Error deserializing the API response");
+                }
+               
             }
             else
             {
-                throw new Exception($"unable to fetch weather from the Api. Status code: {response.StatusCode}");
+                var errorContent = await response.Content.ReadAsStringAsync();
+                _logger.LogError($"Unable to fetch data from the API. Status code: {response.StatusCode}, Content: {errorContent}");
+                throw new Exception($"unable to fetch Data from the Api. Status code: {response.StatusCode}, Content: {errorContent}");
             }
         }
     }

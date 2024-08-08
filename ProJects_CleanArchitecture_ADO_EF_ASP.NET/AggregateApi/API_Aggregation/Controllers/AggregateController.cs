@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Application.Interfaces;
 using Domain.ApiRequestStatistic;
-using Microsoft.AspNetCore.Http.Metadata;
 
 
 namespace API_Aggregation.Controllers

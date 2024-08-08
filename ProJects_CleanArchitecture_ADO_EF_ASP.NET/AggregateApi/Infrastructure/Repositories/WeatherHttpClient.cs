@@ -16,12 +16,14 @@ namespace Infrastructure.Repositories
         private readonly IRequestStatisticRepository _requestStatistic; 
         private IHttpClientFactory _httpClientFactory;
         private readonly AsyncPolicyWrap<HttpResponseMessage> _retryAndBreakerPolicy;
+
         private readonly ILogger<IWeatherHttpClient> _logger;
         public WeatherHttpClient(IConfiguration configuration, IRequestStatisticRepository apiRequestStatistic, IHttpClientFactory httpClientFactory, ILogger<IWeatherHttpClient> logger)
         {
             _httpClientFactory = httpClientFactory;
             
             _logger = logger;
+
 
             //Define a retry policy where the http client will retry up to 3 times with an exponentialy
             //increasing timespan between retry attempts.
@@ -43,7 +45,9 @@ namespace Infrastructure.Repositories
             var client = _httpClientFactory.CreateClient("WeatherApi"); 
 
             var url = $"?city={cityName}&country={countryCode}";
+
             _logger.LogDebug($"Constructed url = {url}");
+
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);
 

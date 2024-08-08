@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces;
 using Domain.FootballAPI_ModelClasses.ApiFootball;
-using Microsoft.Extensions.Configuration;
 using Polly;
 using Polly.Wrap;
 using System.Diagnostics;
@@ -46,7 +45,6 @@ namespace Infrastructure.Repositories
 
 
             var url = $"?league={leagueId}&season={season}";
-
             _logger.LogDebug($"Constructed url = {url}");
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);

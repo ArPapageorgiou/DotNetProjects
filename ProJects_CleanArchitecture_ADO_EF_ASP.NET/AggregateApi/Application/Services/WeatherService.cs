@@ -3,6 +3,7 @@ using Domain.WeatherBitApi_Models;
 using Application.AppConstants;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Services
 {
@@ -10,31 +11,43 @@ namespace Application.Services
     {
         private readonly IWeatherHttpClient _weatherHttpClient;
         private readonly IDistributedCache _distributedCache;
+        private readonly ILogger<IWeatherService> _logger;
 
-        public WeatherService(IWeatherHttpClient weatherHttpClient, IDistributedCache distributedCache)
+        public WeatherService(IWeatherHttpClient weatherHttpClient, IDistributedCache distributedCache, ILogger<IWeatherService> logger)
         {
             _weatherHttpClient = weatherHttpClient;
             _distributedCache = distributedCache;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<WeatherData>> GetWeatherData(string sortByTemperature = "temperature", bool ascending = true)
         {
+            var cacheKey = GetCacheKey(sortByTemperature, ascending);
+            _logger.LogInformation($"Fetching data from cache with key: {cacheKey}");
+
             //Attempt to fetch Data from cache
-            var weatherResponse = await _distributedCache.GetRecordAsync<IEnumerable<WeatherData>>(GetCacheKey(sortByTemperature, ascending), GetJsonSerializerOptions());
+            var weatherResponse = await _distributedCache.GetRecordAsync<IEnumerable<WeatherData>>(cacheKey, GetJsonSerializerOptions());
             
             //Attempt to fetch data from Api if not in cache
             if(weatherResponse == null)
             {
+                _logger.LogInformation("Data not found in cache. Fetching from API.");
                 weatherResponse = await FetchWeatherDataFromApi();
 
                 if (weatherResponse == null)
                 {
+                    _logger.LogInformation("API response is null. Creating default response.");
                     weatherResponse = await CreateDefaultApiResponse();
                 }
                 else
                 {
+                    _logger.LogInformation("Data fetched from API. Setting data in cache.");
                     await _distributedCache.SetRecordAsync(GetCacheKey(sortByTemperature, ascending), weatherResponse);
                 }
+            }
+            else
+            {
+                _logger.LogInformation("Data fetched from cache.");
             }
 
             if (sortByTemperature == "temperature")
@@ -87,8 +100,9 @@ namespace Application.Services
                 return weatherDataList;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError($"Error fetching data from API: {ex.Message}");
                 return null;
             }
             

@@ -17,22 +17,17 @@ namespace Infrastructure.Repositories
 
         private readonly IRequestStatisticRepository _requestStatisticRepository;
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IConfiguration _configuration;
-        //private readonly string _baseUrl;
-        //private readonly string _apiKey;
         private readonly AsyncPolicyWrap<HttpResponseMessage> _retryAndBreakerPolicy;
         private readonly ILogger<FootballAPI_HttpClient> _logger;
 
 
-        public FootballAPI_HttpClient(IRequestStatisticRepository requestStatisticRepository, IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogger<FootballAPI_HttpClient> logger)
+        public FootballAPI_HttpClient(IRequestStatisticRepository requestStatisticRepository, IHttpClientFactory httpClientFactory, ILogger<FootballAPI_HttpClient> logger)
         {
             _requestStatisticRepository = requestStatisticRepository;
             _httpClientFactory = httpClientFactory;
 
             _logger = logger;
-            //_baseUrl = configuration["ApiSettings:FootballAPIUrl"] ?? throw new ArgumentNullException("FootballAPIUrl not configured");
-            //_apiKey = configuration["ApiSettings:FootballAPIApiKey"] ?? throw new ArgumentNullException("FootballAPIKey not configured");
-
+            
             var retryPolicy = Policy.HandleResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
                 .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 
@@ -47,7 +42,7 @@ namespace Infrastructure.Repositories
 
         {
 
-            var client = _httpClientFactory.CreateClient("FootballAPI");
+            var client = _httpClientFactory.CreateClient("FootballApi");
 
 
             var url = $"?league={leagueId}&season={season}";

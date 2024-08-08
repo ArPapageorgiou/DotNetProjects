@@ -122,11 +122,7 @@ namespace Application.Services
                     Season = "N/A"
                 },
 
-                //Errors = new Dictionary<string, string>
-                //{
-                //    {"token", "N/A"}
-                //},
-                Errors = new string[1],
+                Errors = new string[10],
 
                 Results = -1,
                 Paging = new Paging

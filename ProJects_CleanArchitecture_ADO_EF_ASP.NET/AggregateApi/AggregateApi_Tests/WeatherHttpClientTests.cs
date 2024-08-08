@@ -15,7 +15,7 @@ namespace AggregateApi_Tests
     {
         private IWeatherHttpClient _weatherHttpClient;
         private Mock<HttpMessageHandler> _httpMessageHnadlerMock;
-        private HttpClient _httpClient;
+        private Mock<IHttpClientFactory> _httpClientFactoryMock;
         private IRequestStatisticRepository _requestStatistics;
         private IConfiguration _configuration;
 
@@ -34,15 +34,18 @@ namespace AggregateApi_Tests
 
             // Mocking HttpMessageHandler
             _httpMessageHnadlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
-            _httpMessageHnadlerMock.Protected()
-                .Setup("Dispose", ItExpr.IsAny<bool>())
-                .Verifiable();
 
             // Initialize HttpClient
-            _httpClient = new HttpClient(_httpMessageHnadlerMock.Object);
+            var httpClient = new HttpClient(_httpMessageHnadlerMock.Object)
+            {
+                BaseAddress = new Uri(_configuration["ApiSettings:WeatherBitUrl"])
+            };
+
+            _httpClientFactoryMock = new Mock<IHttpClientFactory>();
+            _httpClientFactoryMock.Setup(factory => factory.CreateClient(It.IsAny<string>())).Returns(httpClient);
 
             // Creating an instance of WeatherApiClient with mocks
-            _weatherHttpClient = new WeatherHttpClient(_httpClient, _configuration, _requestStatistics);
+            _weatherHttpClient = new WeatherHttpClient(_configuration, _requestStatistics, _httpClientFactoryMock.Object);
         }
 
         [Test]
@@ -156,12 +159,6 @@ namespace AggregateApi_Tests
 
             var ex = Assert.ThrowsAsync<Exception>(async () => await _weatherHttpClient.GetWeatherAsync("GR", "Athens"));
             Assert.AreEqual("An error occured while fetching data from the api", ex.Message);
-        }
-
-        [TearDown]
-        public void Dispose()
-        {
-            _httpClient.Dispose();
         }
 
     }

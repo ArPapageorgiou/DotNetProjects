@@ -13,16 +13,12 @@ namespace Infrastructure.Repositories
     public class WeatherHttpClient : IWeatherHttpClient
     {
         private readonly IRequestStatisticRepository _requestStatistic; 
-        private HttpClient _httpClient;
-        private readonly string BaseUrl;
-        private readonly string ApiKey;
+        private IHttpClientFactory _httpClientFactory;
         private readonly AsyncPolicyWrap<HttpResponseMessage> _retryAndBreakerPolicy;
-        public WeatherHttpClient(HttpClient httpClient, IConfiguration configuration, IRequestStatisticRepository apiRequestStatistic)
+        public WeatherHttpClient(IConfiguration configuration, IRequestStatisticRepository apiRequestStatistic, IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
-            BaseUrl = configuration["ApiSettings:WeatherBitUrl"];
-            ApiKey = configuration["ApiSettings:WeatherBitApiKey"];
-
+            _httpClientFactory = httpClientFactory;
+            
             //Define a retry policy where the http client will retry up to 3 times with an exponentialy
             //increasing timespan between retry attempts.
             //In Math.Pow(2, retryAttempt) 2 is the base while retryAttempt is the power we raise 2 to.
@@ -37,11 +33,12 @@ namespace Infrastructure.Repositories
             _retryAndBreakerPolicy = Policy.WrapAsync(retryPolicy, circuitBreakerPolicy);
 
             _requestStatistic = apiRequestStatistic;
-
         }
         public async Task<WeatherData> GetWeatherAsync(string countryCode, string cityName)
         {
-            var url = $"{BaseUrl}?&city={cityName}&country={countryCode}&key={ApiKey}";
+            var client = _httpClientFactory.CreateClient("WeatherApi"); 
+
+            var url = $"?city={cityName}&country={countryCode}";
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);
 
@@ -52,7 +49,7 @@ namespace Infrastructure.Repositories
             try
             {
                 //Send request with retry and circuit breaker policies
-                response =  await _retryAndBreakerPolicy.ExecuteAsync(() => _httpClient.SendAsync(request));
+                response =  await _retryAndBreakerPolicy.ExecuteAsync(() => client.SendAsync(request));
             }
             catch (BrokenCircuitException)
             {

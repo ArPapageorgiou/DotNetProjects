@@ -7,6 +7,7 @@ using System.Net;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Infrastructure.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace AggregateApi_Tests
 {
@@ -18,6 +19,7 @@ namespace AggregateApi_Tests
         private Mock<IHttpClientFactory> _httpClientFactoryMock;
         private IRequestStatisticRepository _requestStatistics;
         private IConfiguration _configuration;
+        private ILogger<WeatherHttpClient> _logger;
 
         [SetUp]
         public void Setup()
@@ -44,8 +46,11 @@ namespace AggregateApi_Tests
             _httpClientFactoryMock = new Mock<IHttpClientFactory>();
             _httpClientFactoryMock.Setup(factory => factory.CreateClient(It.IsAny<string>())).Returns(httpClient);
 
+            var loggerMock = new Mock<ILogger<WeatherHttpClient>>();
+            _logger = loggerMock.Object;
+
             // Creating an instance of WeatherApiClient with mocks
-            _weatherHttpClient = new WeatherHttpClient(_configuration, _requestStatistics, _httpClientFactoryMock.Object);
+            _weatherHttpClient = new WeatherHttpClient(_configuration, _requestStatistics, _httpClientFactoryMock.Object, _logger);
         }
 
         [Test]

@@ -34,15 +34,11 @@ namespace Infrastructure.Repositories
                 .CircuitBreakerAsync(3, TimeSpan.FromSeconds(30));
 
             _retryAndBreakerPolicy = Policy.WrapAsync(retryPolicy, circuitBreakerPolicy);
-
         }
 
         public async Task<ApiResponse> GetFootballDataAsync(string leagueId, string season)
-
         {
-
             var client = _httpClientFactory.CreateClient("FootballApi");
-
 
             var url = $"?league={leagueId}&season={season}";
             _logger.LogDebug($"Constructed url = {url}");

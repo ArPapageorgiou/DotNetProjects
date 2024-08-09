@@ -21,21 +21,21 @@ namespace API_Aggregation.Controllers
             _footballStandingsService = footballStandingsService;
         }
 
-        //[HttpGet("weatherData")]
-        //public async Task<IActionResult> GetWeatherData(string sortByTemperature = "temperature", bool ascending = true)
-        //{
-        //    var weatherData = await _weatherService.GetWeatherData(sortByTemperature, ascending);
-        //    return Ok(weatherData);
-        //}
-
-        [HttpGet("footballStandingData")]
-
-        public async Task<IActionResult> GetFootballStandingDataAsync()
+        [HttpGet("weatherData")]
+        public async Task<IActionResult> GetWeatherData(string sortByTemperature = "temperature", bool ascending = true)
         {
-            var footballStandingData = await _footballStandingsService.GetFootbalStandingsAsync();
-
-            return Ok(footballStandingData);
+            var weatherData = await _weatherService.GetWeatherData(sortByTemperature, ascending);
+            return Ok(weatherData);
         }
+
+        //[HttpGet("footballStandingData")]
+
+        //public async Task<IActionResult> GetFootballStandingDataAsync()
+        //{
+        //    var footballStandingData = await _footballStandingsService.GetFootbalStandingsAsync();
+
+        //    return Ok(footballStandingData);
+        //}
 
         [HttpGet("statistics")]
         public ActionResult<ApiRequestStatistics> GetRequestStatistics()

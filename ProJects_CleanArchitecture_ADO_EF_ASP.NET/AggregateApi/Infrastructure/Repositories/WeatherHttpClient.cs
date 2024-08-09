@@ -13,13 +13,17 @@ namespace Infrastructure.Repositories
 {
     public class WeatherHttpClient : IWeatherHttpClient
     {
+        private readonly IConfiguration _configuration;
         private readonly IRequestStatisticRepository _requestStatistic; 
         private IHttpClientFactory _httpClientFactory;
         private readonly AsyncPolicyWrap<HttpResponseMessage> _retryAndBreakerPolicy;
         private readonly ILogger<IWeatherHttpClient> _logger;
+        private readonly string ApiKey;
         public WeatherHttpClient(IConfiguration configuration, IRequestStatisticRepository apiRequestStatistic, IHttpClientFactory httpClientFactory, ILogger<IWeatherHttpClient> logger)
         {
             _httpClientFactory = httpClientFactory;
+
+            ApiKey = configuration["ApiSettings:WeatherBitApiKey"];
             
             _logger = logger;
 
@@ -35,14 +39,15 @@ namespace Infrastructure.Repositories
 
             //Combine Retry asnd Circuit Breaker policies
             _retryAndBreakerPolicy = Policy.WrapAsync(retryPolicy, circuitBreakerPolicy);
-
+            
             _requestStatistic = apiRequestStatistic;
         }
+
         public async Task<WeatherData> GetWeatherAsync(string countryCode, string cityName)
         {
-            var client = _httpClientFactory.CreateClient("WeatherApi"); 
+            var client = _httpClientFactory.CreateClient("WeatherApi");
 
-            var url = $"?city={cityName}&country={countryCode}";
+            var url = $"?city={cityName}&country={countryCode}&key={ApiKey}";
             _logger.LogDebug($"Constructed url = {url}");
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);

@@ -12,7 +12,6 @@ namespace Infrastructure.Infrastructure_Module
             service.AddHttpClient("WeatherApi", client =>
             {
                 client.BaseAddress = new Uri(configuration["ApiSettings:WeatherBitUrl"]);
-                client.DefaultRequestHeaders.Add("key", configuration["ApiSettings:WeatherBitApiKey"]);
             });
             
             service.AddHttpClient("FootballApi", client =>

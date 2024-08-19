@@ -18,7 +18,9 @@ namespace Infrastructure.Repositories
         private IHttpClientFactory _httpClientFactory;
         private readonly AsyncPolicyWrap<HttpResponseMessage> _retryAndBreakerPolicy;
         private readonly ILogger<IWeatherHttpClient> _logger;
+
         private readonly string ApiKey;
+
         public WeatherHttpClient(IConfiguration configuration, IRequestStatisticRepository apiRequestStatistic, IHttpClientFactory httpClientFactory, ILogger<IWeatherHttpClient> logger)
         {
             _httpClientFactory = httpClientFactory;
@@ -49,6 +51,9 @@ namespace Infrastructure.Repositories
             var client = _httpClientFactory.CreateClient("WeatherApi");
 
             var url = $"?city={cityName}&country={countryCode}&key={ApiKey}";
+            _logger.LogDebug($"Constructed url = {url}");
+
+
             _logger.LogDebug($"Constructed url = {url}");
 
 

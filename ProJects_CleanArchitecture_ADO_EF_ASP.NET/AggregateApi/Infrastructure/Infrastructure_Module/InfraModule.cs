@@ -21,6 +21,11 @@ namespace Infrastructure.Infrastructure_Module
                 client.DefaultRequestHeaders.Add("x-rapidapi-host", configuration["ApiSettings:FootballAPIHost"]);
             });
 
+            service.AddHttpClient("NewsApi", client =>
+            {
+                client.BaseAddress = new Uri(configuration["ApiSettings:NewsApiUrl"]);
+            });
+
             service.AddScoped<IWeatherHttpClient, WeatherHttpClient>();
             service.AddScoped<IFootballAPI_HttpClient, FootballAPI_HttpClient>();
             service.AddSingleton<IRequestStatisticRepository, RequestStatisticRepository>();

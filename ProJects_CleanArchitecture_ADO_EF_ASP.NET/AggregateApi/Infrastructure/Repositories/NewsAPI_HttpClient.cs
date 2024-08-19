@@ -1,61 +1,50 @@
 ﻿using Application.Interfaces;
-using Domain.WeatherBitApi_Models;
+using Domain.NewsApi_ModelClasses;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Polly;
-using Polly.Wrap;
 using Polly.CircuitBreaker;
-using System.Text.Json;
+using Polly.Wrap;
 using System.Diagnostics;
 using Domain.ApiRequestStatistic;
-using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace Infrastructure.Repositories
 {
-    public class WeatherHttpClient : IWeatherHttpClient
+    public class NewsAPI_HttpClient : INewsAPI_HttpClient
     {
+
         private readonly IConfiguration _configuration;
-        private readonly IRequestStatisticRepository _requestStatistic; 
+        private readonly IRequestStatisticRepository _requestStatistic;
         private IHttpClientFactory _httpClientFactory;
         private readonly AsyncPolicyWrap<HttpResponseMessage> _retryAndBreakerPolicy;
-        private readonly ILogger<IWeatherHttpClient> _logger;
+        private readonly ILogger<INewsAPI_HttpClient> _logger;
+        private readonly string _apiKey;
 
-        private readonly string ApiKey;
-
-        public WeatherHttpClient(IConfiguration configuration, IRequestStatisticRepository apiRequestStatistic, IHttpClientFactory httpClientFactory, ILogger<IWeatherHttpClient> logger)
+        public NewsAPI_HttpClient(IConfiguration configuration, IRequestStatisticRepository requestStatistic, IHttpClientFactory httpClientFactory, ILogger<INewsAPI_HttpClient> logger) 
         {
+            _configuration = configuration;
+            _requestStatistic = requestStatistic;
             _httpClientFactory = httpClientFactory;
-
-            ApiKey = configuration["ApiSettings:WeatherBitApiKey"];
-            
             _logger = logger;
 
+            _apiKey = configuration["ApiSettings:NewsApiKey"];
 
-            //Define a retry policy where the http client will retry up to 3 times with an exponentialy
-            //increasing timespan between retry attempts.
-            //In Math.Pow(2, retryAttempt) 2 is the base while retryAttempt is the power we raise 2 to.
             var retryPolicy = Policy.HandleResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
                 .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 
-            //Define CircuitBreakerPolicy. Break circuit after three consecutive failures.
             var circuitBreakerPolicy = Policy.HandleResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
                 .CircuitBreakerAsync(3, TimeSpan.FromSeconds(30));
 
-            //Combine Retry asnd Circuit Breaker policies
-            _retryAndBreakerPolicy = Policy.WrapAsync(retryPolicy, circuitBreakerPolicy);
-            
-            _requestStatistic = apiRequestStatistic;
+            var retryAndBreakerPolicy = Policy.WrapAsync(retryPolicy, circuitBreakerPolicy);
         }
 
-        public async Task<WeatherData> GetWeatherAsync(string countryCode, string cityName)
+        public async Task<NewsApiResponse> GetNewsAsync(string keyword)
         {
-            var client = _httpClientFactory.CreateClient("WeatherApi");
+            var client = _httpClientFactory.CreateClient("NewsApi");
 
-            var url = $"?city={cityName}&country={countryCode}&key={ApiKey}";
+            var url = $"?q={keyword}&apiKey={_apiKey}";
             _logger.LogDebug($"Constructed url = {url}");
-
-
-            _logger.LogDebug($"Constructed url = {url}");
-
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);
 
@@ -65,25 +54,24 @@ namespace Infrastructure.Repositories
 
             try
             {
-                //Send request with retry and circuit breaker policies
-                response =  await _retryAndBreakerPolicy.ExecuteAsync(() => client.SendAsync(request));
+                response = await _retryAndBreakerPolicy.ExecuteAsync(() => client.SendAsync(request));
             }
             catch (BrokenCircuitException)
             {
                 _logger.LogError("Circuit Breaker is open. Unable to fetch data from the Api");
                 throw new Exception("Circuit Breaker is open. Unable to fetch data from the Api");
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 _logger.LogError($"Exception: {ex.Message}");
                 throw new Exception("An error occured while fetching data from the api");
             }
-            finally 
-            { 
+            finally
+            {
                 stopWatch.Stop();
                 _requestStatistic.AddRequestStatistics(new RequestStatistic()
                 {
-                    ApiName = "WeatherBit",
+                    ApiName = "NewsApi",
                     ResponseTime = stopWatch.ElapsedMilliseconds,
                     Timestamp = DateTime.Now,
                 });
@@ -101,10 +89,10 @@ namespace Infrastructure.Repositories
 
                 try
                 {
-                    var weatherApiResponse = JsonSerializer.Deserialize<WeatherData>(json, options);
-                    _logger.LogDebug($"Deserialized Response: {weatherApiResponse}");
+                    var newsApiResponse = JsonSerializer.Deserialize<NewsApiResponse>(json, options);
+                    _logger.LogDebug($"Deserialized Response: {newsApiResponse}");
 
-                    return weatherApiResponse;
+                    return newsApiResponse;
                 }
                 catch (Exception ex)
                 {
@@ -112,7 +100,6 @@ namespace Infrastructure.Repositories
                     _logger.LogError($"Raw JSON: {json}");
                     throw new Exception("Error deserializing the API response");
                 }
-               
             }
             else
             {
@@ -120,6 +107,7 @@ namespace Infrastructure.Repositories
                 _logger.LogError($"Unable to fetch data from the API. Status code: {response.StatusCode}, Content: {errorContent}");
                 throw new Exception($"unable to fetch Data from the Api. Status code: {response.StatusCode}, Content: {errorContent}");
             }
+            throw new NotImplementedException();
         }
     }
 }

@@ -43,15 +43,17 @@ namespace Infrastructure.Repositories
             var url = $"?league={leagueId}&season={season}";
             _logger.LogDebug($"Constructed url = {url}");
 
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
-            
             HttpResponseMessage response;
 
             var stopWatch = Stopwatch.StartNew();
 
             try
             {
-                response = await _retryAndBreakerPolicy.ExecuteAsync(() => client.SendAsync(request));
+                response = await _retryAndBreakerPolicy.ExecuteAsync(() =>
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Get, url);
+                    return client.SendAsync(request);
+                });
             }
             catch (BrokenCircuitException)
             {

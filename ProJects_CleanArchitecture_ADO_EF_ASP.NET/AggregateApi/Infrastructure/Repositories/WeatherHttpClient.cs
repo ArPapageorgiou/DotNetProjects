@@ -51,13 +51,11 @@ namespace Infrastructure.Repositories
             var client = _httpClientFactory.CreateClient("WeatherApi");
 
             var url = $"?city={cityName}&country={countryCode}&key={ApiKey}";
-            _logger.LogDebug($"Constructed url = {url}");
+            _logger.LogDebug($"Constructed url = {client.BaseAddress}{url}");
 
 
             _logger.LogDebug($"Constructed url = {url}");
 
-
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
 
             HttpResponseMessage response;
 
@@ -66,7 +64,12 @@ namespace Infrastructure.Repositories
             try
             {
                 //Send request with retry and circuit breaker policies
-                response =  await _retryAndBreakerPolicy.ExecuteAsync(() => client.SendAsync(request));
+                response =  await _retryAndBreakerPolicy.ExecuteAsync(() =>
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Get, url);
+                    _logger.LogDebug($"Sending request to URL: {client.BaseAddress}{url}");
+                    return client.SendAsync(request);
+                });
             }
             catch (BrokenCircuitException)
             {

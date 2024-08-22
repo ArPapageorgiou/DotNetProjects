@@ -24,10 +24,12 @@ namespace Infrastructure.Infrastructure_Module
             service.AddHttpClient("NewsApi", client =>
             {
                 client.BaseAddress = new Uri(configuration["ApiSettings:NewsApiUrl"]);
+                client.DefaultRequestHeaders.UserAgent.ParseAdd("NewsApiClient/1.0");
             });
 
             service.AddScoped<IWeatherHttpClient, WeatherHttpClient>();
             service.AddScoped<IFootballAPI_HttpClient, FootballAPI_HttpClient>();
+            service.AddScoped<INewsAPI_HttpClient, NewsAPI_HttpClient>();
             service.AddSingleton<IRequestStatisticRepository, RequestStatisticRepository>();
             return service;
         }

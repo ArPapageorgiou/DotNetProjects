@@ -16,7 +16,7 @@ namespace Infrastructure.Repositories
 
         private readonly IConfiguration _configuration;
         private readonly IRequestStatisticRepository _requestStatistic;
-        private IHttpClientFactory _httpClientFactory;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly AsyncPolicyWrap<HttpResponseMessage> _retryAndBreakerPolicy;
         private readonly ILogger<INewsAPI_HttpClient> _logger;
         private readonly string _apiKey;
@@ -36,17 +36,15 @@ namespace Infrastructure.Repositories
             var circuitBreakerPolicy = Policy.HandleResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
                 .CircuitBreakerAsync(3, TimeSpan.FromSeconds(30));
 
-            var retryAndBreakerPolicy = Policy.WrapAsync(retryPolicy, circuitBreakerPolicy);
+            _retryAndBreakerPolicy = Policy.WrapAsync(retryPolicy, circuitBreakerPolicy);
         }
 
         public async Task<NewsApiResponse> GetNewsAsync(string keyword)
         {
             var client = _httpClientFactory.CreateClient("NewsApi");
 
-            var url = $"?q={keyword}&apiKey={_apiKey}";
-            _logger.LogDebug($"Constructed url = {url}");
-
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var url = $"?q=\"{keyword}\"&apiKey={_apiKey}";
+            _logger.LogDebug($"Constructed url = {client.BaseAddress}{url}");
 
             HttpResponseMessage response;
 
@@ -54,7 +52,12 @@ namespace Infrastructure.Repositories
 
             try
             {
-                response = await _retryAndBreakerPolicy.ExecuteAsync(() => client.SendAsync(request));
+                response = await _retryAndBreakerPolicy.ExecuteAsync(() =>
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Get, url);
+                    _logger.LogDebug($"Sending request to URL: {client.BaseAddress}{url}");
+                    return client.SendAsync(request);
+                });
             }
             catch (BrokenCircuitException)
             {

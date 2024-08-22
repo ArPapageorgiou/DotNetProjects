@@ -12,6 +12,7 @@ namespace Application.Application_Module
             service.AddScoped<IRequestStatisticsService, RequestStatisticsService>();
             service.AddScoped<IWeatherService, WeatherService>();
             service.AddScoped<IFootballStandingsService, FootballStandingsService>();
+            service.AddScoped<INewsApiService, NewsApiService>();
             return service;
         }
     }

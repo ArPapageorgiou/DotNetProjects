@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Repositories;
 using Domain.ApiRequestStatistic;
 
-namespace AggregateApi_Tests
+namespace AggregateApi_Tests.Repository_Tests
 {
     [TestFixture]
     internal class RequestStatisticRepositoryTests

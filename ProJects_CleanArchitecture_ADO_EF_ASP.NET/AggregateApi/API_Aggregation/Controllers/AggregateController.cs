@@ -16,21 +16,48 @@ namespace API_Aggregation.Controllers
         private readonly IFootballStandingsService _footballStandingsService;
         private readonly IRequestStatisticsService _requestStatisticsService;
         private readonly INewsApiService _newsApiService;
+        private readonly IAggregateService _aggregateService;
 
-        public AggregateController(IWeatherService weatherService, IRequestStatisticsService requestStatisticsService, IFootballStandingsService footballStandingsService, INewsApiService newsApiService)
+        public AggregateController(IWeatherService weatherService, IRequestStatisticsService requestStatisticsService, IFootballStandingsService footballStandingsService, INewsApiService newsApiService, IAggregateService aggregateService)
         {
             _weatherService = weatherService;
             _requestStatisticsService = requestStatisticsService;
             _footballStandingsService = footballStandingsService;
             _newsApiService = newsApiService;
+            _aggregateService = aggregateService;   
         }
 
-        [HttpGet ("newsData")]
-        public async Task<IActionResult> GetNewsDataAsync(string keyword)
+        [HttpGet ("aggregateData")]
+        public async Task<IActionResult> GetAggregateData(string temperature, bool ascending, string newsKeyword)
         {
-            var newsData = await _newsApiService.GetNewsDataAsync(keyword);
-            return Ok(newsData);
+            if (string.IsNullOrEmpty(newsKeyword))
+            {
+                return BadRequest("News Keyword cannot be null or empty");
+            }
+
+            try
+            {
+                var response = await _aggregateService.GetAggregateDataAsync(temperature, ascending, newsKeyword);
+
+                if (response == null)
+                {
+                    return NotFound("No results found.");
+                }
+
+                return Ok(response);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
+
+        //[HttpGet ("newsData")]
+        //public async Task<IActionResult> GetNewsDataAsync(string keyword)
+        //{
+        //    var newsData = await _newsApiService.GetNewsDataAsync(keyword);
+        //    return Ok(newsData);
+        //}
 
         //[HttpGet("weatherData")]
         //public async Task<IActionResult> GetWeatherData(string sortByTemperature = "temperature", bool ascending = true)

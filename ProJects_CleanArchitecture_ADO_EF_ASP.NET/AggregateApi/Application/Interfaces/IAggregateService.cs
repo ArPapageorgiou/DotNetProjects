@@ -2,7 +2,7 @@
 
 namespace Application.Interfaces
 {
-    internal interface IAggregateService
+    public interface IAggregateService
     {
         Task<AggregateModel> GetAggregateDataAsync(string temperature, bool ascending, string keyword);
     }

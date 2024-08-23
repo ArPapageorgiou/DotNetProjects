@@ -3,7 +3,7 @@ using Application.Services;
 using Domain.ApiRequestStatistic;
 using Moq;
 
-namespace AggregateApi_Tests
+namespace AggregateApi_Tests.Service_tests
 {
     [TestFixture]
     internal class RequestStatisticsServiceTests

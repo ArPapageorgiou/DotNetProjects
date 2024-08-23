@@ -13,6 +13,7 @@ namespace Application.Application_Module
             service.AddScoped<IWeatherService, WeatherService>();
             service.AddScoped<IFootballStandingsService, FootballStandingsService>();
             service.AddScoped<INewsApiService, NewsApiService>();
+            service.AddScoped<IAggregateService, AggregateService>();
             return service;
         }
     }

@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Infrastructure.Repositories;
 using Microsoft.Extensions.Logging;
 
-namespace AggregateApi_Tests
+namespace AggregateApi_Tests.HttpClients_Tests
 {
     [TestFixture]
     public class WeatherHttpClientTests
@@ -133,7 +133,7 @@ namespace AggregateApi_Tests
             Assert.AreEqual(expectedResponse.DataList.Count, result.DataList.Count);
             Assert.AreEqual(expectedResponse.DataList[0].CityName, result.DataList[0].CityName);
             Assert.AreEqual(expectedResponse.DataList[0].Weather.Description, result.DataList[0].Weather.Description);
-            
+
         }
 
         [Test]

@@ -8,8 +8,8 @@
    - [Installation]
    - [Configuration]
 3. [API Endpoints](#api-endpoints)
-   - [3.1 Aggregated Data Endpoint]
-   - [3.2 Statistics Endpoint]
+   - [Aggregated Data Endpoint]
+   - [Statistics Endpoint]
 4. [Error Handling](#error-handling)
 5. [Testing](#testing)
 6. [Architecture](#architecture)
@@ -82,7 +82,7 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
 
 ## 3. API Endpoints
 
-### 3.1 Aggregated Data Endpoint
+### Aggregated Data Endpoint
 
 - **URL:** `/api/aggregateData`
 - **Method:** GET
@@ -274,6 +274,12 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
   }
 }
 ```
+
+### Statistics Endpoint
+- **URL:** /api/aggregate/statistics
+- **Method:** GET
+- **Description:** Retrieves request statistics for each external API and groups them in performance buckets. 
+
 ## 4. Error Handling
 
 ### Polly for Resilience

@@ -272,7 +272,7 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
     ]
   }
 }
-
+```
 
 ## 4. Error Handling
 

@@ -24,7 +24,7 @@ namespace Infrastructure.Infrastructure_Module
             service.AddHttpClient("NewsApi", client =>
             {
                 client.BaseAddress = new Uri(configuration["ApiSettings:NewsApiUrl"]);
-                client.DefaultRequestHeaders.UserAgent.ParseAdd("NewsApiClient/1.0");
+                client.DefaultRequestHeaders.UserAgent.ParseAdd(configuration["ApiSettings:NewsApiUserAgent"]);
             });
 
             service.AddScoped<IWeatherHttpClient, WeatherHttpClient>();

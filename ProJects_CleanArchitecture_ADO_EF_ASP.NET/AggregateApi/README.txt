@@ -51,11 +51,10 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
    ```bash
    docker run --name my-redis -d redis
 
-   Configuration
+  4.  **Configuration**
 
    Configure the external API keys in 'appsettings.json':
-   
-   ```json
+```json
    {
   "ApiSettings": {
     "WeatherBitApiKey": "your_weatherbit_api_key",
@@ -79,6 +78,7 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
   },
   "AllowedHosts": "*"
 }
+```
 
 ## 3. API Endpoints
 
@@ -91,8 +91,9 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
 #### Request Parameters:
 
 - **temperature** (string, optional): Parameter for sorting weather data by temperature. Use `temperature` to sort weather data by temperature.
-- **ascending** (boolean, optional): Sort order for weather data and news. Default is `true` for ascending order.
+- **ascending** (boolean, optional): Sort order for weather. Default is `true` for ascending order.
 - **newsKeyword** (string, required): Keyword for news search. Must be provided to retrieve news data.
+- **NewsAPI** does not require any parameters and is set to return standings for football teams participating in the Greek Super League for the current year.
 
 #### Examples:
 
@@ -273,13 +274,7 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
   }
 }
 ```
-### 4. Error Handling
-
-The API returns standard HTTP error responses for various types of issues:
-
-- **400 Bad Request**: Returned when the request is malformed or missing required parameters.
-- **404 Not Found**: Returned when no data is found matching the provided parameters.
-- **500 Internal Server Error**: Returned when an unexpected server-side error occurs.
+## 4. Error Handling
 
 ### Polly for Resilience
 
@@ -298,19 +293,19 @@ In cases where external API calls fail, the application gracefully returns defau
 
 All HTTP requests are wrapped in `try-catch` blocks to handle any unexpected exceptions that Polly may not capture. This ensures that even unhandled errors are caught and managed, maintaining application stability.
 
----
+## 5. Testing
 
-### 5. Testing
+The application undergoes thorough testing to ensure reliability and correctness.
 
-The application is thoroughly tested using comprehensive unit tests to ensure reliability and correct functionality.
+### Testing Tools
 
-- **Testing Tools**:
-  - **Postman** or **cURL**: Used for manual testing of API endpoints.
-  - **NUnit**: A unit testing framework used to run the project's automated unit tests.
+- **NUnit**: This unit testing framework is employed for automated testing of the project's components. NUnit tests ensure that individual units of the application function correctly and adhere to expected behavior.
 
----
+### Automated Tests
 
-### 6. Architecture
+Automated tests written with NUnit are integrated into the development workflow to catch issues early and verify that code changes do not introduce regressions.
+
+## 6. Architecture
 
 The application follows the principles of **Clean Architecture**, promoting separation of concerns and facilitating maintainability and testability. The architecture is structured into the following layers:
 
@@ -322,3 +317,31 @@ The application follows the principles of **Clean Architecture**, promoting sepa
 #### Dependency Injection
 
 The application adheres to the **SOLID** principles by leveraging **Dependency Injection** to promote loose coupling and enhance testability.
+
+
+## 7. Performance and Optimization
+
+### Asynchronous Operations
+
+The service leverages `async`/`await` for asynchronous operations, ensuring that external API calls and other I/O-bound tasks do not block the main thread. This approach improves performance and responsiveness by allowing concurrent operations.
+
+### Caching
+
+Redis is used for caching frequently accessed data. Caching reduces the load on external APIs and speeds up response times for end-users by storing and reusing previously fetched data.
+
+### Retry and Circuit Breaker Policies
+
+Polly is used to implement retry and circuit breaker policies for handling transient faults and improving resilience:
+
+- **Retry Policy**: Automatically retries failed HTTP requests using exponential backoff with increasing delays.
+- **Circuit Breaker Policy**: Temporarily halts requests to a failing API after multiple consecutive failures to prevent overloading and to allow the API to recover.
+
+### Logging
+
+The application utilizes `ILogger` for comprehensive logging:
+
+- **API Requests and Responses**: Logs details of requests to and responses from external APIs to assist with debugging and performance monitoring.
+- **Errors and Exceptions**: Captures and logs errors or exceptions encountered during API interactions to provide insight into issues and failures.
+- **Performance Metrics**: Records metrics related to the performance of various components, such as response times and processing durations, to help identify and address potential bottlenecks.
+
+

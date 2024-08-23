@@ -4,12 +4,12 @@
 
 1. [Introduction](#introduction)
 2. [Getting Started](#getting-started)
-   - [Prerequisites](#prerequisites)
-   - [Installation](#installation)
-   - [Configuration](#configuration)
+   - [Prerequisites]
+   - [Installation]
+   - [Configuration]
 3. [API Endpoints](#api-endpoints)
-   - [3.1 Aggregated Data Endpoint](#31-aggregated-data-endpoint)
-   - [3.2 Statistics Endpoint](#32-statistics-endpoint)
+   - [3.1 Aggregated Data Endpoint]
+   - [3.2 Statistics Endpoint]
 4. [Error Handling](#error-handling)
 5. [Testing](#testing)
 6. [Architecture](#architecture)

@@ -20,7 +20,7 @@ namespace Application.Services
             _logger = logger;
         }
 
-        public async Task<IEnumerable<WeatherData>> GetWeatherData(string sortByTemperature = "temperature", bool ascending = true)
+        public async Task<IEnumerable<WeatherData>> GetWeatherDataAsync(string sortByTemperature = "temperature", bool ascending = true)
         {
             var cacheKey = GetCacheKey(sortByTemperature, ascending);
             _logger.LogInformation($"Fetching data from cache with key: {cacheKey}");

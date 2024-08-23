@@ -19,7 +19,7 @@ namespace Application.Services
         public async Task<AggregateModel> GetAggregateDataAsync(string temperature, bool ascending, string keyword)
         {
             var newsTask = _newsApiService.GetNewsDataAsync(keyword);
-            var weatherTask = _weatherService.GetWeatherData(temperature, ascending);
+            var weatherTask = _weatherService.GetWeatherDataAsync(temperature, ascending);
             var footballTask = _footballStandingsService.GetFootbalStandingsAsync();
 
             await Task.WhenAll(newsTask, weatherTask, footballTask);

@@ -17,13 +17,13 @@
 
 ## 1. Introduction
 
-The API Aggregation Service consolidates data from multiple external APIs and provides a unified endpoint for accessing the aggregated information. This service supports integration with multiple APIs and offers functionalities for filtering, sorting, and performance optimization.
+The API Aggregation Service consolidates data from multiple external APIs and provides a unified endpoint for accessing the aggregated information. This service supports integration with various APIs and offers functionalities for filtering, sorting, and performance optimization.
 
 **Integrated APIs:**
 
 - **[WeatherBit API](https://www.weatherbit.io/):** Provides weather data for various locations, including current weather conditions and forecasts.
-- **[News API](https://newsapi.org/):** Delivers news articles based on specific keywords. Users can retrieve the latest news and headlines from various sources around the world.
-- **[Football API](https://www.api-football.com/):** Provides football standings and related data.
+- **[News API](https://newsapi.org/):** Delivers news articles based on specific keywords. Users can retrieve the latest news and headlines from various sources worldwide.
+- **[Football API](https://www.api-football.com/):** Provides football standings and related data, such as team rankings, points, goals, and match statistics for the Greek league.
 
 ## 2. Getting Started
 
@@ -273,29 +273,52 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
   }
 }
 ```
+### 4. Error Handling
 
-## 4. Error Handling
+The API returns standard HTTP error responses for various types of issues:
 
-The API provides standard HTTP error responses for various issues:
+- **400 Bad Request**: Returned when the request is malformed or missing required parameters.
+- **404 Not Found**: Returned when no data is found matching the provided parameters.
+- **500 Internal Server Error**: Returned when an unexpected server-side error occurs.
 
-- **400 Bad Request:** Returned when the request is invalid, such as missing required parameters.
-- **404 Not Found:** Returned when no data is found for the given parameters.
-- **500 Internal Server Error:** Returned when an unexpected error occurs on the server.
+### Polly for Resilience
 
-## 5. Testing
+To enhance resilience, the application leverages **Polly** for handling transient failures in external API calls:
 
-To test the API, you can use tools like Postman or cURL to make requests to the endpoints and verify the responses. Ensure that all external API keys are correctly configured and the Docker container for Redis is running.
+- **Retry Policy**: Failed HTTP requests are automatically retried using exponential backoff (with delays of 2, 4, and 8 seconds).
+- **Circuit Breaker Policy**: After 3 consecutive failures, the application temporarily halts requests to the failing API for 30 seconds to prevent overloading.
 
-## 6. Architecture
+### Default Object Return
 
-The service uses a clean architecture approach, separating concerns into different layers:
+In cases where external API calls fail, the application gracefully returns default responses to ensure smooth functionality. For example:
 
-- **Controllers:** Handle HTTP requests and responses.
-- **Services:** Contain business logic and interact with external APIs.
-- **Repositories:** Manage data access and caching.
-- **Models:** Define the data structures used in the application.
+- **NewsService**: If the News API is unavailable, the service will return a set of default articles rather than breaking the user experience.
 
-## 7. Performance and Optimization
+### Exception Handling
 
-- **Caching:** Redis is used for caching frequently accessed data to improve performance.
-- **Retry and Circuit Breaker Policies:** Polly is used for implementing retry and circuit breaker policies to handle transient faults and improve resilience.
+All HTTP requests are wrapped in `try-catch` blocks to handle any unexpected exceptions that Polly may not capture. This ensures that even unhandled errors are caught and managed, maintaining application stability.
+
+---
+
+### 5. Testing
+
+The application is thoroughly tested using comprehensive unit tests to ensure reliability and correct functionality.
+
+- **Testing Tools**:
+  - **Postman** or **cURL**: Used for manual testing of API endpoints.
+  - **NUnit**: A unit testing framework used to run the project's automated unit tests.
+
+---
+
+### 6. Architecture
+
+The application follows the principles of **Clean Architecture**, promoting separation of concerns and facilitating maintainability and testability. The architecture is structured into the following layers:
+
+- **Controllers**: Handle HTTP requests, responses, and route them to the appropriate services.
+- **Services**: Contain the core business logic and handle interactions with external APIs.
+- **Repositories**: Manage data access, storage, and caching operations.
+- **Models**: Define the data structures used across the application.
+
+#### Dependency Injection
+
+The application adheres to the **SOLID** principles by leveraging **Dependency Injection** to promote loose coupling and enhance testability.

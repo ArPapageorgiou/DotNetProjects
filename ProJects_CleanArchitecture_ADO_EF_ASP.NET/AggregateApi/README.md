@@ -278,7 +278,44 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
 ### Statistics Endpoint
 - **URL:** /api/aggregate/statistics
 - **Method:** GET
-- **Description:** Retrieves request statistics for each external API and groups them in performance buckets. 
+- **Description:** Retrieves request statistics for each external API and groups them in performance buckets.
+
+#### Example Response
+```json
+[
+  {
+    "ApiName": "WeatherBit",
+    "TotalRequests": 150,
+    "FastRequests": 100,
+    "AverageRequests": 30,
+    "SlowRequests": 20,
+    "FastAverageTime": 80.5,
+    "AverageAverageTime": 150.0,
+    "SlowAverageTime": 250.75
+  },
+  {
+    "ApiName": "NewsAPI",
+    "TotalRequests": 200,
+    "FastRequests": 180,
+    "AverageRequests": 15,
+    "SlowRequests": 5,
+    "FastAverageTime": 70.1,
+    "AverageAverageTime": 175.5,
+    "SlowAverageTime": 210.3
+  },
+  {
+    "ApiName": "FootballAPI",
+    "TotalRequests": 100,
+    "FastRequests": 90,
+    "AverageRequests": 5,
+    "SlowRequests": 5,
+    "FastAverageTime": 85.0,
+    "AverageAverageTime": 160.2,
+    "SlowAverageTime": 230.4
+  }
+]
+
+```
 
 ## 4. Error Handling
 

@@ -4,6 +4,6 @@ namespace Application.Interfaces
 {
     public interface IWeatherService
     {
-        Task<IEnumerable<WeatherData>> GetWeatherData(string sortByTemperature, bool ascending);
+        Task<IEnumerable<WeatherData>> GetWeatherDataAsync(string sortByTemperature, bool ascending);
     }
 }

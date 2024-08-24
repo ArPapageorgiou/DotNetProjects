@@ -9,7 +9,7 @@
    - [Configuration](#configuration)
 3. [API Endpoints](#api-endpoints)
    - [Aggregated Data Endpoint](#aggragated-data-endpoint)
-   - [Statistics Endpoint](statistics-endpoint)
+   - [Statistics Endpoint](#statistics-endpoint)
 4. [Error Handling](#error-handling)
 5. [Testing](#testing)
 6. [Architecture](#architecture)
@@ -51,7 +51,7 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
    ```bash
    docker run --name my-redis -d redis
 
-  4.  **Configuration**
+  4. **Configuration**
 
    Configure the external API keys in 'appsettings.json':
 ```json

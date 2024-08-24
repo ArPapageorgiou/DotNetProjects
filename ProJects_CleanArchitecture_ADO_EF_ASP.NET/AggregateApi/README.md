@@ -51,7 +51,7 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
    ```bash
    docker run --name my-redis -d redis
 
-  4. **Configuration**
+### Configuration
 
    Configure the external API keys in 'appsettings.json':
 ```json

@@ -4,12 +4,12 @@
 
 1. [Introduction](#introduction)
 2. [Getting Started](#getting-started)
-   - [Prerequisites]
-   - [Installation]
-   - [Configuration]
+   - [Prerequisites](#prerequisites)
+   - [Installation](#installation)
+   - [Configuration](#configuration)
 3. [API Endpoints](#api-endpoints)
-   - [Aggregated Data Endpoint]
-   - [Statistics Endpoint]
+   - [Aggregated Data Endpoint](#aggragated-data-endpoint)
+   - [Statistics Endpoint](statistics-endpoint)
 4. [Error Handling](#error-handling)
 5. [Testing](#testing)
 6. [Architecture](#architecture)
@@ -25,7 +25,7 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
 - **[News API](https://newsapi.org/):** Delivers news articles based on specific keywords. Users can retrieve the latest news and headlines from various sources worldwide.
 - **[Football API](https://www.api-football.com/):** Provides football standings and related data, such as team rankings, points, goals, and match statistics for the Greek league.
 
-## 2. Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -80,7 +80,7 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
 }
 ```
 
-## 3. API Endpoints
+## API Endpoints
 
 ### Aggregated Data Endpoint
 
@@ -317,7 +317,7 @@ The API Aggregation Service consolidates data from multiple external APIs and pr
 
 ```
 
-## 4. Error Handling
+## Error Handling
 
 ### Polly for Resilience
 
@@ -336,7 +336,7 @@ In cases where external API calls fail, the application gracefully returns defau
 
 All HTTP requests are wrapped in `try-catch` blocks to handle any unexpected exceptions that Polly may not capture. This ensures that even unhandled errors are caught and managed, maintaining application stability.
 
-## 5. Testing
+## Testing
 
 The application undergoes thorough testing to ensure reliability and correctness.
 
@@ -348,7 +348,7 @@ The application undergoes thorough testing to ensure reliability and correctness
 
 Automated tests written with NUnit are integrated into the development workflow to catch issues early and verify that code changes do not introduce regressions.
 
-## 6. Architecture
+## Architecture
 
 The application follows the principles of **Clean Architecture**, promoting separation of concerns and facilitating maintainability and testability. The architecture is structured into the following layers:
 
@@ -362,7 +362,7 @@ The application follows the principles of **Clean Architecture**, promoting sepa
 The application adheres to the **SOLID** principles by leveraging **Dependency Injection** to promote loose coupling and enhance testability.
 
 
-## 7. Performance and Optimization
+## Performance and Optimization
 
 ### Asynchronous Operations
 

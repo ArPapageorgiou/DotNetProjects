@@ -15,7 +15,7 @@
 6. [Architecture](#architecture)
 7. [Performance and Optimization](#performance-and-optimization)
 
-## 1. Introduction
+## Introduction
 
 The API Aggregation Service consolidates data from multiple external APIs and provides a unified endpoint for accessing the aggregated information. This service supports integration with various APIs and offers functionalities for filtering, sorting, and performance optimization.
 

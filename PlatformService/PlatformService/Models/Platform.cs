@@ -15,5 +15,6 @@ namespace PlatformService.Models
 
         [Required]
         public string Cost { get; set; }
+
     }
 }

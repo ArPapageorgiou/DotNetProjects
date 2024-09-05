@@ -1,3 +1,5 @@
+
+
 using Microsoft.EntityFrameworkCore;
 using PlatformService.Data;
 using PlatformService.Intefaces;
@@ -17,7 +19,9 @@ namespace PlatformService
             builder.Services.AddDbContext<AppDbContext>(options => 
             options.UseInMemoryDatabase("InMemoryDatabase"));
 
+
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
             builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
 

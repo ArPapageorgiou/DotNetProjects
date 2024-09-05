@@ -1,6 +1,9 @@
 
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using PlatformService.Data;
+using PlatformService.Intefaces;
+using PlatformService.Repositories;
 
 
 namespace PlatformService
@@ -16,6 +19,9 @@ namespace PlatformService
             builder.Services.AddDbContext<AppDbContext>(options => 
             options.UseInMemoryDatabase("InMemoryDatabase"));
 
+            builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
+
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -23,6 +29,8 @@ namespace PlatformService
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            PrepDb.PrepPopulation(app);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

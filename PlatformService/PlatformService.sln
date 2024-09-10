@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlatformService", "Platform
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{95EA2855-BBE5-4CAA-BE23-2CF700A3FC6E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{C1EDDCE1-2E04-4EB0-A086-B7EC9EB70D11}"
+	ProjectSection(SolutionItems) = preProject
+		platform_depl.yaml = platform_depl.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

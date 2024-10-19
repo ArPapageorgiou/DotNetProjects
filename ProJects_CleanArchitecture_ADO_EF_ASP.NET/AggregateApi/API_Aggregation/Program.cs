@@ -1,4 +1,5 @@
 using Application.Application_Module;
+using Application.Services;
 using Infrastructure.Infrastructure_Module;
 using Microsoft.Extensions.Configuration;
 
@@ -38,6 +39,8 @@ namespace API_Aggregation
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            
+            app.UseMiddleware<PerformanceMetricsMiddleware>();
 
             app.UseHttpsRedirection();
 

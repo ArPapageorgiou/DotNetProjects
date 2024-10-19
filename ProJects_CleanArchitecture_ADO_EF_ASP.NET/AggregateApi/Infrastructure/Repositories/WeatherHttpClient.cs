@@ -59,7 +59,7 @@ namespace Infrastructure.Repositories
 
             HttpResponseMessage response;
 
-            var stopWatch = Stopwatch.StartNew();
+            //var stopWatch = Stopwatch.StartNew();
 
             try
             {
@@ -81,16 +81,16 @@ namespace Infrastructure.Repositories
                 _logger.LogError($"Exception: {ex.Message}");
                 throw new Exception("An error occured while fetching data from the api");
             }
-            finally 
-            { 
-                stopWatch.Stop();
-                _requestStatistic.AddRequestStatistics(new RequestStatistic()
-                {
-                    ApiName = "WeatherBit",
-                    ResponseTime = stopWatch.ElapsedMilliseconds,
-                    Timestamp = DateTime.Now,
-                });
-            }
+            //finally 
+            //{ 
+            //    stopWatch.Stop();
+            //    _requestStatistic.AddRequestStatistics(new RequestStatistic()
+            //    {
+            //        ApiName = "WeatherBit",
+            //        ResponseTime = stopWatch.ElapsedMilliseconds,
+            //        Timestamp = DateTime.Now,
+            //    });
+            //}
 
             if (response.IsSuccessStatusCode)
             {

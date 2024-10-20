@@ -1,4 +1,5 @@
 using Application.Application_Module;
+using Application.Services;
 using Infrastructure.Infrastructure_Module;
 
 namespace API_Aggregation
@@ -38,7 +39,9 @@ namespace API_Aggregation
                 app.UseSwaggerUI();
             }
             
+
              app.UseHttpsRedirection();
+
 
             app.UseAuthorization();
 

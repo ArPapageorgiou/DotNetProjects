@@ -1,7 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Application.Application_Module
 {
@@ -14,6 +13,7 @@ namespace Application.Application_Module
             service.AddScoped<IFootballStandingsService, FootballStandingsService>();
             service.AddScoped<INewsApiService, NewsApiService>();
             service.AddScoped<IAggregateService, AggregateService>();
+            service.AddTransient<ApiPerformanceHandler>();
             return service;
         }
     }

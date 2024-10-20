@@ -2,8 +2,6 @@
 using Domain.FootballAPI_ModelClasses.ApiFootball;
 using Polly;
 using Polly.Wrap;
-using System.Diagnostics;
-using Domain.ApiRequestStatistic;
 using Polly.CircuitBreaker;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
@@ -45,8 +43,6 @@ namespace Infrastructure.Repositories
 
             HttpResponseMessage response;
 
-            //var stopWatch = Stopwatch.StartNew();
-
             try
             {
                 response = await _retryAndBreakerPolicy.ExecuteAsync(() =>
@@ -65,18 +61,7 @@ namespace Infrastructure.Repositories
                 _logger.LogError($"Exception: {ex.Message}");
                 throw new Exception("An error occured while fetching data from the api");
             }
-            //finally
-            //{
-            //    stopWatch.Stop();
-            //    _requestStatisticRepository.AddRequestStatistics(new RequestStatistic
-            //    {
-            //        ApiName = "FootBallAPI",
-            //        ResponseTime = stopWatch.ElapsedMilliseconds,
-            //        Timestamp = DateTime.Now
-
-            //    });
-            //}
-
+            
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();

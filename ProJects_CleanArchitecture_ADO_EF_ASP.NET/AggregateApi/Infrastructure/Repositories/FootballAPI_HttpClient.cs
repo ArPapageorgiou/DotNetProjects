@@ -43,6 +43,8 @@ namespace Infrastructure.Repositories
 
             HttpResponseMessage response;
 
+
+
             try
             {
                 response = await _retryAndBreakerPolicy.ExecuteAsync(() =>
@@ -61,7 +63,9 @@ namespace Infrastructure.Repositories
                 _logger.LogError($"Exception: {ex.Message}");
                 throw new Exception("An error occured while fetching data from the api");
             }
+
             
+
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();

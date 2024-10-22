@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Application.Interfaces;
 using Domain.ApiRequestStatistic;
-using Domain.NewsApi_ModelClasses;
-using System.Formats.Asn1;
 
 
 namespace API_Aggregation.Controllers
@@ -12,19 +10,13 @@ namespace API_Aggregation.Controllers
 
     public class AggregateController : ControllerBase
     {
-        private readonly IWeatherService _weatherService;
-        private readonly IFootballStandingsService _footballStandingsService;
         private readonly IRequestStatisticsService _requestStatisticsService;
-        private readonly INewsApiService _newsApiService;
         private readonly IAggregateService _aggregateService;
 
-        public AggregateController(IWeatherService weatherService, IRequestStatisticsService requestStatisticsService, IFootballStandingsService footballStandingsService, INewsApiService newsApiService, IAggregateService aggregateService)
+        public AggregateController(IRequestStatisticsService requestStatisticsService, IAggregateService aggregateService)
         {
-            _weatherService = weatherService;
             _requestStatisticsService = requestStatisticsService;
-            _footballStandingsService = footballStandingsService;
-            _newsApiService = newsApiService;
-            _aggregateService = aggregateService;   
+            _aggregateService = aggregateService;  
         }
 
         [HttpGet ("aggregateData")]
@@ -52,31 +44,8 @@ namespace API_Aggregation.Controllers
             }
         }
 
-        //[HttpGet ("newsData")]
-        //public async Task<IActionResult> GetNewsDataAsync(string keyword)
-        //{
-        //    var newsData = await _newsApiService.GetNewsDataAsync(keyword);
-        //    return Ok(newsData);
-        //}
-
-        //[HttpGet("weatherData")]
-        //public async Task<IActionResult> GetWeatherData(string sortByTemperature = "temperature", bool ascending = true)
-        //{
-        //    var weatherData = await _weatherService.GetWeatherData(sortByTemperature, ascending);
-        //    return Ok(weatherData);
-        //}
-
-        //[HttpGet("footballStandingData")]
-
-        //public async Task<IActionResult> GetFootballStandingDataAsync()
-        //{
-        //    var footballStandingData = await _footballStandingsService.GetFootbalStandingsAsync();
-
-        //    return Ok(footballStandingData);
-        //}
-
         [HttpGet("statistics")]
-        public ActionResult<ApiRequestStatistics> GetRequestStatistics()
+        public ActionResult<IEnumerable<ApiRequestStatistics>> GetRequestStatistics()
         {
             try
             {

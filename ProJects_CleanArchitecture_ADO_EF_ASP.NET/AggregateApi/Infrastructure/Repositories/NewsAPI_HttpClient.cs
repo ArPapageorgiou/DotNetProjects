@@ -5,8 +5,6 @@ using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.CircuitBreaker;
 using Polly.Wrap;
-using System.Diagnostics;
-using Domain.ApiRequestStatistic;
 using System.Text.Json;
 
 namespace Infrastructure.Repositories
@@ -48,7 +46,7 @@ namespace Infrastructure.Repositories
 
             HttpResponseMessage response;
 
-            var stopWatch = Stopwatch.StartNew();
+
 
             try
             {
@@ -69,16 +67,8 @@ namespace Infrastructure.Repositories
                 _logger.LogError($"Exception: {ex.Message}");
                 throw new Exception("An error occured while fetching data from the api");
             }
-            finally
-            {
-                stopWatch.Stop();
-                _requestStatistic.AddRequestStatistics(new RequestStatistic()
-                {
-                    ApiName = "NewsApi",
-                    ResponseTime = stopWatch.ElapsedMilliseconds,
-                    Timestamp = DateTime.Now,
-                });
-            }
+
+            
 
             if (response.IsSuccessStatusCode)
             {

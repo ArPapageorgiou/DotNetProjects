@@ -1,5 +1,7 @@
 ﻿@page "/"
+
 @inject MediatR.IMediator _mediator //injecting the mediator here is the only dependency we need
+
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
@@ -16,8 +18,10 @@
 @code{
     List<PersonModel> people;
 
+
     protected override async Task OnInitializedAsync()
     {
         people = await _mediator.Send(new GetPersonListQuery());
+
     }
 }

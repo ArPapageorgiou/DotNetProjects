@@ -29,7 +29,7 @@ namespace Application.Services
             {
                 await Task.WhenAll(newsTask, weatherTask, footballTask);
             }
-            catch (AggregateException ex)
+            catch (AggregateException ex)//?????
             {
                 foreach (var exception in ex.InnerExceptions)
                 {
